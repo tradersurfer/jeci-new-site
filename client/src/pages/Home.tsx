@@ -66,7 +66,7 @@ export default function Home() {
       {/* Stats Section */}
       <section className="py-20 bg-primary text-white relative overflow-hidden">
         <div className="container px-4 md:px-6 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x divide-white/10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center md:divide-x divide-white/10">
             {[
               { label: "Businesses Started", value: "1,352", icon: <TrendingUp className="w-6 h-6 text-secondary mb-2 mx-auto" /> },
               { label: "Entrepreneurs Assisted", value: "1,500+", icon: <Users className="w-6 h-6 text-secondary mb-2 mx-auto" /> },
@@ -79,7 +79,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="p-4"
+                className="px-6 py-4"
               >
                 {stat.icon}
                 <div className="text-4xl md:text-5xl font-serif font-bold mb-2 text-white">{stat.value}</div>
