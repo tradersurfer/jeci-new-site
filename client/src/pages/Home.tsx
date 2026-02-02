@@ -3,9 +3,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, TrendingUp, Users, Target, BarChart3, Calculator, PieChart, MousePointerClick, Mail, Phone, Rocket, Zap, Shield, Globe, Landmark, Coins, Briefcase, ChevronRight, Play } from "lucide-react";
+import { Check, ArrowRight, TrendingUp, Users, Target, BarChart3, Calculator, PieChart, MousePointerClick, Mail, Phone, Rocket, Zap, Shield, Globe, Landmark, Coins, Briefcase, ChevronRight, Play, FileText, BarChart, Settings, Share2, Search, Layout } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -56,7 +57,6 @@ export default function Home() {
         >
           {/* Hero Section */}
           <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
-            {/* Background with overlay */}
             <div className="absolute inset-0 z-0">
               <img 
                 src="/images/hero-corporate.png" 
@@ -171,10 +171,10 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Services Section */}
+          {/* Detailed Services Section */}
           <section id="services" className="py-24 bg-slate-50">
             <div className="container px-4 md:px-6">
-              <div className="text-center max-w-3xl mx-auto mb-16">
+              <div className="text-center max-w-3xl mx-auto mb-20">
                 <h4 className="text-secondary font-bold tracking-widest uppercase mb-4">Our Expertise</h4>
                 <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-6">Comprehensive Solutions</h2>
                 <p className="text-slate-600 text-lg">
@@ -182,51 +182,176 @@ export default function Home() {
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: "Accounting Services",
-                    desc: "Expert bookkeeping, financial reporting, and entity formation for small businesses. Cash flow management and strategic planning.",
-                    image: "/images/service-accounting.png",
-                    icon: <Calculator className="w-8 h-8" />
-                  },
-                  {
-                    title: "Tax Prep & Planning",
-                    desc: "Personalized tax preparation specializing in Cryptocurrency, Real Estate, and Cannabis Industries. Maximizing deductions and compliance.",
-                    image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800",
-                    icon: <PieChart className="w-8 h-8" />
-                  },
-                  {
-                    title: "Digital Marketing",
-                    desc: "Robust solutions including SEO, Social Media Management, Web Development, and Targeted Ad Campaigns to drive growth.",
-                    image: "/images/service-marketing.png",
-                    icon: <MousePointerClick className="w-8 h-8" />
-                  }
-                ].map((service, i) => (
-                  <motion.div
-                    key={i}
+              <div className="space-y-32">
+                {/* Entity Formation & Accounting */}
+                <div className="grid md:grid-cols-2 gap-16 items-start">
+                  <motion.div 
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="group bg-white rounded-sm overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border-b-4 border-transparent hover:border-secondary"
+                    className="space-y-8"
                   >
-                    <div className="h-48 overflow-hidden relative">
-                      <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-all z-10" />
-                      <img src={service.image} alt={service.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <div className="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-sm">
+                      <Calculator size={32} />
                     </div>
-                    <div className="p-8">
-                      <div className="w-14 h-14 bg-slate-50 rounded-full flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-colors">
-                        {service.icon}
+                    <h3 className="font-serif text-4xl font-bold text-primary">Accounting & Entity Formation</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      We help you avoid common pitfalls by providing a methodical plan of action to fulfill your dream of being your own boss. Our services ensure your financial foundation is rock-solid from day one.
+                    </p>
+                    
+                    <Accordion type="single" collapsible className="w-full">
+                      <AccordionItem value="formation">
+                        <AccordionTrigger className="text-primary font-bold text-lg">New Entity Formation</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-2">
+                          <p className="text-slate-600 italic">"Thinking of owning your own business? Success lies in the approach you choose to take."</p>
+                          <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            {[
+                              "Business plan preparation",
+                              "Start-up capital identification",
+                              "Business structure selection",
+                              "Accounting software evaluation",
+                              "Cash Flow Budget preparation",
+                              "Billing & collection procedures",
+                              "State/Local license filing",
+                              "Federal EIN application"
+                            ].map((item) => (
+                              <li key={item} className="flex items-center gap-2 text-sm text-slate-600">
+                                <Check size={14} className="text-secondary" /> {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                      <AccordionItem value="accounting">
+                        <AccordionTrigger className="text-primary font-bold text-lg">Small Business Accounting</AccordionTrigger>
+                        <AccordionContent className="space-y-4 pt-2">
+                          <p className="text-slate-600">We take care of your books so you can focus on generating profits. Monthly or quarterly deliverables include:</p>
+                          <ul className="space-y-3">
+                            {[
+                              { title: "Bank Reconciliation", desc: "Identify lost checks, detect unauthorized wire transactions, and prevent embezzlement." },
+                              { title: "Income Statement", desc: "Track revenues and determine operating performance to identify unexpected expenditures." },
+                              { title: "Balance Sheet", desc: "Analyze trends in receivables/payables and determine financial strength for expansion." },
+                              { title: "General Ledger Maintenance", desc: "Review system monthly to hunt down discrepancies like double billings." }
+                            ].map((item) => (
+                              <li key={item.title} className="bg-white p-4 border border-slate-100 rounded-sm">
+                                <span className="font-bold text-primary block mb-1">{item.title}</span>
+                                <span className="text-sm text-slate-500">{item.desc}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </AccordionContent>
+                      </AccordionItem>
+                    </Accordion>
+                  </motion.div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <img src="/images/service-accounting.png" className="rounded-sm shadow-xl aspect-square object-cover mt-12" />
+                    <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=800" className="rounded-sm shadow-xl aspect-square object-cover" />
+                  </div>
+                </div>
+
+                {/* Digital Marketing */}
+                <div className="grid md:grid-cols-2 gap-16 items-start">
+                  <div className="order-2 md:order-1 grid grid-cols-1 gap-4">
+                    <img src="/images/service-marketing.png" className="rounded-sm shadow-xl h-96 object-cover" />
+                    <div className="bg-secondary p-8 rounded-sm text-primary">
+                      <h4 className="font-bold text-xl mb-4">Marketing Bundle Deals</h4>
+                      <div className="space-y-4">
+                        <div className="border-b border-primary/10 pb-4">
+                          <span className="font-black block">Online Presence Starter — $850</span>
+                          <span className="text-sm">Ideal for businesses new to digital marketing.</span>
+                        </div>
+                        <div className="border-b border-primary/10 pb-4">
+                          <span className="font-black block">Content & SEO Growth — $1,200</span>
+                          <span className="text-sm">Improve search rankings and engage audience.</span>
+                        </div>
+                        <div>
+                          <span className="font-black block">All-Inclusive Suite — $2,000</span>
+                          <span className="text-sm">Robust integrated approach for maximum expansion.</span>
+                        </div>
                       </div>
-                      <h3 className="font-serif text-2xl font-bold text-primary mb-3">{service.title}</h3>
-                      <p className="text-slate-600 leading-relaxed mb-6">{service.desc}</p>
-                      <a href="#contact" className="inline-flex items-center text-secondary font-bold hover:gap-2 transition-all">
-                        Learn More <ArrowRight size={16} className="ml-1" />
-                      </a>
+                    </div>
+                  </div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="order-1 md:order-2 space-y-8"
+                  >
+                    <div className="w-16 h-16 bg-secondary text-primary flex items-center justify-center rounded-sm">
+                      <Share2 size={32} />
+                    </div>
+                    <h3 className="font-serif text-4xl font-bold text-primary">Digital Marketing Expertise</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      Targeted services to enhance your online visibility, attract customers, and drive sustainable growth through effective digital channels.
+                    </p>
+                    
+                    <div className="space-y-6">
+                      <div className="flex gap-4 p-6 bg-white border border-slate-100 shadow-sm rounded-sm">
+                        <div className="text-secondary"><Search size={24} /></div>
+                        <div>
+                          <h4 className="font-bold text-primary mb-2">Search Engine Optimization (SEO)</h4>
+                          <p className="text-sm text-slate-600">Strategies to improve organic visibility on Google/Bing. Includes keyword research, on-page optimization, and technical SEO audits.</p>
+                          <span className="text-xs font-black mt-3 block uppercase text-secondary">Starting at $400/mo</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex gap-4 p-6 bg-white border border-slate-100 shadow-sm rounded-sm">
+                        <div className="text-secondary"><FileText size={24} /></div>
+                        <div>
+                          <h4 className="font-bold text-primary mb-2">Content Marketing Strategy</h4>
+                          <p className="text-sm text-slate-600">Strategic creation of valuable content (blogs, articles, case studies) aligned with business goals and SEO best practices.</p>
+                          <span className="text-xs font-black mt-3 block uppercase text-secondary">Projects starting at $500</span>
+                        </div>
+                      </div>
+
+                      <div className="flex gap-4 p-6 bg-white border border-slate-100 shadow-sm rounded-sm">
+                        <div className="text-secondary"><Layout size={24} /></div>
+                        <div>
+                          <h4 className="font-bold text-primary mb-2">Social Media Marketing</h4>
+                          <p className="text-sm text-slate-600">Tailored approaches for Facebook, Instagram, and LinkedIn to build brand awareness and foster community engagement.</p>
+                          <span className="text-xs font-black mt-3 block uppercase text-secondary">Projects starting at $450</span>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
-                ))}
+                </div>
+
+                {/* Tax Prep & Planning */}
+                <div className="grid md:grid-cols-2 gap-16 items-start pb-12 border-b border-slate-200">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="space-y-8"
+                  >
+                    <div className="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-sm">
+                      <PieChart size={32} />
+                    </div>
+                    <h3 className="font-serif text-4xl font-bold text-primary">Tax Prep & Planning</h3>
+                    <p className="text-slate-600 text-lg leading-relaxed">
+                      Personalized strategies for niche industries including Cryptocurrency, Real Estate, and Cannabis. We maximize your savings while ensuring total compliance.
+                    </p>
+                    <div className="grid grid-cols-1 gap-4">
+                      {[
+                        { title: "Crypto Specialist", desc: "Expert handling of high-volume transaction data and cost-basis reporting." },
+                        { title: "Real Estate Focus", desc: "DMV-area specific strategies for investors and property owners." },
+                        { title: "Cannabis Compliance", desc: "Navigating complex 280E regulations and state-specific tax laws." }
+                      ].map((item) => (
+                        <div key={item.title} className="flex items-center gap-4 p-4 bg-slate-100 rounded-sm">
+                          <div className="w-2 h-12 bg-secondary shrink-0" />
+                          <div>
+                            <span className="font-bold text-primary block">{item.title}</span>
+                            <span className="text-sm text-slate-500">{item.desc}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-primary/10 rounded-sm transform translate-x-4 translate-y-4" />
+                    <img src="https://images.unsplash.com/photo-1554224154-26032ffc0d07?auto=format&fit=crop&q=80&w=800" className="relative z-10 rounded-sm shadow-xl w-full h-[500px] object-cover" />
+                  </div>
+                </div>
               </div>
             </div>
           </section>
