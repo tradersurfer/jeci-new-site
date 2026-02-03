@@ -171,7 +171,129 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Detailed Services Section */}
+          {/* The Pillars Section */}
+          <section id="pillars" className="py-24 bg-white">
+            <div className="container px-4 md:px-6">
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h4 className="text-secondary font-bold tracking-widest uppercase mb-4">Our Proven Framework</h4>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-6">The 3 Pillars</h2>
+                <p className="text-slate-600 text-lg">
+                  Move from Founder-Operator to Sovereign CEO with Institutional Readiness.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Pillar 1: The Foundation",
+                    subtitle: "Restoration & Formation",
+                    desc: "Your Legal and Financial Passport. 700 Credit Club & Entity Formation.",
+                    icon: <Shield className="w-8 h-8" />,
+                    link: "/services/foundation"
+                  },
+                  {
+                    title: "Pillar 2: The Engine",
+                    subtitle: "Accounting & Operations",
+                    desc: "Back-Office Complexity, Managed. Full-service bookkeeping & ledger hygiene.",
+                    icon: <Calculator className="w-8 h-8" />,
+                    link: "/services/engine"
+                  },
+                  {
+                    title: "Pillar 3: The Growth",
+                    subtitle: "Digital Marketing & Innovation",
+                    desc: "Visibility Meets Strategy. Managed digital presence & Bitcoin advisory.",
+                    icon: <Rocket className="w-8 h-8" />,
+                    link: "/services/growth"
+                  }
+                ].map((pillar, i) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1 }}
+                    className="bg-slate-50 p-8 rounded-sm border border-slate-100 hover:shadow-xl transition-all group"
+                  >
+                    <div className="w-16 h-16 bg-primary text-white flex items-center justify-center rounded-sm mb-6 group-hover:bg-secondary group-hover:text-primary transition-colors">
+                      {pillar.icon}
+                    </div>
+                    <h3 className="text-sm font-black text-secondary uppercase tracking-tighter mb-2">{pillar.title}</h3>
+                    <h4 className="font-serif text-2xl font-bold text-primary mb-4">{pillar.subtitle}</h4>
+                    <p className="text-slate-600 mb-8 leading-relaxed">{pillar.desc}</p>
+                    <Link href={pillar.link}>
+                      <a className="inline-flex items-center text-primary font-bold hover:text-secondary transition-colors cursor-pointer group/link">
+                        Learn More <ChevronRight size={18} className="ml-1 group-hover/link:translate-x-1 transition-transform" />
+                      </a>
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Founders' Operations Suite Section */}
+          <section className="py-24 bg-slate-50 relative overflow-hidden">
+            <div className="container px-4 md:px-6 relative z-10">
+              <div className="bg-primary text-white p-12 md:p-20 rounded-sm shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/10 -skew-x-12 transform translate-x-1/2" />
+                
+                <div className="grid md:grid-cols-2 gap-16 items-center">
+                  <div className="space-y-8">
+                    <div className="inline-block px-3 py-1 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-widest">
+                      The Ultimate Pivot
+                    </div>
+                    <h2 className="font-serif text-4xl md:text-6xl font-bold leading-tight">
+                      The Founders’ <br/>Operations Suite
+                    </h2>
+                    <p className="text-xl text-white/70 leading-relaxed">
+                      $3,000/mo Retainer for Total Financial Sovereignty. Invest in a dedicated operations team, not just a service.
+                    </p>
+                    <div className="space-y-4">
+                      {[
+                        "Monthly Full-Service Bookkeeping",
+                        "Managed Social Platform Strategy",
+                        "Monthly Policy Research Briefing",
+                        "Unlimited Expert Consultations"
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-3">
+                          <div className="w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-primary shrink-0">
+                            <Check size={12} strokeWidth={4} />
+                          </div>
+                          <span className="font-medium">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <Button size="lg" className="bg-secondary text-primary hover:bg-white font-bold h-16 px-12 text-lg rounded-sm mt-8">
+                      Apply for the Suite
+                    </Button>
+                  </div>
+
+                  <div className="bg-white/5 backdrop-blur-md p-10 border border-white/10 rounded-sm">
+                    <h3 className="font-serif text-3xl font-bold mb-8 text-secondary italic">Why The JECI Group?</h3>
+                    <p className="text-white/80 leading-relaxed italic mb-8">
+                      "Most businesses fail not because of a bad product, but because of The Fragmented Back-Office. We bridge the gap to Institutional Readiness."
+                    </p>
+                    <div className="space-y-6">
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><Shield /></div>
+                        <p className="text-sm text-white/60">Your credit limits your capital.</p>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><BarChart /></div>
+                        <p className="text-sm text-white/60">Your messy books limit your decisions.</p>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><Target /></div>
+                        <p className="text-sm text-white/60">Your lack of SEO limits your visibility.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Detailed Services Section (Legacy) */}
           <section id="services" className="py-24 bg-slate-50">
             <div className="container px-4 md:px-6">
               <div className="text-center max-w-3xl mx-auto mb-20">
