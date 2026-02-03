@@ -7,6 +7,7 @@ import { Check, ArrowRight, TrendingUp, Users, Target, BarChart3, Calculator, Pi
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Link } from "wouter";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
