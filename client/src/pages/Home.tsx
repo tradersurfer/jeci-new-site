@@ -587,7 +587,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h5 className="font-bold text-primary mb-1">Email Us</h5>
-                        <p className="text-slate-600">contact@jecigroup.com</p>
+                        <p className="text-slate-600">info@jecigroup.com</p>
                         <p className="text-slate-500 text-sm">We respond within 24 hours</p>
                       </div>
                     </div>
