@@ -25,7 +25,6 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-secondary/30">
       <Navbar />
-
       {/* Mode Switcher */}
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-[100] bg-white/90 backdrop-blur-md border border-slate-200 p-1 rounded-full shadow-2xl flex items-center">
         <button
@@ -47,7 +46,6 @@ export default function Home() {
           MoneyVibes Hub
         </button>
       </div>
-
       {activeTab === "jeci" ? (
         <motion.div
           key="jeci"
@@ -246,9 +244,7 @@ export default function Home() {
                     <h2 className="font-serif text-4xl md:text-6xl font-bold leading-tight">
                       The Founders’ <br/>Operations Suite
                     </h2>
-                    <p className="text-xl text-white/70 leading-relaxed">
-                      $3,000/mo Retainer for Total Financial Sovereignty. Invest in a dedicated operations team, not just a service.
-                    </p>
+                    <p className="text-xl text-white/70 leading-relaxed">Monthly Retainer for Total Financial Sovereignty. Invest in a dedicated operations team, not just a service.</p>
                     <div className="space-y-4">
                       {[
                         "Monthly Full-Service Bookkeeping",
@@ -846,7 +842,6 @@ export default function Home() {
           </section>
         </motion.div>
       )}
-
       <Footer />
     </div>
   );
