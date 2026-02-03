@@ -1,5 +1,5 @@
 import ServiceDetail from "@/components/ServiceDetail";
-import { Shield } from "lucide-react";
+import { Shield, Key, FileCheck, Landmark, PieChart, Construction } from "lucide-react";
 
 export default function Foundation() {
   return (
@@ -8,23 +8,31 @@ export default function Foundation() {
       title="The Foundation"
       subtitle="Restoration & Formation"
       icon={Shield}
-      content="Your Legal and Financial Passport. We don't just file papers; we build a secure base for your sovereign future."
+      content="This stage is designed for the aspiring entrepreneur who needs to build the legal structure and borrowing power required to scale. We don't just file papers; we build your financial passport."
       features={[
         {
-          title: "700 Credit Club",
-          description: "Our signature interactive, DIY program to remove negative items and restore your borrowing power in 90–120 days."
+          title: "700 Credit Club (90–120 Days)",
+          description: "An interactive, self-paced restoration program to remove negative items—including collections, charge-offs, and bankruptcies—restoring the personal leverage needed for business funding."
         },
         {
-          title: "New Entity Formation",
-          description: "We evaluate tax advantages (LLC vs. S-Corp), handle federal EINs, and draft a Methodical Action Plan."
+          title: "Methodical Action Plan (MAP)",
+          description: "Development of an initial business plan that clarifies your marketing strategy, management structure, and financial goals before you ever approach a lender."
         },
         {
-          title: "Legal Foundation",
-          description: "Evaluating tax advantages, legal exposure, and portability for your business structure."
+          title: "Strategic Structural Selection",
+          description: "We evaluate tax advantages and legal exposure to select the optimal business structure (LLC, S-Corp, C-Corp) tailored to your long-term wealth strategy."
         },
         {
-          title: "Institutional Readiness",
-          description: "Ensuring your business structure meets the standards required by major financial institutions."
+          title: "Federal & State Compliance",
+          description: "Complete handling of federal EIN applications, required state/local licenses, and regulatory registrations to ensure your entity is legally bulletproof from day one."
+        },
+        {
+          title: "Capital Power Assessment",
+          description: "We quantify your current borrowing power and identify specific start-up capital sources, providing a clear roadmap to funding your vision."
+        },
+        {
+          title: "Institutional Standards Alignment",
+          description: "Ensuring your business structure, address, and telecommunications meet the strict 'Anti-Fraud' standards required by major financial institutions and tier-1 lenders."
         }
       ]}
     />

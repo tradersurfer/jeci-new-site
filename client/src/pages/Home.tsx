@@ -238,9 +238,7 @@ export default function Home() {
                 
                 <div className="grid md:grid-cols-2 gap-16 items-center">
                   <div className="space-y-8">
-                    <div className="inline-block px-3 py-1 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-widest">
-                      The Ultimate Pivot
-                    </div>
+                    <div className="inline-block px-3 py-1 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-widest">Pillar 4:</div>
                     <h2 className="font-serif text-4xl md:text-6xl font-bold leading-tight">
                       The Founders’ <br/>Operations Suite
                     </h2>
