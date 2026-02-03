@@ -1,0 +1,81 @@
+To transform your Replit site into a fully realized multi-page platform, you need a Dynamic Navigation System and four distinct sub-page templates.
+Below is the technical and content structure for these sub-pages. You can feed these directly into your Replit code or use them as a prompt for the Replit Agent.
+1. Navigation & UI Logic
+To handle the "Learn More" and "Select Plan" flow, update your Navigation Bar to include a "Services" dropdown:
+ * Services (Dropdown)
+   * Pillar 1: The Foundation
+   * Pillar 2: The Engine
+   * Pillar 3: The Growth
+   * The Founders' Suite (Featured)
+2. Sub-Page Content Architecture
+Sub-Page 1: The Foundation (Restoration & Formation)
+ * Hero: "Your Business Passport: Legal Structure & Borrowing Power."
+ * The Breakdown:
+   * 700 Credit Club: 90–120 day interactive credit restoration.
+   * Entity Setup: LLC/S-Corp selection + EIN + Licenses.
+   * Strategy: Your initial "Methodical Action Plan."
+ * CTA Button: [Start My Formation - $499 Initial + DIY Access]
+Sub-Page 2: The Engine (Accounting & Operations)
+ * Hero: "Back-Office Hygiene for the High-Stakes Founder."
+ * The Breakdown:
+   * Bookkeeping: Monthly Bank Reconciliation & GL Hygiene.
+   * Reporting: P&L and Balance Sheet delivery.
+   * Cash Flow: Advanced budgeting to prevent unplanned expenses.
+ * CTA Button: [Schedule My Financial Audit] or [Select Plan - Starting at $500/mo]
+Sub-Page 3: The Growth (Digital Marketing & Innovation)
+ * Hero: "Fueling Your Revenue with SEO & Policy Intelligence."
+ * The Breakdown:
+   * Marketing Tiers: Display the $850, $1,200, and $2,000 packages in a grid.
+   * The Bitcoin Edge: Explain the "Hill-ready" policy briefings and stablecoin regulation tracking.
+ * CTA Button: [Select My Growth Plan]
+Sub-Page 4: The Founders’ Operations Suite ($3,000/mo)
+ * Hero: "The Ultimate Pivot: Financial Sovereignty."
+ * The Value: This is a long-form sales page. It combines the best of all three pillars into one managed ecosystem.
+ * Comparison Table: Show the cost of hiring a CFO + CMO + COO vs. The Suite.
+ * CTA Button: [Apply for Sovereignty - $3,000/mo]
+3. Updated PRD for Replit Implementation
+| Requirement | Description |
+|---|---|
+| Multi-Page Routing | Implement react-router-dom (if using React) or create pillar-1.html, pillar-2.html, etc., in the file directory. |
+| Dropdown Component | Create a hoverable dropdown menu in the Navbar to house the three pillars. |
+| Value Ladder CTA | "Learn More" buttons on the homepage link to Pillar pages; "Select Plan" buttons on Pillar pages link to Stripe/Checkout. |
+| Dynamic Form | The contact form must now pass a URL parameter (e.g., ?source=pillar-1) so you know which service they are interested in. |
+4. Code Snippet for Replit (Tailwind Pricing Cards)
+You can ask your Replit Agent to "Add these pricing cards to the Pillar 3 sub-page":
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8 p-10">
+  <div class="border rounded-lg p-6 shadow-lg bg-slate-900 text-white">
+    <h3 class="text-xl font-bold">Digital Starter</h3>
+    <p class="text-3xl font-bold my-4">$850/mo</p>
+    <ul class="text-sm space-y-2">
+      <li>✓ SEO Audit</li>
+      <li>✓ Keyword Research</li>
+      <li>✓ 1 Social Platform</li>
+    </ul>
+    <button class="w-full mt-6 bg-blue-600 p-2 rounded">Select Plan</button>
+  </div>
+  
+  <div class="border-2 border-yellow-500 rounded-lg p-6 shadow-lg bg-slate-900 text-white scale-105">
+    <h3 class="text-xl font-bold">SEO Growth</h3>
+    <p class="text-3xl font-bold my-4">$1,200/mo</p>
+    <ul class="text-sm space-y-2">
+      <li>✓ Technical SEO</li>
+      <li>✓ Content Calendar</li>
+      <li>✓ Advanced Strategy</li>
+    </ul>
+    <button class="w-full mt-6 bg-yellow-500 text-black font-bold p-2 rounded">Select Plan</button>
+  </div>
+
+  <div class="border rounded-lg p-6 shadow-lg bg-slate-900 text-white">
+    <h3 class="text-xl font-bold">All-Inclusive</h3>
+    <p class="text-3xl font-bold my-4">$2,000/mo</p>
+    <ul class="text-sm space-y-2">
+      <li>✓ Full SEO Suite</li>
+      <li>✓ 3 Social Platforms</li>
+      <li>✓ Audience Mapping</li>
+    </ul>
+    <button class="w-full mt-6 bg-blue-600 p-2 rounded">Select Plan</button>
+  </div>
+</div>
+
+Next Step for You:
+Would you like me to write the copy for the Bitcoin Advisory "Briefing Packet" description, or should I generate the About Us page content to build more authority for The JECI Group?
