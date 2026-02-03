@@ -598,7 +598,7 @@ export default function Home() {
                       </div>
                       <div>
                         <h5 className="font-bold text-primary mb-1">Call Us</h5>
-                        <p className="text-slate-600">+1 (555) 123-4567</p>
+                        <p className="text-slate-600">+1 (202) 430-4058</p>
                         <p className="text-slate-500 text-sm">Mon-Fri, 9am - 6pm EST</p>
                       </div>
                     </div>
