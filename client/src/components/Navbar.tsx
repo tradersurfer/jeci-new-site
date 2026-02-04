@@ -70,7 +70,7 @@ export default function Navbar() {
             </button>
           ))}
           <Button
-            onClick={() => scrollToSection("contact")}
+            onClick={() => setLocation('/book-consultation')}
             className="bg-secondary text-primary hover:bg-white hover:text-primary font-bold rounded-sm"
           >
             Book Consultation
@@ -104,7 +104,7 @@ export default function Navbar() {
               </button>
             ))}
             <Button
-              onClick={() => scrollToSection("contact")}
+              onClick={() => setLocation('/book-consultation')}
               className="w-full bg-primary text-white"
             >
               Book Consultation

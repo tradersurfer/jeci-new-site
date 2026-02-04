@@ -97,7 +97,7 @@
                             <Button 
                               size="lg" 
                               className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" 
-                              onClick={() => setLocation('/consultation')}
+                              onClick={() => setLocation('/book-consultation')}
                             >
                               Book Free Consultation
                             </Button>
