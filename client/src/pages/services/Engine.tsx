@@ -1,40 +1,63 @@
-import ServiceDetail from "@/components/ServiceDetail";
-import { Calculator, ShieldCheck, BarChart3, MessageSquare, Landmark } from "lucide-react";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import SubpageNav from "@/components/SubpageNav";
+import SpecialtyGrid from "@/components/SpecialtyGrid"; // Using the 5-category grid here
+import { Calculator, CheckCircle2 } from "lucide-react";
 
 export default function Engine() {
+  const operationsFeatures = [
+    { title: "General Ledger Hygiene", desc: "Monthly hunt for discrepancies, double-billings, and unrecorded expenses." },
+    { title: "Bank Reconciliation", desc: "Identify lost checks and unauthorized wire transactions to prevent embezzlement." },
+    { title: "Income Statement Reporting", desc: "Track revenue trends and operating performance for bank-readiness." },
+    { title: "Balance Sheet Analysis", desc: "Quantify financial strength and receivables to prepare for expansion capital." }
+  ];
+
   return (
-    <ServiceDetail
-      pillar="2"
-      title="The Engine"
-      subtitle="Accounting & Operations"
-      icon={Calculator}
-      content="Once your business is formed, we take over the back-office complexity. We move your operations from 'survival mode' to 'Institutional Readiness' by ensuring every dollar is tracked and every account is bank-ready."
-      features={[
-        {
-          title: "Full-Service Bookkeeping & P&L",
-          description: "Monthly reconciliation of all bank accounts and credit cards. We generate detailed Profit & Loss statements that allow you to track operating performance and analyze real-time trends."
-        },
-        {
-          title: "Embezzlement & Fraud Detection",
-          description: "Our rigorous monthly ledger review identifies lost checks, prevents unwarranted bank charges, and detects potential embezzlement before it can damage your equity."
-        },
-        {
-          title: "General Ledger Hygiene",
-          description: "We don't just record transactions; we scrub them. Our team fixes discrepancies like double-billings and unrecorded payments that 'budget' bookkeepers often miss."
-        },
-        {
-          title: "Operational Cost Control",
-          description: "We establish procedures to monitor expenses effectively, turning your back-office into a cost-control system that protects your margins as you scale."
-        },
-        {
-          title: "Cash Flow Budgeting",
-          description: "Monthly projections of your cash requirements. We help you plan for the future so you can avoid the 'emotionally painful' surprises of unplanned business expenses."
-        },
-        {
-          title: "Unlimited Strategic Consultations",
-          description: "Expert support is just a call away. We help you interpret your financial data so you can make confident, high-stakes decisions about the future of your firm."
-        }
-      ]}
-    />
+    <div className="min-h-screen bg-white font-sans">
+      <SubpageNav />
+
+      {/* Pillar 2 Hero */}
+      <section className="pt-32 pb-20 bg-slate-900 text-white overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-yellow-500/5 -skew-x-12 transform translate-x-1/2" />
+        <div className="container px-6 relative z-10">
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 text-yellow-500 font-black uppercase tracking-widest text-sm mb-6">
+              <Calculator size={20} /> Pillar 2: Accounting & Operations
+            </div>
+            <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 italic text-white">The Engine</h1>
+            <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10">
+              Back-office complexity, managed. We build the financial engine that powers your sovereignty, ensuring every transaction is a brick in your fortress.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* The 5-Category Specialty Grid */}
+      <div className="bg-slate-50 border-y border-slate-200">
+        <SpecialtyGrid />
+      </div>
+
+      {/* Operations Deep Dive */}
+      <section className="py-24 bg-white">
+        <div className="container px-6">
+          <h2 className="text-3xl font-serif font-bold text-slate-900 mb-12 italic">Back-Office Integrity Features</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {operationsFeatures.map((feature, i) => (
+              <div key={i} className="flex gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-100">
+                <div className="mt-1 shrink-0">
+                  <CheckCircle2 className="text-yellow-600" size={24} />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3">{feature.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">{feature.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
   );
 }
