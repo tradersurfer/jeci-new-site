@@ -3,24 +3,26 @@ import Home from "./pages/Home";
 import Consultation from "./pages/Consultation";
 import ExploreServices from "./pages/ExploreServices";
 import FoundersSuiteDetail from "./pages/FoundersSuiteDetail";
-import TaxSpecialties from "./pages/TaxSpecialties"; // The new file we just created
+import TaxSpecialties from "./pages/TaxSpecialties";
+import Success from "./pages/Success"; // FIXED: Success page import registered
 import NotFound from "./pages/not-found";
 
 function Router() {
   return (
     <Switch>
-      {/* Root Path */}
+      {/* Primary Routes */}
       <Route path="/" component={Home} />
-
-      {/* Static Subpages */}
       <Route path="/book-consultation" component={Consultation} />
       <Route path="/explore" component={ExploreServices} />
       <Route path="/founders-suite-detail" component={FoundersSuiteDetail} />
+      <Route path="/success" component={Success} /> {/* FIXED: Success route registered */}
 
-      {/* Dynamic Specialty Paths (Crypto, Real Estate, Cannabis) */}
-      <Route path="/services/:id" component={TaxSpecialties} />
+      {/* Dynamic Specialty Routes (Crypto, Real Estate, Cannabis) */}
+      <Route path="/services/:id">
+        {(params) => <TaxSpecialties id={params.id} />}
+      </Route>
 
-      {/* 404 Fallback */}
+      {/* Fallback 404 Page */}
       <Route component={NotFound} />
     </Switch>
   );

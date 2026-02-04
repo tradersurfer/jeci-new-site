@@ -97,11 +97,11 @@
                             <Button 
                               size="lg" 
                               className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" 
-                              onClick={() => setLocation('/book-consultation')}
+                              onClick={() => setLocation('/consultation')}
                             >
                               Book Free Consultation
                             </Button>
-                            <Button size="lg" variant="outline" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => setLocation('/explore')}>
+                            <Button size="lg" variant="outline" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => setLocation('/explore-services')}>
                               Explore Services
                             </Button>
                           </motion.div>
