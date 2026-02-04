@@ -158,12 +158,227 @@
                 ) : (
                   <motion.div key="moneyvibes" className="pt-20">
                     {/* MoneyVibes Content Here */}
-                    <section className="min-h-[90vh] flex flex-col justify-center items-center text-center p-6">
-                       <h1 className="text-6xl md:text-8xl font-bold text-slate-900 mb-6">Build <span className="text-green-600 italic">Wealth</span>.</h1>
-                    </section>
-                  </motion.div>
-                )}
-                <Footer />
+          <section className="min-h-[90vh] flex flex-col justify-center items-center text-center p-6 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1579621970795-87faff2f9050?auto=format&fit=crop&q=80')] bg-cover bg-center opacity-10" />
+            <div className="relative z-10 max-w-5xl mx-auto">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="inline-flex items-center gap-2 bg-green-100 text-green-700 px-4 py-1.5 rounded-full text-sm font-bold mb-8"
+              >
+                <Zap size={16} /> MoneyVibes Hub
+              </motion.div>
+              <h1 className="text-6xl md:text-8xl font-bold text-slate-900 tracking-tight mb-6">
+                Build <span className="text-green-600 italic">Wealth</span>,<br/>Not Just Income.
+              </h1>
+              <p className="text-2xl text-slate-600 mb-12 font-medium">Start Now.</p>
+
+              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
+                <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-slate-100">
+                  <p className="italic text-xl text-slate-700 leading-relaxed mb-4">
+                    "The best time to plant a tree was 20 years ago. The second best time is now."
+                  </p>
+                  <p className="text-sm text-slate-500">— Chinese Proverb</p>
+                </div>
+                <div className="bg-white/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-slate-100">
+                  <h3 className="text-xl font-bold text-slate-900 mb-6">What's your biggest money challenge?</h3>
+                  <div className="grid gap-3">
+                    <button className="flex items-center justify-between w-full p-4 rounded-xl bg-slate-50 hover:bg-green-50 text-slate-700 hover:text-green-700 font-bold transition-all border border-transparent hover:border-green-200">
+                      Saving Consistently <ChevronRight size={18} />
+                    </button>
+                    <button className="flex items-center justify-between w-full p-4 rounded-xl bg-slate-50 hover:bg-green-50 text-slate-700 hover:text-green-700 font-bold transition-all border border-transparent hover:border-green-200">
+                      Paying Off Debt <ChevronRight size={18} />
+                    </button>
+                    <button className="flex items-center justify-between w-full p-4 rounded-xl bg-slate-50 hover:bg-green-50 text-slate-700 hover:text-green-700 font-bold transition-all border border-transparent hover:border-green-200">
+                      Investing Wisely <ChevronRight size={18} />
+                    </button>
+                  </div>
+                </div>
               </div>
-            );
-          }
+            </div>
+          </section>
+
+          {/* Market Ticker */}
+          <section className="bg-slate-900 py-6 text-white overflow-hidden border-y border-white/10">
+            <div className="flex gap-12 animate-marquee whitespace-nowrap px-4">
+              {[
+                { label: "S&P 500", value: "5,824.21", change: "+1.2%" },
+                { label: "NASDAQ", value: "18,672.45", change: "+0.8%" },
+                { label: "BITCOIN", value: "$67,432.12", change: "+4.5%" },
+                { label: "ETHEREUM", value: "$2,641.89", change: "+2.1%" },
+                { label: "GOLD", value: "$2,734.50", change: "+0.3%" },
+                { label: "SOLANA", value: "$164.21", change: "+6.7%" },
+              ].map((stock, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <span className="text-slate-500 font-bold">{stock.label}</span>
+                  <span className="font-mono">{stock.value}</span>
+                  <span className="text-green-400 font-bold text-sm">{stock.change}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Tools Grid */}
+          <section className="py-24 bg-white">
+            <div className="container px-4 md:px-6">
+              <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-16">
+                <div className="max-w-2xl">
+                  <h4 className="text-green-600 font-bold uppercase tracking-widest mb-4">Interactive Power</h4>
+                  <h2 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">Financial Arsenal</h2>
+                  <p className="text-slate-600 text-xl leading-relaxed">
+                    Custom-built calculators and strategy dashboards to optimize your wealth engine.
+                  </p>
+                </div>
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white font-bold h-14 px-8 rounded-full">
+                  View All Tools
+                </Button>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Quantum Alpha Investing",
+                    desc: "AI-powered dashboard to track, analyze, and simulate your investment portfolio performance.",
+                    icon: <Rocket className="text-blue-500" />,
+                    color: "border-blue-500"
+                  },
+                  {
+                    title: "Weekly Finance Tracker",
+                    desc: "Micro-level monitoring of income and expenses to maintain perfect cash flow hygiene.",
+                    icon: <Zap className="text-yellow-500" />,
+                    color: "border-yellow-500"
+                  },
+                  {
+                    title: "Tax Tracker (Self-Employed)",
+                    desc: "Real-time liability estimation and expense categorization for the modern solopreneur.",
+                    icon: <Landmark className="text-green-500" />,
+                    color: "border-green-500"
+                  },
+                  {
+                    title: "Retirement Comparison",
+                    desc: "Deep-dive analysis between SEP IRAs, Solo 401(k)s, and Defined Benefit structures.",
+                    icon: <Shield className="text-purple-500" />,
+                    color: "border-purple-500"
+                  },
+                  {
+                    title: "Wealth Diversification",
+                    desc: "The 'Master View' of your assets—equity, real estate, and alternative vehicles.",
+                    icon: <Globe className="text-cyan-500" />,
+                    color: "border-cyan-500"
+                  },
+                  {
+                    title: "Income Stream Mapper",
+                    desc: "Identify and track passive, active, and portfolio income sources in one visual map.",
+                    icon: <Briefcase className="text-orange-500" />,
+                    color: "border-orange-500"
+                  }
+                ].map((tool, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ y: -8 }}
+                    className={cn(
+                      "bg-slate-50 p-8 rounded-3xl border-2 border-transparent hover:border-slate-200 transition-all group",
+                      tool.color && `hover:${tool.color}`
+                    )}
+                  >
+                    <div className="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                      {tool.icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-slate-900 mb-4">{tool.title}</h3>
+                    <p className="text-slate-600 mb-8 leading-relaxed">
+                      {tool.desc}
+                    </p>
+                    <Button variant="ghost" className="p-0 text-green-600 hover:text-green-700 font-bold group-hover:gap-2 transition-all">
+                      Open Tool <ChevronRight size={18} />
+                    </Button>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Learn Section */}
+          <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-green-500/5 blur-[120px]" />
+            <div className="container px-4 md:px-6 relative z-10">
+              <div className="text-center max-w-3xl mx-auto mb-20">
+                <h2 className="text-5xl font-bold mb-6 tracking-tight">Learn About Money</h2>
+                <p className="text-slate-400 text-xl">Your roadmap to financial freedom, decoded.</p>
+              </div>
+
+              <div className="grid md:grid-cols-3 gap-10">
+                {[
+                  {
+                    title: "The Beginner's Guide to Stock Market Investing",
+                    tag: "Investing 101",
+                    img: "https://images.unsplash.com/photo-1611974717482-480928516139?auto=format&fit=crop&q=80&w=800"
+                  },
+                  {
+                    title: "Is Crypto Right For You? A Risk-Taker's Guide",
+                    tag: "Crypto Deep Dive",
+                    img: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=800"
+                  },
+                  {
+                    title: "5 High-Income Skills You Can Learn This Month",
+                    tag: "Side Hustles",
+                    img: "https://images.unsplash.com/photo-1454165833767-12d99c4c7c4b?auto=format&fit=crop&q=80&w=800"
+                  }
+                ].map((blog, i) => (
+                  <motion.div
+                    key={i}
+                    whileHover={{ scale: 1.02 }}
+                    className="group cursor-pointer"
+                  >
+                    <div className="relative h-64 rounded-3xl overflow-hidden mb-6">
+                      <img src={blog.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+                      <div className="absolute top-4 left-4 bg-white text-slate-900 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest">
+                        {blog.tag}
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold leading-tight group-hover:text-green-400 transition-colors">
+                      {blog.title}
+                    </h3>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Store Section */}
+          <section className="py-24 bg-white">
+            <div className="container px-4 md:px-6">
+              <div className="bg-green-50 rounded-[4rem] p-12 md:p-20 relative overflow-hidden flex flex-col md:flex-row items-center gap-12">
+                <div className="flex-1 text-center md:text-left">
+                  <h2 className="text-5xl font-bold text-slate-900 mb-6 tracking-tight">Digital Store</h2>
+                  <p className="text-slate-600 text-xl leading-relaxed mb-10 max-w-lg mx-auto md:mx-0">
+                    Premium templates and playbooks to accelerate your wealth-building journey. Start with our best-sellers.
+                  </p>
+                  <Button size="lg" className="bg-slate-900 hover:bg-slate-800 text-white font-bold h-16 px-12 text-lg rounded-full shadow-2xl shadow-slate-900/20">
+                    Browse All Products
+                  </Button>
+                </div>
+                <div className="flex-1 grid grid-cols-2 gap-4">
+                  <div className="bg-white p-6 rounded-3xl shadow-xl transform rotate-3">
+                    <div className="w-full aspect-square bg-blue-50 rounded-2xl mb-4 flex items-center justify-center text-blue-500">
+                      <Calculator size={48} />
+                    </div>
+                    <h4 className="font-bold text-slate-900">Budget Planner</h4>
+                    <p className="text-green-600 font-black mt-2">$29.00</p>
+                  </div>
+                  <div className="bg-white p-6 rounded-3xl shadow-xl transform -rotate-2">
+                    <div className="w-full aspect-square bg-purple-50 rounded-2xl mb-4 flex items-center justify-center text-purple-500">
+                      <Briefcase size={48} />
+                    </div>
+                    <h4 className="font-bold text-slate-900">Biz Blueprint</h4>
+                    <p className="text-green-600 font-black mt-2">$47.00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </motion.div>
+      )}
+      <Footer />
+    </div>
+  );
+}
