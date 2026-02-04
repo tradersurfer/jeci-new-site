@@ -101,7 +101,7 @@
                             >
                               Book Free Consultation
                             </Button>
-                            <Button size="lg" variant="outline" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => setLocation('/explore-services')}>
+                            <Button size="lg" variant="outline" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => setLocation('/explore')}>
                               Explore Services
                             </Button>
                           </motion.div>
