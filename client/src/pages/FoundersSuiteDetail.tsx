@@ -1,35 +1,34 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
-import { ArrowLeft, Shield, Check, Star } from "lucide-react";
+import React from 'react';
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import { CheckCircle2 } from "lucide-react";
 
 export default function FoundersSuiteDetail() {
   return (
-    <div className="min-h-screen bg-primary text-white pt-32 pb-20">
-      <div className="container px-4 md:px-6 max-w-4xl mx-auto">
-        <Link to="/" className="flex items-center gap-2 text-secondary hover:text-white mb-12 font-bold group">
-          <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-          Back to Home
-        </Link>
-        <div className="space-y-12">
-          <div className="inline-block px-4 py-1 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-widest">Premium Retainer</div>
-          <h1 className="text-6xl font-serif font-bold leading-tight">The Founders’ Operations Suite</h1>
-          <p className="text-2xl text-white/70 italic">"$3,000/mo Retainer for Total Financial Sovereignty."</p>
-          <div className="grid md:grid-cols-2 gap-12 pt-12 border-t border-white/10">
-            <div className="space-y-6">
-              <h3 className="text-2xl font-bold text-secondary italic">Complete Back-Office Management</h3>
-              <ul className="space-y-4">
-                {['Full-Service Bookkeeping', 'Managed Social Platform', 'Policy Research Briefing', 'Unlimited Expert Consultations'].map(item => (
-                  <li key={item} className="flex items-center gap-3"><Check className="text-secondary" /> {item}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="bg-white/5 p-8 rounded-sm border border-white/10">
-              <Star className="text-secondary mb-4" />
-              <p className="text-white/80 italic">"Instead of buying a 'tax return', you are investing in a dedicated operations team."</p>
-            </div>
+    <div className="min-h-screen bg-slate-950 text-white">
+      <Navbar />
+      <div className="max-w-5xl mx-auto py-32 px-6">
+        <div className="text-center mb-16">
+          <h1 className="text-6xl font-bold mb-6">The Founders' Operations Suite</h1>
+          <p className="text-2xl text-slate-400">Monthly Retainer for Total Financial Sovereignty.</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-yellow-500">What is Sovereignty?</h2>
+            <p className="text-slate-400 leading-relaxed">It is the end of vendor fatigue. No more separate calls with accountants, marketers, and advisors. We are your integrated back-office team.</p>
+          </div>
+          <div className="bg-slate-900 p-8 rounded-2xl border border-yellow-500/20">
+            <h3 className="text-xl font-bold mb-6">Suite Inclusions:</h3>
+            <ul className="space-y-4">
+              {["Monthly Full-Service Bookkeeping", "Managed Social Platform (1)", "Monthly Policy Research Briefing", "Unlimited Consulting", "General Ledger Hygiene"].map(item => (
+                <li key={item} className="flex items-center gap-3"><CheckCircle2 className="text-yellow-500" /> {item}</li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

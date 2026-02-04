@@ -31,8 +31,9 @@ function App() {
             <Route path="/services/growth" element={<Growth />} />
             
             <Route path="/book-consultation" element={<Consultation />} />
+            <Route path="/services/:id" component={TaxSpecialties} />
             <Route path="/explore" element={<ExploreServices />} />
-            <Route path="/founders-suite-deep-dive" element={<FoundersSuiteDetail />} />
+            <Route path="/founders-suite-detail" element={<FoundersSuiteDetail />} />
             <Route path="/services/:id" element={<ServicePage />} />
             <Route path="/success" element={<Success />} />
             <Route path="/terms" element={<Terms />} />
