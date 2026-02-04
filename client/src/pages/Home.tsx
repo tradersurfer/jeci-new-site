@@ -1,3 +1,4 @@
+import { useLocation, Link } from "wouter"; // Replace Line 1 and update Line 12
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -21,8 +22,7 @@ const stagger = {
 };
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState<"jeci" | "moneyvibes">("jeci");
-
+    const [location, setLocation] = useLocation(); 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-secondary/30">
       <Navbar />
@@ -85,10 +85,14 @@ export default function Home() {
                   We empower individuals and businesses to navigate complex financial landscapes and achieve sustainable growth through expert accounting, tax services, and strategic development.
                 </motion.p>
                 <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button size="lg" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'})}>
+                  <Button 
+                    size="lg" 
+                    className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" 
+                    onClick={() => setLocation('/book-consultation')}
+                  >
                     Book Free Consultation
                   </Button>
-                  <Button size="lg" variant="outline" className="text-white border-white/30 hover:bg-white/10 h-14 px-8 text-lg rounded-sm" onClick={() => document.getElementById('services')?.scrollIntoView({behavior: 'smooth'})}>
+                  <Button size="lg" variant="outline" className="bg-secondary text-primary hover:bg-white font-bold h-14 px-8 text-lg rounded-sm" onClick={() => setLocation('/explore-services')}>
                     Explore Services
                   </Button>
                 </motion.div>
@@ -259,7 +263,7 @@ export default function Home() {
                         </div>
                       ))}
                     </div>
-                    <Button size="lg" className="bg-secondary text-primary hover:bg-white font-bold h-16 px-12 text-lg rounded-sm mt-8">
+                    <Button size="lg" className="bg-secondary text-primary hover:bg-white font-bold h-16 px-12 text-lg rounded-sm mt-8"> onClick={() => setLocation('/founders-suite-detail')}
                       Apply for the Suite
                     </Button>
                   </div>
