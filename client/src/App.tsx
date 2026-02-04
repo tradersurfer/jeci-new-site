@@ -12,6 +12,7 @@ import Growth from "@/pages/services/Growth";
 
 import Consultation from "./pages/Consultation";
 import ExploreServices from "./pages/ExploreServices";
+import TaxSpecialties from "./pages/TaxSpecialties";
 import FoundersSuiteDetail from "./pages/FoundersSuiteDetail";
 import ServicePage from "./pages/ServicePage";
 import Success from "./pages/Success";
