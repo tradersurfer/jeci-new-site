@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import ContactForm from "@/components/ContactForm";
+import EcosystemAdvisor from "@/components/EcosystemAdvisor";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, TrendingUp, Users, Target, BarChart3, Calculator, PieChart, MousePointerClick, Mail, Phone, Rocket, Zap, Shield, Globe, Landmark, Coins, Briefcase, ChevronRight, Play, FileText, BarChart, Settings, Share2, Search, Layout } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -285,6 +286,20 @@ export default function Home() {
                   </div>
                 </div>
               </div>
+            </div>
+          </section>
+
+          {/* Ecosystem Advisor Section */}
+          <section className="py-24 bg-white border-y border-slate-100">
+            <div className="container px-4 md:px-6">
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h4 className="text-secondary font-bold tracking-widest uppercase mb-4">Pillar 3 Feature</h4>
+                <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-6">Innovation & Strategy</h2>
+                <p className="text-slate-600 text-lg">
+                  Preview our proprietary Bitcoin Ecosystem Advisory tools for tech-forward founders.
+                </p>
+              </div>
+              <EcosystemAdvisor />
             </div>
           </section>
 
