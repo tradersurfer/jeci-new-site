@@ -17,6 +17,7 @@ import RetirementCalculator from "./pages/tools/RetirementCalculator";
 import WeeklyTracker from "./pages/tools/WeeklyTracker";
 import WealthDiversification from "./pages/tools/WealthDiversification";
 import AccountingServiceDetail from "./pages/AccountingServiceDetail";
+import CreditClubDetails from "./pages/CreditClubDetails";
 
 function Router() {
   return (
@@ -40,6 +41,7 @@ function Router() {
         <Route path="/accounting/:id">
           {(params) => <AccountingServiceDetail id={params.id} />}
         </Route>
+        <Route path="/credit-club-details" component={CreditClubDetails} />
         <Route path="/services/:id" component={TaxSpecialties} />
         <Route component={NotFound} />
       </Switch>

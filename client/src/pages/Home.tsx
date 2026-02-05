@@ -106,6 +106,45 @@ export default function Home() {
                 </motion.div>
               </motion.div>
             </div>
+
+            {/* Mobile Banner Integration */}
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1 }}
+              className="absolute bottom-10 left-0 right-0 z-20 px-4 md:hidden"
+            >
+              <div id="mobile-banner" className="bg-secondary p-6 rounded-xl shadow-2xl border border-white/20 text-center">
+                <h2 className="text-primary font-serif font-black text-xl mb-1">Join the 700 Credit Club Now!</h2>
+                <p className="text-primary/80 text-xs mb-4 font-bold">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+                <Button 
+                  onClick={() => setLocation('/credit-club-details')}
+                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-10 text-xs uppercase tracking-widest"
+                >
+                  Learn More & Join
+                </Button>
+              </div>
+            </motion.div>
+            
+            {/* Desktop Banner Integration (Optional but good for layout) */}
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.2 }}
+              className="absolute bottom-20 right-10 z-20 hidden md:block max-w-xs"
+            >
+              <div className="bg-secondary/90 backdrop-blur-md p-6 rounded-sm shadow-2xl border border-white/20">
+                <h2 className="text-primary font-serif font-black text-xl mb-2">700 Credit Club</h2>
+                <p className="text-primary/80 text-sm mb-4 font-medium italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+                <Button 
+                  onClick={() => setLocation('/credit-club-details')}
+                  variant="link"
+                  className="p-0 text-primary font-black flex items-center gap-2 hover:translate-x-1 transition-transform"
+                >
+                  JOIN NOW <ArrowRight size={16} />
+                </Button>
+              </div>
+            </motion.div>
           </section>
 
           {/* Specialty Grid Integration */}
