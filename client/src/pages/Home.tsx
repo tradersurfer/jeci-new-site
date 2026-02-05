@@ -315,37 +315,29 @@ export default function Home() {
                     title: "3-5 Year Financial Model Plan",
                     desc: "This interactive tool helps you build detailed 3-5 year financial projections, complete with best-case, worst-case, and most-likely scenarios.",
                     icon: <Layout className="text-blue-500" />,
-                    color: "border-blue-500"
+                    color: "border-blue-500",
+                    path: "/tools/financial-model"
                   },
                   {
                     title: "Retirement Calculator",
                     desc: "Calculate your path to financial independence with our interactive retirement planning suite.",
                     icon: <Calculator className="text-blue-500" />,
-                    color: "border-blue-500"
+                    color: "border-blue-500",
+                    path: "/tools/retirement-calculator"
                   },
                   {
                     title: "Weekly Finance Tracker",
                     desc: "Micro-level monitoring of income and expenses to maintain perfect cash flow hygiene.",
                     icon: <Zap className="text-yellow-500" />,
-                    color: "border-yellow-500"
-                  },
-                  {
-                    title: "Tax Tracker (Self-Employed)",
-                    desc: "Real-time liability estimation and expense categorization for the modern solopreneur.",
-                    icon: <Landmark className="text-green-500" />,
-                    color: "border-green-500"
-                  },
-                  {
-                    title: "Retirement Comparison",
-                    desc: "Deep-dive analysis between SEP IRAs, Solo 401(k)s, and Defined Benefit structures.",
-                    icon: <Shield className="text-purple-500" />,
-                    color: "border-purple-500"
+                    color: "border-yellow-500",
+                    path: "/tools/weekly-tracker"
                   },
                   {
                     title: "Wealth Diversification",
                     desc: "The 'Master View' of your assets—equity, real estate, and alternative vehicles.",
                     icon: <Globe className="text-cyan-500" />,
-                    color: "border-cyan-500"
+                    color: "border-cyan-500",
+                    path: "/tools/wealth-diversification"
                   },
                   {
                     title: "Income Stream Mapper",
@@ -369,7 +361,11 @@ export default function Home() {
                     <p className="text-slate-600 mb-8 leading-relaxed">
                       {tool.desc}
                     </p>
-                    <Button variant="ghost" className="p-0 text-green-600 hover:text-green-700 font-bold group-hover:gap-2 transition-all">
+                    <Button 
+                      variant="ghost" 
+                      className="p-0 text-green-600 hover:text-green-700 font-bold group-hover:gap-2 transition-all"
+                      onClick={() => tool.path && setLocation(tool.path)}
+                    >
                       Open Tool <ChevronRight size={18} />
                     </Button>
                   </motion.div>

@@ -12,6 +12,10 @@ import Engine from "./pages/services/Engine";
 import Growth from "./pages/services/Growth";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import FinancialModel from "./pages/tools/FinancialModel";
+import RetirementCalculator from "./pages/tools/RetirementCalculator";
+import WeeklyTracker from "./pages/tools/WeeklyTracker";
+import WealthDiversification from "./pages/tools/WealthDiversification";
 
 function Router() {
   return (
@@ -28,9 +32,11 @@ function Router() {
         <Route path="/pillar-1" component={Foundation} />
         <Route path="/pillar-2" component={Engine} />
         <Route path="/pillar-3" component={Growth} />
-        <Route path="/services/:id">
-          {(params) => <TaxSpecialties {...params} />}
-        </Route>
+        <Route path="/tools/financial-model" component={FinancialModel} />
+        <Route path="/tools/retirement-calculator" component={RetirementCalculator} />
+        <Route path="/tools/weekly-tracker" component={WeeklyTracker} />
+        <Route path="/tools/wealth-diversification" component={WealthDiversification} />
+        <Route path="/services/:id" component={TaxSpecialties} />
         <Route component={NotFound} />
       </Switch>
     </>
