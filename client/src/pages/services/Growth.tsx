@@ -86,7 +86,7 @@ export default function Growth() {
             <h4 className="text-secondary font-bold tracking-widest uppercase mb-4">Innovation Advisory</h4>
             <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-6 italic">Bitcoin Ecosystem Strategy</h2>
             <p className="text-slate-600 text-lg">
-              For the tech-forward founder. Navigate on-chain opportunities and institutional-grade Bitcoin advisory through our proprietary tools.
+              For the tech-forward founder. Navigate on-chain opportunities and institutional-grade Bitcoin advisory through our proprietary tools focusing on stablecoin liquidity rails.
             </p>
           </div>
           <EcosystemAdvisor />

@@ -137,23 +137,77 @@
                       </div>
                     </section>
 
-                    {/* Founders' Suite Section */}
-                    <section className="py-24 bg-slate-50">
-                      <div className="container px-4 md:px-6">
-                        <div className="bg-primary text-white p-12 md:p-20 rounded-sm shadow-2xl relative overflow-hidden">
-                          <div className="grid md:grid-cols-2 gap-16 items-center">
-                            <div className="space-y-8">
-                              <h2 className="font-serif text-4xl md:text-6xl font-bold leading-tight">The Founders’ Operations Suite</h2>
-                              <p className="text-xl text-white/70">Monthly Retainer for Total Financial Sovereignty.</p>
-                              <div className="flex flex-col md:flex-row gap-4 mt-8">
-                                <Button size="lg" className="bg-yellow-500 text-slate-950 font-bold px-8 h-14" onClick={() => setLocation('/book-consultation')}>Apply for the Suite</Button>
-                                <Button variant="outline" size="lg" className="border-yellow-500 text-yellow-500 font-bold px-8 h-14" onClick={() => setLocation('/founders-suite-detail')}>View Suite Details</Button>
-                              </div>
-                            </div>
+                {/* Founders' Operations Suite Section */}
+          <section className="py-24 bg-slate-50 relative overflow-hidden">
+            <div className="container px-4 md:px-6 relative z-10">
+              <div className="bg-primary text-white p-12 md:p-20 rounded-sm shadow-2xl relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/10 -skew-x-12 transform translate-x-1/2" />
+                
+                <div className="grid md:grid-cols-2 gap-16 items-center">
+                  <div className="space-y-8">
+                    <div className="inline-block px-3 py-1 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-widest">Pillar 4:</div>
+                    <h2 className="font-serif text-4xl md:text-6xl font-bold leading-tight">
+                      The Founders’ <br/>Operations Suite
+                    </h2>
+                    <p className="text-xl text-white/70 leading-relaxed">Monthly Retainer for Total Financial Sovereignty. Invest in a dedicated operations team, not just a service.</p>
+                    <div className="space-y-4">
+                      {[
+                        "Monthly Full-Service Bookkeeping",
+                        "Managed Social Platform Strategy",
+                        "Monthly Policy Research Briefing",
+                        "Unlimited Expert Consultations"
+                      ].map((item) => (
+                        <div key={item} className="flex items-center gap-3">
+                          <div className="w-5 h-5 rounded-full bg-secondary flex items-center justify-center text-primary shrink-0">
+                            <Check size={12} strokeWidth={4} />
                           </div>
+                          <span className="font-medium">{item}</span>
                         </div>
+                      ))}
+                    </div>
+                    <div className="flex flex-col md:flex-row gap-4 mt-8">
+                      <Button 
+                        size="lg" 
+                        className="bg-yellow-500 text-slate-950 font-bold px-8 h-14"
+                        onClick={() => setLocation('/book-consultation')}
+                      >
+                        Apply for the Suite
+                      </Button>
+                      <Button 
+                        variant="outline"
+                        size="lg" 
+                        className="border-yellow-500 text-yellow-500 hover:bg-yellow-500 hover:text-slate-950 font-bold px-8 h-14"
+                        onClick={() => setLocation('/founders-suite-detail')}
+                      >
+                        View Suite Details
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="bg-white/5 backdrop-blur-md p-10 border border-white/10 rounded-sm">
+                    <h3 className="font-serif text-3xl font-bold mb-8 text-secondary italic">Why The JECI Group?</h3>
+                    <p className="text-white/80 leading-relaxed italic mb-8">
+                      "Most businesses fail not because of a bad product, but because of The Fragmented Back-Office. We bridge the gap to Institutional Readiness."
+                    </p>
+                    <div className="space-y-6">
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><Shield /></div>
+                        <p className="text-sm text-white/60">Your credit limits your capital.</p>
                       </div>
-                    </section>
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><BarChart /></div>
+                        <p className="text-sm text-white/60">Your messy books limit your decisions.</p>
+                      </div>
+                      <div className="flex gap-4">
+                        <div className="text-secondary shrink-0"><Target /></div>
+                        <p className="text-sm text-white/60">Your lack of SEO limits your visibility.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
                   </motion.div>
                 ) : (
                   <motion.div key="moneyvibes" className="pt-20">

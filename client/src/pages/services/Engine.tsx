@@ -1,15 +1,16 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SubpageNav from "@/components/SubpageNav";
-import SpecialtyGrid from "@/components/SpecialtyGrid"; // Using the 5-category grid here
+import SpecialtyGrid from "@/components/SpecialtyGrid"; 
 import { Calculator, CheckCircle2 } from "lucide-react";
 
 export default function Engine() {
   const operationsFeatures = [
-    { title: "General Ledger Hygiene", desc: "Monthly hunt for discrepancies, double-billings, and unrecorded expenses." },
-    { title: "Bank Reconciliation", desc: "Identify lost checks and unauthorized wire transactions to prevent embezzlement." },
-    { title: "Income Statement Reporting", desc: "Track revenue trends and operating performance for bank-readiness." },
-    { title: "Balance Sheet Analysis", desc: "Quantify financial strength and receivables to prepare for expansion capital." }
+    { title: "Formation & Core", desc: "Entity structuring and essential accounting setup for new ventures." },
+    { title: "Indirect & Transaction", desc: "Managing sales tax, use tax, and complex transaction-level reporting." },
+    { title: "SALT Compliance", desc: "State and Local Tax strategies to navigate multi-jurisdictional complexity." },
+    { title: "Compliance & Payroll", desc: "Full-service payroll management and federal/state compliance filing." },
+    { title: "Specialist Restructuring", desc: "Dedicated support for Crypto entities and restructuring existing complex operations." }
   ];
 
   return (
@@ -26,7 +27,7 @@ export default function Engine() {
             </div>
             <h1 className="text-5xl md:text-7xl font-serif font-bold mb-8 italic text-white">The Engine</h1>
             <p className="text-xl md:text-2xl text-slate-300 leading-relaxed mb-10">
-              Back-office complexity, managed. We build the financial engine that powers your sovereignty, ensuring every transaction is a brick in your fortress.
+              Back-office complexity, managed. From entity formation to specialist restructuring, we ensure your data is 'Bank-Ready' for institutional scaling.
             </p>
           </div>
         </div>
@@ -40,7 +41,7 @@ export default function Engine() {
       {/* Operations Deep Dive */}
       <section className="py-24 bg-white">
         <div className="container px-6">
-          <h2 className="text-3xl font-serif font-bold text-slate-900 mb-12 italic">Back-Office Integrity Features</h2>
+          <h2 className="text-3xl font-serif font-bold text-slate-900 mb-12 italic">Back-Office Integrity Categories</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {operationsFeatures.map((feature, i) => (
               <div key={i} className="flex gap-6 p-6 rounded-2xl bg-slate-50 border border-slate-100">
