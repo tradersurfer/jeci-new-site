@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Menu, X, Phone, Mail, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,17 +17,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    if (window.location.pathname !== "/") {
-      window.location.href = `/#${id}`;
-      return;
-    }
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsOpen(false);
-    }
-  };
+  const navLinks = [
+    { name: "Services", href: "/explore" },
+    { name: "About", href: "/about" },
+    { name: "Pricing", href: "/pillar-2" }, // Linking pricing to Services/Engine as per request
+    { name: "Contact", href: "/contact" }
+  ];
 
   return (
     <nav
@@ -57,17 +53,15 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
-          {["Services", "About", "Pricing", "Contact"].map((item) => (
-            <button
-              key={item}
-              onClick={() => scrollToSection(item.toLowerCase())}
-              className={cn(
-                "text-sm font-medium tracking-wide hover:text-secondary transition-colors uppercase",
+          {navLinks.map((link) => (
+            <Link key={link.name} href={link.href}>
+              <a className={cn(
+                "text-sm font-medium tracking-wide hover:text-secondary transition-colors uppercase cursor-pointer",
                 scrolled ? "text-primary" : "text-white/90"
-              )}
-            >
-              {item}
-            </button>
+              )}>
+                {link.name}
+              </a>
+            </Link>
           ))}
           <Button
             onClick={() => setLocation('/book-consultation')}
@@ -79,7 +73,7 @@ export default function Navbar() {
 
         {/* Mobile Toggle */}
         <button
-          className="md:hidden text-primary"
+          className="md:hidden"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? (
@@ -94,17 +88,21 @@ export default function Navbar() {
       {isOpen && (
         <div className="absolute top-full left-0 right-0 bg-white border-b md:hidden shadow-lg animate-in slide-in-from-top-5">
           <div className="flex flex-col p-6 gap-4">
-            {["Services", "About", "Pricing", "Contact"].map((item) => (
-              <button
-                key={item}
-                onClick={() => scrollToSection(item.toLowerCase())}
-                className="text-left text-lg font-medium text-primary hover:text-secondary"
-              >
-                {item}
-              </button>
+            {navLinks.map((link) => (
+              <Link key={link.name} href={link.href}>
+                <a 
+                  onClick={() => setIsOpen(false)}
+                  className="text-left text-lg font-medium text-primary hover:text-secondary cursor-pointer"
+                >
+                  {link.name}
+                </a>
+              </Link>
             ))}
             <Button
-              onClick={() => setLocation('/book-consultation')}
+              onClick={() => {
+                setLocation('/book-consultation');
+                setIsOpen(false);
+              }}
               className="w-full bg-primary text-white"
             >
               Book Consultation

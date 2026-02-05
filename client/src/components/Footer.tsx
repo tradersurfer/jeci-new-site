@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Facebook, Twitter, Linkedin, Instagram, Send } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -16,36 +16,39 @@ export default function Footer() {
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Quick Links</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Services</a></li>
-              <li><a href="#pricing" className="hover:text-white transition-colors">Pricing Plans</a></li>
-              <li><a href="#contact" className="hover:text-white transition-colors">Contact</a></li>
+              <li><Link href="/"><a className="hover:text-white transition-colors">Home</a></Link></li>
+              <li><Link href="/about"><a className="hover:text-white transition-colors">About Us</a></Link></li>
+              <li><Link href="/explore"><a className="hover:text-white transition-colors">Services</a></Link></li>
+              <li><Link href="/pillar-2"><a className="hover:text-white transition-colors">Pricing Plans</a></Link></li>
+              <li><Link href="/contact"><a className="hover:text-white transition-colors">Contact</a></Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Services</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li>Business Consulting</li>
-              <li>Tax Preparation</li>
-              <li>Digital Marketing</li>
-              <li>Accounting</li>
-              <li>Operations Strategy</li>
+              <li><Link href="/pillar-1"><a className="hover:text-white transition-colors">Foundation & Formation</a></Link></li>
+              <li><Link href="/pillar-2"><a className="hover:text-white transition-colors">Accounting & Operations</a></Link></li>
+              <li><Link href="/pillar-3"><a className="hover:text-white transition-colors">Growth & Innovation</a></Link></li>
+              <li><Link href="/founders-suite-detail"><a className="hover:text-white transition-colors">Founders' Suite</a></Link></li>
+              <li><Link href="/services/tax-preparation"><a className="hover:text-white transition-colors">Tax Specialties</a></Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Connect</h4>
             <div className="flex gap-4 mb-6">
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+              <a href="https://facebook.com/jecigroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
                 <Facebook size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+              <a href="https://linkedin.com/company/jecigroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
                 <Linkedin size={18} />
               </a>
-              <a href="#" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+              <a href="https://instagram.com/jecigroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
                 <Instagram size={18} />
+              </a>
+              <a href="https://x.com/jecigroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary transition-all">
+                <Send size={18} className="rotate-[315deg] translate-x-[1px] -translate-y-[1px]" />
               </a>
             </div>
             <p className="text-white/50 text-xs">
@@ -56,8 +59,8 @@ export default function Footer() {
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white">Privacy Policy</a>
-            <a href="#" className="hover:text-white">Terms of Service</a>
+            <Link href="/privacy"><a className="hover:text-white">Privacy Policy</a></Link>
+            <Link href="/terms"><a className="hover:text-white">Terms of Service</a></Link>
             <a href="#" className="hover:text-white">Cookie Policy</a>
           </div>
           <p>Designed with precision.</p>
