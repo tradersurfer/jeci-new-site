@@ -32,6 +32,7 @@ export default function Footer() {
               <li><Link href="/accounting/salt"><a className="hover:text-white transition-colors">State & Local (SALT)</a></Link></li>
               <li><Link href="/accounting/compliance-payroll"><a className="hover:text-white transition-colors">Compliance & Payroll</a></Link></li>
               <li><Link href="/accounting/specialty-crypto"><a className="hover:text-white transition-colors">Specialty & Crypto</a></Link></li>
+              <li><Link href="/credit-club-details"><a className="hover:text-white transition-colors font-bold text-secondary">700 Credit Club</a></Link></li>
             </ul>
           </div>
 

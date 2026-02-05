@@ -20,6 +20,7 @@ export default function Navbar() {
   const navLinks = [
     { name: "Services", href: "/explore" },
     { name: "Accounting", href: "/#accounting-services" },
+    { name: "Credit Club", href: "/credit-club-details" },
     { name: "About", href: "/about" },
     { name: "Pricing", href: "/pillar-2" }, // Linking pricing to Services/Engine as per request
     { name: "Contact", href: "/contact" }

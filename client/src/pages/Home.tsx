@@ -109,19 +109,19 @@ export default function Home() {
 
             {/* Desktop Banner Integration */}
             <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.2 }}
-              className="absolute bottom-10 right-10 z-20 hidden md:block max-w-sm"
+              className="absolute bottom-[5%] left-1/2 -translate-x-1/2 z-20 hidden md:block w-full max-w-lg"
             >
-              <div className="bg-secondary p-8 shadow-2xl border border-white/20">
-                <h2 className="text-primary font-serif font-black text-2xl mb-2 uppercase tracking-tight">700 Credit Club</h2>
-                <p className="text-primary/80 text-sm mb-6 font-bold italic leading-snug">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+              <div className="bg-secondary p-8 shadow-2xl border border-white/20 text-center">
+                <h2 className="text-primary font-serif font-black text-3xl mb-2 uppercase tracking-tight">700 Credit Club</h2>
+                <p className="text-primary/80 text-base mb-6 font-bold italic leading-snug">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
                 <Button 
                   onClick={() => setLocation('/credit-club-details')}
-                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-12 text-sm uppercase tracking-widest rounded-none shadow-lg"
+                  className="bg-primary text-white hover:bg-slate-800 px-12 font-bold h-14 text-sm uppercase tracking-widest rounded-none shadow-lg"
                 >
-                  JOIN NOW <ArrowRight size={18} className="ml-2" />
+                  JOIN THE CLUB <ArrowRight size={18} className="ml-2" />
                 </Button>
               </div>
             </motion.div>
