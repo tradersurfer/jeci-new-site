@@ -33,6 +33,7 @@ export default function Footer() {
               <li><Link href="/accounting/compliance-payroll"><a className="hover:text-white transition-colors">Compliance & Payroll</a></Link></li>
               <li><Link href="/accounting/specialty-crypto"><a className="hover:text-white transition-colors">Specialty & Crypto</a></Link></li>
               <li><Link href="/credit-club-details"><a className="hover:text-white transition-colors font-bold text-secondary">700 Credit Club</a></Link></li>
+              <li><Link href="/blog"><a className="hover:text-white transition-colors">The Hub (Blog)</a></Link></li>
             </ul>
           </div>
 

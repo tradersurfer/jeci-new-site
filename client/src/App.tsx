@@ -18,6 +18,7 @@ import WeeklyTracker from "./pages/tools/WeeklyTracker";
 import WealthDiversification from "./pages/tools/WealthDiversification";
 import AccountingServiceDetail from "./pages/AccountingServiceDetail";
 import CreditClubDetails from "./pages/CreditClubDetails";
+import Blog from "./pages/Blog";
 
 function Router() {
   return (
@@ -42,6 +43,7 @@ function Router() {
           {(params) => <AccountingServiceDetail id={params.id} />}
         </Route>
         <Route path="/credit-club-details" component={CreditClubDetails} />
+        <Route path="/blog" component={Blog} />
         <Route path="/services/:id" component={TaxSpecialties} />
         <Route component={NotFound} />
       </Switch>
