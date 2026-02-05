@@ -107,47 +107,46 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Mobile Banner Integration */}
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
-              className="relative z-20 md:hidden -mt-8 mb-8"
-            >
-              <div className="bg-gradient-to-r from-secondary to-yellow-500 p-6 shadow-2xl text-center">
-                <div className="container px-4">
-                  <h2 className="text-primary font-serif font-black text-2xl mb-1 uppercase tracking-tight">Join the 700 Credit Club Now!</h2>
-                  <p className="text-primary/90 text-sm mb-5 font-bold italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
-                  <Button 
-                    onClick={() => setLocation('/credit-club-details')}
-                    className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-12 text-sm uppercase tracking-widest rounded-none shadow-lg"
-                  >
-                    Learn More & Join
-                  </Button>
-                </div>
-              </div>
-            </motion.div>
-            
-            {/* Desktop Banner Integration (Optional but good for layout) */}
+            {/* Desktop Banner Integration */}
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 1.2 }}
-              className="absolute bottom-20 right-10 z-20 hidden md:block max-w-xs"
+              className="absolute bottom-10 right-10 z-20 hidden md:block max-w-sm"
             >
-              <div className="bg-secondary/90 backdrop-blur-md p-6 rounded-sm shadow-2xl border border-white/20">
-                <h2 className="text-primary font-serif font-black text-xl mb-2">700 Credit Club</h2>
-                <p className="text-primary/80 text-sm mb-4 font-medium italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+              <div className="bg-secondary p-8 shadow-2xl border border-white/20">
+                <h2 className="text-primary font-serif font-black text-2xl mb-2 uppercase tracking-tight">700 Credit Club</h2>
+                <p className="text-primary/80 text-sm mb-6 font-bold italic leading-snug">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
                 <Button 
                   onClick={() => setLocation('/credit-club-details')}
-                  variant="link"
-                  className="p-0 text-primary font-black flex items-center gap-2 hover:translate-x-1 transition-transform"
+                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-12 text-sm uppercase tracking-widest rounded-none shadow-lg"
                 >
-                  JOIN NOW <ArrowRight size={16} />
+                  JOIN NOW <ArrowRight size={18} className="ml-2" />
                 </Button>
               </div>
             </motion.div>
           </section>
+
+          {/* Mobile Banner Integration */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 }}
+            className="relative z-20 md:hidden"
+          >
+            <div className="bg-gradient-to-r from-secondary to-yellow-500 p-8 shadow-2xl text-center">
+              <div className="container px-4">
+                <h2 className="text-primary font-serif font-black text-2xl mb-1 uppercase tracking-tight">Join the 700 Credit Club Now!</h2>
+                <p className="text-primary/90 text-sm mb-6 font-bold italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+                <Button 
+                  onClick={() => setLocation('/credit-club-details')}
+                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-14 text-sm uppercase tracking-widest rounded-none shadow-lg"
+                >
+                  Learn More & Join
+                </Button>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Specialty Grid Integration */}
           <SpecialtyGrid />
