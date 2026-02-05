@@ -109,20 +109,22 @@ export default function Home() {
 
             {/* Mobile Banner Integration */}
             <motion.div 
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1 }}
-              className="absolute bottom-10 left-0 right-0 z-20 px-4 md:hidden"
+              transition={{ delay: 0.8 }}
+              className="relative z-20 md:hidden -mt-8 mb-8"
             >
-              <div id="mobile-banner" className="bg-secondary p-6 rounded-xl shadow-2xl border border-white/20 text-center">
-                <h2 className="text-primary font-serif font-black text-xl mb-1">Join the 700 Credit Club Now!</h2>
-                <p className="text-primary/80 text-xs mb-4 font-bold">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
-                <Button 
-                  onClick={() => setLocation('/credit-club-details')}
-                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-10 text-xs uppercase tracking-widest"
-                >
-                  Learn More & Join
-                </Button>
+              <div className="bg-gradient-to-r from-secondary to-yellow-500 p-6 shadow-2xl text-center">
+                <div className="container px-4">
+                  <h2 className="text-primary font-serif font-black text-2xl mb-1 uppercase tracking-tight">Join the 700 Credit Club Now!</h2>
+                  <p className="text-primary/90 text-sm mb-5 font-bold italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
+                  <Button 
+                    onClick={() => setLocation('/credit-club-details')}
+                    className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-12 text-sm uppercase tracking-widest rounded-none shadow-lg"
+                  >
+                    Learn More & Join
+                  </Button>
+                </div>
               </div>
             </motion.div>
             
