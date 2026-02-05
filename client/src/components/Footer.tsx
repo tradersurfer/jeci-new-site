@@ -27,11 +27,11 @@ export default function Footer() {
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Services</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href="/pillar-1"><a className="hover:text-white transition-colors">Foundation & Formation</a></Link></li>
-              <li><Link href="/pillar-2"><a className="hover:text-white transition-colors">Accounting & Operations</a></Link></li>
-              <li><Link href="/pillar-3"><a className="hover:text-white transition-colors">Growth & Innovation</a></Link></li>
-              <li><Link href="/founders-suite-detail"><a className="hover:text-white transition-colors">Founders' Suite</a></Link></li>
-              <li><Link href="/services/tax-preparation"><a className="hover:text-white transition-colors">Tax Specialties</a></Link></li>
+              <li><Link href="/accounting/entity-core"><a className="hover:text-white transition-colors">Entity & Core Accounting</a></Link></li>
+              <li><Link href="/accounting/indirect-tax"><a className="hover:text-white transition-colors">Indirect & Transaction Taxes</a></Link></li>
+              <li><Link href="/accounting/salt"><a className="hover:text-white transition-colors">State & Local (SALT)</a></Link></li>
+              <li><Link href="/accounting/compliance-payroll"><a className="hover:text-white transition-colors">Compliance & Payroll</a></Link></li>
+              <li><Link href="/accounting/specialty-crypto"><a className="hover:text-white transition-colors">Specialty & Crypto</a></Link></li>
             </ul>
           </div>
 
