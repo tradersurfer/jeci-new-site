@@ -134,13 +134,13 @@ export default function Home() {
             transition={{ delay: 0.8 }}
             className="relative z-20 md:hidden"
           >
-            <div className="bg-gradient-to-r from-secondary to-yellow-500 p-8 shadow-2xl text-center">
+            <div className="bg-gradient-to-r from-secondary to-yellow-500 p-8 shadow-2xl text-center border-4 border-primary/20 rounded-xl">
               <div className="container px-4">
                 <h2 className="text-primary font-serif font-black text-2xl mb-1 uppercase tracking-tight">Join the 700 Credit Club Now!</h2>
                 <p className="text-primary/90 text-sm mb-6 font-bold italic">Fix Credit, Build to 800 FICO, Unlock BTC Loans & Wealth</p>
                 <Button 
                   onClick={() => setLocation('/credit-club-details')}
-                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-14 text-sm uppercase tracking-widest rounded-none shadow-lg"
+                  className="bg-primary text-white hover:bg-slate-800 w-full font-bold h-14 text-sm uppercase tracking-widest rounded-lg shadow-lg"
                 >
                   Learn More & Join
                 </Button>
