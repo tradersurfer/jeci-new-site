@@ -26,8 +26,10 @@ export default function ExploreServices() {
 
   const sections = {
     accounting: [
-      { name: "New Entity Formation", desc: "Strategic LLC/S-Corp setup with Methodical Action Plans." },
-      { name: "Small Business Accounting", desc: "Full-service bookkeeping and GL hygiene for bank-readiness." },
+      { name: "New Entity Formation", desc: "Strategic LLC/S-Corp/C-Corp full setup(the JECI Way) with Methodical Action Plans. You may now choose AI employees, powered by JECI AI." },
+      { name: "Small Business Accounting", desc: "Full-service bookkeeping (monthly/quartely) and GL hygiene for bank-readiness, powered by JECI AI-agentic assistants." },
+      { name: "Payroll & HR", desc: "Quarterly/Annual FICA, SUTA/FUTA, Employees & Contractors (W-2, W-4, 1099) and employee onboarding." },
+      { name: "Individual & Business Taxes", desc: "Federal & state income tax filings (1040), Business Tax (Sch. C, 1120(S), 1065) with IRS-ready documentation." },
       { name: "Indirect Taxes", desc: "Sales & Use tax filings and transaction-level tracking." },
       { name: "State and Local Taxes (SALT)", desc: "Multi-jurisdictional compliance and nexus studies." },
       { name: "Compliance & Transaction Taxes", desc: "Payroll, Employment, and specific non-income tax filings." },
