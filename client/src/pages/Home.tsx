@@ -148,6 +148,40 @@ export default function Home() {
             </div>
           </motion.div>
 
+          {/* Featured Services Section */}
+          <section className="py-24 bg-white border-b border-slate-100">
+            <div className="container px-4">
+              <div className="text-center max-w-3xl mx-auto mb-16">
+                <h2 className="text-3xl font-bold text-slate-900 mb-4">Popular Services</h2>
+                <p className="text-slate-500">Expert solutions tailored for DMV entrepreneurs and investors.</p>
+              </div>
+              
+              <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-8">
+                {[
+                  { title: "Crypto Tax Consultation", price: "$149", desc: "Navigate IRS reporting and DeFi taxes.", link: "/crypto-tax-consultation" },
+                  { title: "Real Estate Tax Planning", price: "$399", desc: "Cost segregation and 1031 exchange strategies.", link: "/real-estate-tax-planning" },
+                  { title: "LLC Formation", price: "$599", desc: "Full entity setup with operating agreement.", link: "/llc-formation" },
+                  { title: "QuickBooks Setup", price: "$349", desc: "Bank-ready chart of accounts and training.", link: "/quickbooks-setup" },
+                  { title: "Individual Tax Prep", price: "$399", desc: "Maximize refunds with expert filing.", link: "/individual-tax-preparation" },
+                  { title: "Business Strategy", price: "$149", desc: "30-minute high-impact growth session.", link: "/business-strategy-session" }
+                ].map((service, i) => (
+                  <div key={i} className="bg-slate-50 p-8 rounded-xl border border-slate-100 hover:shadow-lg transition-all text-center group cursor-pointer" onClick={() => setLocation(service.link)}>
+                    <h3 className="font-bold text-slate-900 text-lg mb-2">{service.title}</h3>
+                    <p className="text-secondary font-bold text-xl mb-4">{service.price}</p>
+                    <p className="text-sm text-slate-500 mb-6">{service.desc}</p>
+                    <span className="text-xs font-bold text-primary uppercase tracking-widest group-hover:text-secondary transition-colors">Learn More →</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="text-center mt-12">
+                <Button onClick={() => setLocation('/explore')} variant="outline" className="border-slate-300 text-slate-600 hover:text-primary">
+                  View All Services
+                </Button>
+              </div>
+            </div>
+          </section>
+
           {/* Specialty Grid Integration */}
           <SpecialtyGrid />
 

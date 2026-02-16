@@ -20,15 +20,54 @@ import AccountingServiceDetail from "./pages/AccountingServiceDetail";
 import CreditClubDetails from "./pages/CreditClubDetails";
 import Blog from "./pages/Blog";
 
+import BookingPage from "./pages/booking/BookingPage";
+
+import { 
+  TaxServices, 
+  AccountingServices, 
+  BusinessServices, 
+  BusinessDevelopment, 
+  PremiumServices 
+} from "./pages/services/CategoryPages";
+
+import CryptoTax from "./pages/services/landing/CryptoTax";
+import RealEstateTax from "./pages/services/landing/RealEstateTax";
+import LlcFormation from "./pages/services/landing/LlcFormation";
+import QuickbooksSetup from "./pages/services/landing/QuickbooksSetup";
+import FreeConsultation from "./pages/services/landing/FreeConsultation";
+import IndividualTax from "./pages/services/landing/IndividualTax";
+import BusinessStrategy from "./pages/services/landing/BusinessStrategy";
+
+import AdminDashboard from "./pages/admin/Dashboard";
+
 function Router() {
   return (
     <>
       <ScrollToTop />
       <Switch>
         <Route path="/" component={Home} />
+        <Route path="/admin/dashboard" component={AdminDashboard} />
+        <Route path="/book-consultation" component={BookingPage} />
+        <Route path="/book" component={BookingPage} />
+        
+        {/* Service Categories */}
+        <Route path="/tax-services" component={TaxServices} />
+        <Route path="/accounting-services" component={AccountingServices} />
+        <Route path="/business-services" component={BusinessServices} />
+        <Route path="/business-development" component={BusinessDevelopment} />
+        <Route path="/premium-services" component={PremiumServices} />
+
+        {/* Service Landing Pages */}
+        <Route path="/crypto-tax-consultation" component={CryptoTax} />
+        <Route path="/real-estate-tax-planning" component={RealEstateTax} />
+        <Route path="/llc-formation" component={LlcFormation} />
+        <Route path="/quickbooks-setup" component={QuickbooksSetup} />
+        <Route path="/free-consultation" component={FreeConsultation} />
+        <Route path="/individual-tax-preparation" component={IndividualTax} />
+        <Route path="/business-strategy-session" component={BusinessStrategy} />
+
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
-        <Route path="/book-consultation" component={Consultation} />
         <Route path="/explore" component={ExploreServices} />
         <Route path="/founders-suite-detail" component={FoundersSuiteDetail} />
         <Route path="/success" component={Success} />

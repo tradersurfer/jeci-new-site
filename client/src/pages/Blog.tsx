@@ -20,6 +20,32 @@ import {
 const BLOG_POSTS = [
   {
     id: 1,
+    title: "5 Crypto Tax Mistakes DMV Businesses Make (And How to Avoid Them)",
+    author: "JECI Research",
+    source: "JECI Group",
+    url: "/crypto-tax-consultation",
+    category: "Taxes",
+    votes: "4.5k",
+    comments: 342,
+    excerpt: "The IRS is watching the DMV. From misclassifying staking rewards to ignoring wash sale rules (that don't exist yet for crypto), here are the pitfalls costing you thousands.",
+    image: "https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&q=80&w=800",
+    tags: ["Crypto", "Taxes", "DMV"]
+  },
+  {
+    id: 2,
+    title: "Maximizing Real Estate Tax Deductions in DC: A Landlord's Guide",
+    author: "JECI Research",
+    source: "JECI Group",
+    url: "/real-estate-tax-planning",
+    category: "Real Estate",
+    votes: "3.8k",
+    comments: 210,
+    excerpt: "Owning property in the capital comes with unique perks and pains. Learn how cost segregation and the Augusta Rule can slash your tax bill this year.",
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800",
+    tags: ["Real Estate", "Tax Strategy", "DC"]
+  },
+  {
+    id: 3,
     title: "The Future of Blockchain Accounting: Beyond the Ledger",
     author: "Adrian Jordan",
     source: "Medium",
@@ -32,7 +58,7 @@ const BLOG_POSTS = [
     tags: ["Blockchain", "Web3", "FutureTech"]
   },
   {
-    id: 2,
+    id: 4,
     title: "How to Secure $250k in Business Funding Without a 800 FICO",
     author: "Adrian Jordan",
     source: "Substack",
@@ -45,7 +71,7 @@ const BLOG_POSTS = [
     tags: ["Funding", "Scaling", "Entrepreneurship"]
   },
   {
-    id: 3,
+    id: 5,
     title: "Crypto Tax Laws in 2026: What Every Founder Needs to Know",
     author: "JECI Research",
     source: "NerdWallet (Curated)",
@@ -57,7 +83,7 @@ const BLOG_POSTS = [
     tags: ["Crypto", "IRS", "Compliance"]
   },
   {
-    id: 4,
+    id: 6,
     title: "AI in the Back Office: Automating Your Sovereign CEO Journey",
     author: "Tech Insider",
     source: "Medium",
@@ -69,7 +95,7 @@ const BLOG_POSTS = [
     tags: ["AI", "Automation", "Efficiency"]
   },
   {
-    id: 5,
+    id: 7,
     title: "Real Estate vs Bitcoin: The New Diversification Paradigm",
     author: "Earn Your Leisure (Inspired)",
     category: "Investing",
