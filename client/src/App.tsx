@@ -21,6 +21,7 @@ import CreditClubDetails from "./pages/CreditClubDetails";
 import Blog from "./pages/Blog";
 
 import BookingPage from "./pages/booking/BookingPage";
+import ChatWidget from "./components/ChatWidget";
 
 import { 
   TaxServices, 
@@ -44,6 +45,7 @@ function Router() {
   return (
     <>
       <ScrollToTop />
+      <ChatWidget />
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/admin/dashboard" component={AdminDashboard} />

@@ -5,7 +5,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { SERVICE_CATEGORIES, Service, AddOn } from '@/data/services';
-import { Check, ChevronRight, Calendar as CalendarIcon, CreditCard, ArrowLeft } from 'lucide-react';
+import { Check, ChevronRight, Calendar as CalendarIcon, CreditCard, ArrowLeft, Download, Mail, Bell } from 'lucide-react';
 import { Calendar } from "@/components/ui/calendar";
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -71,22 +71,23 @@ export default function BookingPage() {
   };
 
   const handleBookingSubmit = () => {
-    // In a real app, this would process payment and save to backend
-    console.log("Booking submitted:", {
-      service: selectedService,
-      addOns: selectedAddOns,
-      date,
-      time,
-      contact: contactInfo,
-      total: calculateTotal()
-    });
+    // 1. Simulate Sending Emails
+    // In a real app, this would be an API call to a backend that handles SendGrid/Mailgun
+    console.log("SENDING CONFIRMATION EMAIL TO:", contactInfo.email);
+    console.log("SENDING ADMIN NOTIFICATION TO: jecitax@gmail.com");
+    
+    // Simulate network delay
+    setTimeout(() => {
+      // 2. Show Success Toast simulating email dispatch
+      toast({
+        title: "✓ Confirmation Email Sent",
+        description: `We've sent a booking receipt and Zoom details to ${contactInfo.email}`,
+        duration: 5000,
+      });
 
-    toast({
-      title: "Booking Confirmed!",
-      description: "You will receive a confirmation email shortly.",
-    });
-
-    setStep('confirmation');
+      // 3. Move to Confirmation Page
+      setStep('confirmation');
+    }, 1500);
   };
 
   const timeSlots = [
@@ -447,43 +448,89 @@ export default function BookingPage() {
 
         {step === 'confirmation' && (
           <div className="text-center py-12">
-            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8">
+            <div className="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-8 animate-in zoom-in duration-500">
               <Check className="w-12 h-12 text-green-600" />
             </div>
-            <h1 className="text-4xl font-serif font-bold text-primary mb-4">Booking Confirmed!</h1>
+            <h1 className="text-4xl font-serif font-bold text-primary mb-2">✓ Booking Confirmed!</h1>
             <p className="text-xl text-slate-600 mb-8 max-w-lg mx-auto">
-              Thank you, {contactInfo.name}. We've sent a confirmation email to {contactInfo.email} with your Zoom details.
+              Thank you, {contactInfo.name}. We've sent a confirmation email to <span className="font-bold text-slate-900">{contactInfo.email}</span> with your Zoom details.
             </p>
             
-            <Card className="max-w-md mx-auto mb-12 text-left bg-white border-slate-200 shadow-md">
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-3 pb-4 border-b border-slate-100">
-                  <CalendarIcon className="text-secondary" />
+            <div className="grid md:grid-cols-2 gap-8 text-left max-w-3xl mx-auto mb-12">
+              <Card className="bg-white border-slate-200 shadow-md">
+                <CardHeader className="bg-slate-50 border-b border-slate-100 pb-4">
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <CalendarIcon className="text-secondary" size={20} /> Appointment Details
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-6 space-y-4">
                   <div>
-                    <p className="font-bold text-slate-900">
+                    <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">When</p>
+                    <p className="font-bold text-slate-900 text-lg">
                       {date ? format(date, "EEEE, MMMM do, yyyy") : ""}
                     </p>
-                    <p className="text-sm text-slate-500">{time} EST</p>
+                    <p className="text-md text-slate-600 font-medium">{time} EST</p>
                   </div>
+                  <div>
+                    <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Service</p>
+                    <p className="font-bold text-slate-900">{selectedService?.name}</p>
+                    {selectedAddOns.length > 0 && (
+                      <ul className="mt-2 space-y-1">
+                        {selectedService?.addOns?.filter(a => selectedAddOns.includes(a.id)).map(addon => (
+                          <li key={addon.id} className="text-sm text-slate-600 flex items-center gap-2">
+                            <Check size={12} className="text-green-500" /> {addon.name}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div className="pt-4 border-t border-slate-100">
+                    <p className="text-xs text-slate-500 uppercase tracking-widest font-bold mb-1">Total Paid</p>
+                    <p className="font-black text-2xl text-secondary">${calculateTotal()}</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="space-y-6">
+                <Card className="border-slate-200">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg">What to Expect Next</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shrink-0">1</div>
+                      <p className="text-sm text-slate-600">Check your email for the Zoom link (sent immediately).</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shrink-0">2</div>
+                      <p className="text-sm text-slate-600">Prepare any relevant financial documents or prior year returns.</p>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold shrink-0">3</div>
+                      <p className="text-sm text-slate-600">Join the call 5 minutes early to test your audio/video.</p>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <Button variant="outline" className="w-full flex items-center gap-2">
+                    <CalendarIcon size={16} /> Add to Google
+                  </Button>
+                  <Button variant="outline" className="w-full flex items-center gap-2">
+                    <Download size={16} /> Add to Outlook
+                  </Button>
                 </div>
-                <div>
-                  <p className="text-sm text-slate-500 uppercase tracking-widest font-bold mb-1">Service</p>
-                  <p className="font-bold text-slate-900">{selectedService?.name}</p>
-                </div>
-                <div className="pt-4">
-                  <Button variant="outline" className="w-full">Add to Calendar</Button>
-                </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             <div className="flex justify-center gap-4">
-              <Button onClick={() => setLocation('/')} variant="outline">Back to Home</Button>
+              <Button onClick={() => setLocation('/')} variant="outline" size="lg">Back to Home</Button>
               <Button onClick={() => {
                 setStep('category');
                 setSelectedCategory(null);
                 setSelectedService(null);
                 setSelectedAddOns([]);
-              }} className="bg-primary text-white">Book Another Service</Button>
+              }} className="bg-primary text-white" size="lg">Book Another Service</Button>
             </div>
           </div>
         )}
