@@ -21,6 +21,8 @@ import CreditClubDetails from "./pages/CreditClubDetails";
 import Blog from "./pages/Blog";
 
 import BookingPage from "./pages/booking/BookingPage";
+import NewsletterArchive from "./pages/newsletter/NewsletterArchive";
+import NewsletterIssue1 from "./pages/newsletter/Issue1";
 import ChatWidget from "./components/ChatWidget";
 
 import { 
@@ -51,6 +53,10 @@ function Router() {
         <Route path="/admin/dashboard" component={AdminDashboard} />
         <Route path="/book-consultation" component={BookingPage} />
         <Route path="/book" component={BookingPage} />
+
+        {/* Newsletter Pages */}
+        <Route path="/newsletter" component={NewsletterArchive} />
+        <Route path="/newsletter/issue-1" component={NewsletterIssue1} />
         
         {/* Service Categories */}
         <Route path="/tax-services" component={TaxServices} />

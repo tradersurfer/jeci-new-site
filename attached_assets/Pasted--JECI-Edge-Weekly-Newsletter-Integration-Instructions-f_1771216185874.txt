@@ -1,0 +1,167 @@
+# JECI Edge Weekly Newsletter Integration Instructions for Replit Agent
+
+## Overview
+Add the JECI Edge Weekly newsletter Issue #1 to the JECI Group website with proper navigation and archive structure.
+
+## Files to Create/Modify
+
+### 1. Create Newsletter Page
+**File**: `newsletter-issue-1.html` (or in appropriate directory like `/newsletter/issue-1.html`)
+- Use the complete HTML file provided
+- Ensure the "Back to Home" link points to your site's homepage
+- Update CTA button links to point to actual contact/resources pages on your site
+
+### 2. Create Newsletter Archive/Index Page
+**File**: `newsletter.html` (or `/newsletter/index.html`)
+
+Create a newsletter archive page that lists all issues:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JECI Edge Weekly Newsletter Archive | JECI Group</title>
+    <!-- Include your site's CSS -->
+</head>
+<body>
+    <!-- Your site's header/navigation -->
+    
+    <div class="newsletter-archive">
+        <h1>JECI Edge Weekly</h1>
+        <p class="tagline">Innovate. Optimize. Grow.</p>
+        <p>Your no-BS briefing on staying ahead in finances, taxes, and business growth.</p>
+        
+        <div class="subscribe-cta">
+            <a href="https://adrianjordanio.substack.com" class="button">Subscribe on Substack</a>
+        </div>
+        
+        <h2>Newsletter Archive</h2>
+        
+        <div class="issue-list">
+            <div class="issue-card">
+                <span class="issue-number">Issue #1</span>
+                <span class="issue-date">February 14, 2026</span>
+                <h3>Tax Season Alert: 2025 Returns Due April 15</h3>
+                <p>Crypto rules tightening + gig worker wins inside. Free tips + your edge starts here.</p>
+                <a href="/newsletter-issue-1.html" class="read-more">Read Full Issue →</a>
+            </div>
+            
+            <!-- Future issues will be added here -->
+        </div>
+    </div>
+    
+    <!-- Your site's footer -->
+</body>
+</html>
+```
+
+### 3. Update Site Navigation
+Add "Newsletter" link to your main navigation menu:
+- Link text: "Newsletter" or "JECI Edge Weekly"
+- Link URL: `/newsletter.html` (or appropriate path)
+- Position: Recommend placing in main nav or footer
+
+### 4. Add Newsletter CTA to Homepage
+Consider adding a newsletter section to your homepage:
+
+```html
+<section class="newsletter-section">
+    <div class="container">
+        <h2>📬 JECI Edge Weekly</h2>
+        <p>Get weekly tips on tax optimization, bookkeeping best practices, and business growth strategies.</p>
+        <div class="cta-buttons">
+            <a href="https://adrianjordanio.substack.com" class="button-primary">Subscribe Free</a>
+            <a href="/newsletter.html" class="button-secondary">Read Archive</a>
+        </div>
+    </div>
+</section>
+```
+
+### 5. Create Resources/Downloads Page (Optional)
+**File**: `resources.html`
+
+Create a page where users can download the free resources mentioned in the newsletter:
+- Crypto Tax Health Checklist (PDF)
+- Profit Leak Detector Worksheet
+- Ops Quick Audit
+
+This page should have a form to capture email addresses before downloads.
+
+## Update CTA Links in Newsletter
+
+Replace placeholder `#` links with actual URLs:
+
+1. **Tax Strategy Call** → `/contact.html` or your booking page URL
+2. **Profit Leak Detector** → `/resources.html` or direct PDF link
+3. **Free Coffee Chat** → `/contact.html` or your booking page URL
+4. **Resources Hub** → `/resources.html`
+
+## SEO Optimization
+
+Add these meta tags to the newsletter page:
+```html
+<meta name="description" content="JECI Edge Weekly Issue #1 - Tax Season Alert: Crypto rules tightening + gig worker wins. Your no-BS briefing on staying ahead in finances, taxes, and business growth.">
+<meta name="keywords" content="tax preparation, crypto taxes, bookkeeping, business consulting, JECI Group, Adrian Jordan">
+<meta property="og:title" content="JECI Edge Weekly #1 - Tax Season Alert">
+<meta property="og:description" content="Crypto rules tightening + gig worker wins inside. Free tips + your edge starts here.">
+```
+
+## Social Media Integration
+
+1. **Add Social Share Buttons** (optional)
+   - Add share buttons for X/Twitter, LinkedIn, Facebook
+   - Pre-populate share text with newsletter highlights
+
+2. **X/Twitter Promotion**
+   - Pin a tweet linking to the newsletter archive
+   - Use thread format to highlight key sections
+
+## Replit Agent Prompt
+
+Use this prompt with Replit Agent:
+
+```
+Add the JECI Edge Weekly newsletter to the website:
+
+1. Create a new file "newsletter-issue-1.html" with the newsletter HTML I'll provide
+2. Create a newsletter archive page at "newsletter.html" that lists all newsletter issues
+3. Add a "Newsletter" link to the main site navigation
+4. Update all CTA button links in the newsletter to point to:
+   - Tax Strategy Call → /contact page
+   - Resources downloads → /resources page
+5. Ensure the newsletter page has a "Back to Home" link
+6. Make sure all pages are mobile-responsive
+7. Add proper meta tags for SEO
+
+The newsletter should match the site's overall design aesthetic while maintaining its own distinct styling.
+```
+
+## Testing Checklist
+
+After implementation, verify:
+- [ ] Newsletter page loads correctly
+- [ ] All links work (navigation, CTAs, footer)
+- [ ] Mobile responsive design works
+- [ ] Newsletter archive page displays correctly
+- [ ] Subscribe button links to Substack
+- [ ] Back to home link works
+- [ ] Meta tags are present for SEO
+- [ ] Newsletter appears in site navigation
+
+## Future Issues
+
+For subsequent newsletter issues:
+1. Create new HTML file: `newsletter-issue-2.html`, etc.
+2. Add to archive page with date and excerpt
+3. Update homepage to feature latest issue
+4. Share on social media
+
+## Questions to Answer Before Implementation
+
+1. What is your site's directory structure? (flat vs nested folders)
+2. Do you have a contact/booking page URL?
+3. Do you want a resources download page, or link directly to PDFs?
+4. Where do you want the newsletter link in navigation?
+5. Do you have analytics tracking set up for newsletter engagement?
