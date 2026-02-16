@@ -161,8 +161,12 @@ export default function ChatWidget() {
               </div>
             </div>
             <button 
-              onClick={() => setIsOpen(false)} 
-              className="text-white/70 hover:text-white hover:bg-white/10 p-1 rounded-full transition-all"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsOpen(false);
+              }}
+              type="button"
+              className="text-white/70 hover:text-white hover:bg-white/10 p-2 rounded-full transition-all cursor-pointer z-50"
               aria-label="Close chat"
             >
               <X size={24} />
