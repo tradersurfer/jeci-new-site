@@ -9,8 +9,8 @@ export interface Service {
   id: string;
   name: string;
   duration: string;
-  price: number; // Base price
-  priceString?: string; // For things like "$149/month"
+  price: number;
+  priceString?: string;
   description: string[];
   addOns?: AddOn[];
 }
@@ -43,38 +43,6 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         addOns: [
           { id: "prior-year", name: "Prior Year Amendment", price: 249 },
           { id: "multi-state", name: "Multi-State Tax Filing", price: 199 }
-        ]
-      },
-      {
-        id: "real-estate-tax",
-        name: "Real Estate Tax Planning",
-        duration: "1 hour",
-        price: 399,
-        description: [
-          "Rental property tax strategies",
-          "1031 exchanges, cost segregation",
-          "Depreciation optimization",
-          "DMV-specific real estate tax guidance"
-        ],
-        addOns: [
-          { id: "rental-deduction", name: "Rental Property Deduction Report", price: 149 },
-          { id: "1031-planning", name: "1031 Exchange Planning Session", price: 249 }
-        ]
-      },
-      {
-        id: "crypto-tax",
-        name: "Crypto Tax Consultation",
-        duration: "1 hour",
-        price: 149,
-        description: [
-          "Navigate IRS crypto reporting requirements",
-          "Deduct mining, staking, transaction expenses",
-          "Report NFT sales and DeFi income",
-          "Reduce tax liability on crypto gains"
-        ],
-        addOns: [
-          { id: "crypto-tracker", name: "Crypto Tax Tracker Setup", price: 99 },
-          { id: "quarterly-crypto", name: "Quarterly Crypto Tax Review", price: 349 }
         ]
       },
       {
@@ -111,6 +79,111 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         ]
       },
       {
+        id: "tax-planning",
+        name: "Tax Planning & Strategy",
+        duration: "1 hour",
+        price: 299,
+        description: [
+          "Proactive year-round tax planning",
+          "Entity structure optimization for tax savings",
+          "Estimated quarterly tax projections",
+          "Year-end tax minimization strategies"
+        ]
+      },
+      {
+        id: "quarterly-taxes",
+        name: "Quarterly Estimated Taxes",
+        duration: "30 min",
+        price: 199,
+        description: [
+          "Calculate quarterly estimated payments",
+          "Avoid underpayment penalties",
+          "Income projection and adjustment",
+          "Federal and state estimated filings"
+        ]
+      },
+      {
+        id: "irs-representation",
+        name: "IRS Representation",
+        duration: "2 hours",
+        price: 599,
+        description: [
+          "Professional representation before the IRS",
+          "Audit defense and documentation",
+          "Penalty abatement requests",
+          "Installment agreement negotiation"
+        ]
+      },
+      {
+        id: "sales-tax",
+        name: "Sales Tax Management",
+        duration: "1 hour",
+        price: 249,
+        description: [
+          "Sales & use tax registration and filing",
+          "Multi-state nexus analysis",
+          "Transaction-level compliance tracking",
+          "Sales tax audit preparation"
+        ]
+      },
+      {
+        id: "payroll-tax",
+        name: "Payroll Tax Services",
+        duration: "Monthly",
+        price: 199,
+        priceString: "$199/month",
+        description: [
+          "Quarterly FICA, SUTA/FUTA filings",
+          "W-2 and 1099 preparation",
+          "Employee and contractor compliance",
+          "Year-end payroll tax reconciliation"
+        ]
+      },
+      {
+        id: "tax-resolution",
+        name: "Tax Resolution Services",
+        duration: "2 hours",
+        price: 799,
+        description: [
+          "Back tax filing and resolution",
+          "Offer in Compromise assistance",
+          "Currently Not Collectible status",
+          "Tax lien and levy relief"
+        ]
+      },
+      {
+        id: "real-estate-tax",
+        name: "Real Estate Tax Planning",
+        duration: "1 hour",
+        price: 399,
+        description: [
+          "Rental property tax strategies",
+          "1031 exchanges, cost segregation",
+          "Depreciation optimization",
+          "DMV-specific real estate tax guidance"
+        ],
+        addOns: [
+          { id: "rental-deduction", name: "Rental Property Deduction Report", price: 149 },
+          { id: "1031-planning", name: "1031 Exchange Planning Session", price: 249 }
+        ]
+      },
+      {
+        id: "crypto-tax",
+        name: "Crypto Tax Consultation",
+        duration: "1 hour",
+        price: 149,
+        description: [
+          "Navigate IRS crypto reporting requirements",
+          "Deduct mining, staking, transaction expenses",
+          "Report NFT sales and DeFi income",
+          "Reduce tax liability on crypto gains"
+        ],
+        addOns: [
+          { id: "crypto-tracker", name: "Crypto Tax Tracker Setup", price: 99 },
+          { id: "quarterly-crypto", name: "Quarterly Crypto Tax Review", price: 349 }
+        ]
+      },
+      {
         id: "re-crypto-combined",
         name: "Real Estate & Crypto Tax Optimization",
         duration: "1 hour",
@@ -124,10 +197,23 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     id: "accounting",
-    name: "Accounting & Bookkeeping",
+    name: "Accounting Services",
     slug: "accounting-services",
-    description: "Keep your finances in order with professional bookkeeping and QuickBooks setup.",
+    description: "Professional bookkeeping, financial reporting, and advisory services to keep your business running smoothly.",
     services: [
+      {
+        id: "monthly-bookkeeping",
+        name: "Monthly Bookkeeping",
+        duration: "Monthly",
+        price: 149,
+        priceString: "$149/month",
+        description: [
+          "Transaction categorization and reconciliation",
+          "Bank and credit card reconciliation",
+          "Weekly/monthly financial reports",
+          "Ongoing QuickBooks support"
+        ]
+      },
       {
         id: "quickbooks-setup",
         name: "QuickBooks Initial Setup",
@@ -146,16 +232,205 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
         ]
       },
       {
-        id: "monthly-bookkeeping",
-        name: "Monthly Bookkeeping",
-        duration: "Monthly",
-        price: 149,
-        priceString: "$149/month",
+        id: "financial-statements",
+        name: "Financial Statement Preparation",
+        duration: "2-4 hours",
+        price: 499,
         description: [
-          "Transaction categorization",
-          "Bank reconciliation",
-          "Weekly/monthly financial reports",
-          "Ongoing QuickBooks support"
+          "Income statement (P&L) preparation",
+          "Balance sheet compilation",
+          "Cash flow statement analysis",
+          "Bank-ready financial packages"
+        ]
+      },
+      {
+        id: "ap-ar-management",
+        name: "Accounts Payable/Receivable Management",
+        duration: "Monthly",
+        price: 249,
+        priceString: "$249/month",
+        description: [
+          "Invoice processing and payment scheduling",
+          "Customer invoicing and collections",
+          "Aging report management",
+          "Vendor relationship coordination"
+        ]
+      },
+      {
+        id: "bank-reconciliation",
+        name: "Bank Reconciliation",
+        duration: "Monthly",
+        price: 99,
+        priceString: "$99/month",
+        description: [
+          "Monthly bank statement reconciliation",
+          "Identify and resolve discrepancies",
+          "Fraud detection monitoring",
+          "Clean audit trail maintenance"
+        ]
+      },
+      {
+        id: "financial-reporting",
+        name: "Financial Reporting & Analysis",
+        duration: "Quarterly",
+        price: 399,
+        priceString: "$399/quarter",
+        description: [
+          "Quarterly financial performance reports",
+          "Budget vs. actual variance analysis",
+          "KPI tracking and dashboards",
+          "Trend analysis and forecasting"
+        ]
+      },
+      {
+        id: "cfo-advisory",
+        name: "CFO Advisory Services",
+        duration: "2 hours",
+        price: 899,
+        description: [
+          "Strategic financial guidance",
+          "Financial forecasting and modeling",
+          "Growth capital planning",
+          "KPI development and tracking"
+        ]
+      }
+    ]
+  },
+  {
+    id: "credit-funding",
+    name: "Credit & Funding",
+    slug: "credit-funding",
+    description: "Build business credit, repair personal credit, and access funding to fuel your growth.",
+    services: [
+      {
+        id: "business-credit-building",
+        name: "Business Credit Building",
+        duration: "90 days",
+        price: 499,
+        description: [
+          "Establish business credit profile with Dun & Bradstreet, Experian, Equifax",
+          "Trade line strategy and vendor account setup",
+          "Business credit monitoring and coaching",
+          "90-day credit building action plan"
+        ]
+      },
+      {
+        id: "credit-repair",
+        name: "Credit Repair Services",
+        duration: "3-6 months",
+        price: 499,
+        description: [
+          "3-round AI-powered dispute process",
+          "Remove negative items from all three bureaus",
+          "Average +100 point improvement",
+          "Monthly progress reports and coaching"
+        ]
+      },
+      {
+        id: "funding-assistance",
+        name: "Funding Application Assistance",
+        duration: "2 hours",
+        price: 399,
+        description: [
+          "SBA loan application preparation",
+          "Grant research and application support",
+          "Business plan review for lender readiness",
+          "Financial package preparation for banks"
+        ]
+      },
+      {
+        id: "business-loan-guidance",
+        name: "Business Loan Guidance",
+        duration: "1 hour",
+        price: 249,
+        description: [
+          "Loan product comparison and recommendations",
+          "Interest rate negotiation strategy",
+          "Documentation preparation and review",
+          "Lender relationship introduction"
+        ]
+      },
+      {
+        id: "credit-score-consultation",
+        name: "Credit Score Strategy Session",
+        duration: "1 hour",
+        price: 149,
+        description: [
+          "Full credit report analysis",
+          "Personalized improvement roadmap",
+          "Debt management strategy",
+          "Credit utilization optimization"
+        ]
+      }
+    ]
+  },
+  {
+    id: "digital-marketing",
+    name: "Digital Marketing",
+    slug: "digital-marketing",
+    description: "Grow your brand and reach more customers with expert digital marketing strategies.",
+    services: [
+      {
+        id: "seo-mastery",
+        name: "SEO Mastery Package",
+        duration: "Monthly",
+        price: 799,
+        priceString: "$799/month",
+        description: [
+          "Advanced technical SEO audit and optimization",
+          "Keyword research and content strategy",
+          "On-page and off-page SEO implementation",
+          "Monthly ranking reports and analytics"
+        ]
+      },
+      {
+        id: "content-strategy",
+        name: "Content Strategy & Creation",
+        duration: "Monthly",
+        price: 599,
+        priceString: "$599/month",
+        description: [
+          "Content marketing calendar development",
+          "Blog post and article creation",
+          "Email marketing campaign management",
+          "Content performance analytics"
+        ]
+      },
+      {
+        id: "social-media",
+        name: "Social Media Management",
+        duration: "Monthly",
+        price: 499,
+        priceString: "$499/month",
+        description: [
+          "Full managed strategy for primary platforms",
+          "Content creation and scheduling",
+          "Community management and engagement",
+          "Monthly performance reporting"
+        ]
+      },
+      {
+        id: "website-development",
+        name: "Website Design & Development",
+        duration: "2-4 weeks",
+        price: 2499,
+        description: [
+          "Custom responsive website design",
+          "SEO-optimized structure and content",
+          "Mobile-first development",
+          "Analytics and tracking setup"
+        ]
+      },
+      {
+        id: "brand-identity",
+        name: "Brand Identity Package",
+        duration: "1-2 weeks",
+        price: 999,
+        description: [
+          "Logo design and brand guidelines",
+          "Color palette and typography system",
+          "Brand voice and messaging framework",
+          "Social media brand kit"
         ]
       }
     ]
@@ -233,7 +508,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     id: "business-development",
-    name: "Business Development Packages",
+    name: "Development Packages",
     slug: "business-development",
     description: "Comprehensive packages to scale your business operations.",
     services: [
@@ -293,7 +568,7 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
   },
   {
     id: "premium",
-    name: "Premium & Specialized Services",
+    name: "Premium & Specialized",
     slug: "premium-services",
     description: "High-level advisory for complex financial situations.",
     services: [
@@ -328,18 +603,6 @@ export const SERVICE_CATEGORIES: ServiceCategory[] = [
           "Entity structure optimization",
           "Tax-efficient restructuring",
           "Compliance review"
-        ]
-      },
-      {
-        id: "cfo-advisory",
-        name: "CFO Advisory Session",
-        duration: "2 hours",
-        price: 899,
-        description: [
-          "Strategic financial guidance",
-          "Financial forecasting",
-          "Growth capital planning",
-          "KPI development"
         ]
       },
       {

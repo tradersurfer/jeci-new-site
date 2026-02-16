@@ -28,18 +28,14 @@ import ChatWidget from "./components/ChatWidget";
 import { 
   TaxServices, 
   AccountingServices, 
+  CreditFundingServices,
+  DigitalMarketingServices,
   BusinessServices, 
   BusinessDevelopment, 
   PremiumServices 
 } from "./pages/services/CategoryPages";
 
-import CryptoTax from "./pages/services/landing/CryptoTax";
-import RealEstateTax from "./pages/services/landing/RealEstateTax";
-import LlcFormation from "./pages/services/landing/LlcFormation";
-import QuickbooksSetup from "./pages/services/landing/QuickbooksSetup";
-import FreeConsultation from "./pages/services/landing/FreeConsultation";
-import IndividualTax from "./pages/services/landing/IndividualTax";
-import BusinessStrategy from "./pages/services/landing/BusinessStrategy";
+import ServiceDetailPage from "./pages/services/ServiceDetailPage";
 
 import AdminDashboard from "./pages/admin/Dashboard";
 
@@ -54,25 +50,20 @@ function Router() {
         <Route path="/book-consultation" component={BookingPage} />
         <Route path="/book" component={BookingPage} />
 
-        {/* Newsletter Pages */}
         <Route path="/newsletter" component={NewsletterArchive} />
         <Route path="/newsletter/issue-1" component={NewsletterIssue1} />
         
-        {/* Service Categories */}
         <Route path="/tax-services" component={TaxServices} />
         <Route path="/accounting-services" component={AccountingServices} />
+        <Route path="/credit-funding" component={CreditFundingServices} />
+        <Route path="/digital-marketing" component={DigitalMarketingServices} />
         <Route path="/business-services" component={BusinessServices} />
         <Route path="/business-development" component={BusinessDevelopment} />
         <Route path="/premium-services" component={PremiumServices} />
 
-        {/* Service Landing Pages */}
-        <Route path="/crypto-tax-consultation" component={CryptoTax} />
-        <Route path="/real-estate-tax-planning" component={RealEstateTax} />
-        <Route path="/llc-formation" component={LlcFormation} />
-        <Route path="/quickbooks-setup" component={QuickbooksSetup} />
-        <Route path="/free-consultation" component={FreeConsultation} />
-        <Route path="/individual-tax-preparation" component={IndividualTax} />
-        <Route path="/business-strategy-session" component={BusinessStrategy} />
+        <Route path="/services/:id">
+          {(params) => <ServiceDetailPage id={params.id} />}
+        </Route>
 
         <Route path="/about" component={About} />
         <Route path="/contact" component={Contact} />
@@ -91,7 +82,6 @@ function Router() {
         </Route>
         <Route path="/credit-club-details" component={CreditClubDetails} />
         <Route path="/blog" component={Blog} />
-        <Route path="/services/:id" component={TaxSpecialties} />
         <Route component={NotFound} />
       </Switch>
     </>

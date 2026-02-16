@@ -5,16 +5,7 @@ import { SERVICE_CATEGORIES } from '@/data/services';
 import NotFound from '@/pages/not-found';
 
 export default function CategoryWrapper() {
-  const [match, params] = useRoute("/services/:slug");
-  
-  // Also handle direct routes if needed, or just use the slug
-  // For this implementation, I'll match the slug from the URL to the data
-  
-  // Since we want specific routes like /tax-services, I'll use a prop-based approach in App.tsx 
-  // or a mapping here if I were using a dynamic route.
-  // But to keep it simple and compatible with the requested structure:
-  
-  return null; // This component isn't actually needed if I map them in App.tsx
+  return null;
 }
 
 export function TaxServices() {
@@ -24,6 +15,16 @@ export function TaxServices() {
 
 export function AccountingServices() {
   const category = SERVICE_CATEGORIES.find(c => c.id === 'accounting');
+  return category ? <ServiceCategoryPage category={category} /> : <NotFound />;
+}
+
+export function CreditFundingServices() {
+  const category = SERVICE_CATEGORIES.find(c => c.id === 'credit-funding');
+  return category ? <ServiceCategoryPage category={category} /> : <NotFound />;
+}
+
+export function DigitalMarketingServices() {
+  const category = SERVICE_CATEGORIES.find(c => c.id === 'digital-marketing');
   return category ? <ServiceCategoryPage category={category} /> : <NotFound />;
 }
 

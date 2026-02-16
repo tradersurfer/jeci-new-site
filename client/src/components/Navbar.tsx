@@ -19,12 +19,12 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Services", href: "/explore" },
-    { name: "Accounting", href: "/#accounting-services" },
+    { name: "Tax", href: "/tax-services" },
+    { name: "Accounting", href: "/accounting-services" },
+    { name: "Credit & Funding", href: "/credit-funding" },
     { name: "Credit Club", href: "/credit-club-details" },
     { name: "Hub", href: "/blog" },
-    { name: "Newsletter", href: "/newsletter" },
     { name: "About", href: "/about" },
-    { name: "Pricing", href: "/pillar-2" }, // Linking pricing to Services/Engine as per request
     { name: "Contact", href: "/contact" }
   ];
 
@@ -38,7 +38,6 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/">
           <div className="flex items-center gap-2 group cursor-pointer">
             <div className="bg-primary text-white font-serif font-bold text-xl w-10 h-10 flex items-center justify-center rounded-sm group-hover:bg-secondary group-hover:text-primary transition-colors">
@@ -55,16 +54,15 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link key={link.name} href={link.href}>
-              <a className={cn(
+              <span className={cn(
                 "text-sm font-medium tracking-wide hover:text-secondary transition-colors uppercase cursor-pointer",
                 scrolled ? "text-primary" : "text-white/90"
               )}>
                 {link.name}
-              </a>
+              </span>
             </Link>
           ))}
           <Button
@@ -75,7 +73,6 @@ export default function Navbar() {
           </Button>
         </div>
 
-        {/* Mobile Toggle */}
         <button
           className="md:hidden"
           onClick={() => setIsOpen(!isOpen)}
@@ -88,18 +85,17 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
         <div className="absolute top-full left-0 right-0 bg-white border-b md:hidden shadow-lg animate-in slide-in-from-top-5">
           <div className="flex flex-col p-6 gap-4">
             {navLinks.map((link) => (
               <Link key={link.name} href={link.href}>
-                <a 
+                <span
                   onClick={() => setIsOpen(false)}
-                  className="text-left text-lg font-medium text-primary hover:text-secondary cursor-pointer"
+                  className="text-left text-lg font-medium text-primary hover:text-secondary cursor-pointer block"
                 >
                   {link.name}
-                </a>
+                </span>
               </Link>
             ))}
             <Button

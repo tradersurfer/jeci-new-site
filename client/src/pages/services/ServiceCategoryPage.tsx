@@ -49,12 +49,21 @@ export default function ServiceCategoryPage({ category }: ServiceCategoryPagePro
                       </li>
                     ))}
                   </ul>
-                  <Button 
-                    onClick={() => setLocation('/book')} 
-                    className="w-full bg-primary text-white hover:bg-secondary hover:text-primary font-bold"
-                  >
-                    Book Now <ArrowRight className="ml-2 w-4 h-4" />
-                  </Button>
+                  <div className="flex gap-3">
+                    <Button 
+                      variant="outline"
+                      onClick={() => setLocation(`/services/${service.id}`)} 
+                      className="flex-1 font-bold text-primary border-primary hover:bg-primary hover:text-white"
+                    >
+                      Learn More
+                    </Button>
+                    <Button 
+                      onClick={() => setLocation('/book')} 
+                      className="flex-1 bg-primary text-white hover:bg-secondary hover:text-primary font-bold"
+                    >
+                      Book Now
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             ))}

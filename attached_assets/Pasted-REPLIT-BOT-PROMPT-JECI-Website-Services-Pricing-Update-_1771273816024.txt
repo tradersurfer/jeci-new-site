@@ -1,0 +1,111 @@
+REPLIT BOT PROMPT: JECI Website Services & Pricing Update
+OBJECTIVE:
+Update the Services page and Pricing page to align with the final services and pricing from the “Book Consultation” pages, while maintaining existing design structure and adding enhanced service categorization and dedicated service detail pages.
+PHASE 1: DATA SYNCHRONIZATION
+	1.	Extract all services and pricing from the “Book Consultation” pages (this is the source of truth)
+	2.	Compare with current Services page and Pricing page (Pillar 2)
+	3.	Identify discrepancies and prepare update list
+	4.	Preserve existing design format, layout, and structure
+PHASE 2: SERVICES PAGE REORGANIZATION
+Service Categories to Implement:
+	∙	Digital Marketing (existing)
+	∙	Credit & Funding (NEW - add tab beside Digital Marketing)
+	∙	Tax (NEW - separate from “Accounting & Entity”)
+	∙	Accounting (NEW - separate from “Accounting & Entity”)
+	∙	[Any other existing categories]
+Category-Specific Instructions:
+TAX TAB:
+	∙	Use well-known tax services applicable to entrepreneurs
+	∙	Include services such as:
+	∙	Tax Preparation & Filing (Individual, Business)
+	∙	Tax Planning & Strategy
+	∙	IRS Representation
+	∙	Quarterly Estimated Taxes
+	∙	Sales Tax Management
+	∙	Payroll Tax Services
+	∙	Tax Resolution Services
+	∙	[Add other standard JECI tax services based on entrepreneur needs]
+ACCOUNTING TAB:
+	∙	Create dedicated Accounting page
+	∙	Include services such as:
+	∙	Bookkeeping Services
+	∙	Financial Statement Preparation
+	∙	Accounts Payable/Receivable Management
+	∙	Bank Reconciliation
+	∙	Financial Reporting & Analysis
+	∙	CFO Advisory Services
+	∙	[Add other standard JECI accounting services]
+CREDIT & FUNDING TAB:
+	∙	Business Credit Building
+	∙	Funding Application Assistance
+	∙	Credit Repair Services
+	∙	Business Loan Guidance
+	∙	[Add other relevant financing services]
+Service Card Display Requirements:
+	∙	Sort services logically within each category
+	∙	Clear category labels visible to clients
+	∙	Each service card must display:
+	∙	Service name
+	∙	Brief description
+	∙	Pricing (from Book Consultation pages)
+	∙	“Learn More” button
+PHASE 3: DEDICATED SERVICE PAGES
+For EACH service listed on the Services page, create or update a dedicated detail page with:
+Required Elements:
+	1.	Hero Section: Service name and compelling headline
+	2.	Detailed Description: Comprehensive breakdown of what the service includes
+	3.	Pricing Section:
+	∙	Clear pricing from Book Consultation pages
+	∙	Bundle availability (if applicable)
+	∙	Package tiers (if applicable)
+	4.	“Book Now” CTA: Direct link to booking page for this specific service
+	5.	Mobile Newsletter Banner: Subscription form optimized for mobile
+	6.	FAQ Section:
+	∙	Minimum 5-7 relevant FAQs per service
+	∙	Questions about process, timeline, pricing, requirements, outcomes
+	7.	Additional Sections (as relevant):
+	∙	What’s Included
+	∙	Who This Is For
+	∙	Process/Timeline
+	∙	Benefits/Results
+Page Creation Rule:
+	∙	If dedicated page exists: Update it with above elements
+	∙	If no dedicated page exists: Create new page with above structure
+	∙	Maintain consistent design language across all service detail pages
+PHASE 4: PRICING PAGE UPDATE
+	1.	Update all pricing to match Book Consultation pages exactly
+	2.	Organize by the new category structure (Digital Marketing, Credit & Funding, Tax, Accounting, etc.)
+	3.	Maintain existing design format
+	4.	Ensure pricing consistency across:
+	∙	Services page
+	∙	Pricing page
+	∙	Book Consultation pages
+	∙	Dedicated service detail pages
+PHASE 5: NAVIGATION & LINKING
+	1.	Add “Credit & Funding” tab to main navigation
+	2.	Update “Accounting & Entity” to separate “Tax” and “Accounting” tabs
+	3.	Ensure all “Learn More” buttons link to correct dedicated pages
+	4.	Verify all “Book Now” CTAs link to appropriate booking pages
+	5.	Test all navigation paths
+CONTENT CREATION GUIDELINES:
+	∙	Only create services that entrepreneurs genuinely need
+	∙	Base new service descriptions on JECI’s existing brand voice and expertise
+	∙	For any service not explicitly listed, use knowledge of JECI’s business model and typical entrepreneur pain points
+	∙	Maintain professional, trustworthy tone
+	∙	Focus on value proposition and outcomes
+QUALITY CHECKS:
+	∙	All services from Book Consultation pages are reflected
+	∙	All pricing is synchronized across all pages
+	∙	Every service card has a working “Learn More” link
+	∙	Every dedicated page has all required elements
+	∙	Mobile newsletter banners are responsive
+	∙	FAQs are relevant and helpful
+	∙	Category organization is clear and intuitive
+	∙	Design consistency maintained throughout
+	∙	All CTAs are functional
+DELIVERABLES:
+	1.	Updated Services page with new category tabs
+	2.	Updated Pricing page with synchronized pricing
+	3.	Dedicated detail pages for all services (new and updated)
+	4.	New Accounting page
+	5.	Documentation of all changes made
