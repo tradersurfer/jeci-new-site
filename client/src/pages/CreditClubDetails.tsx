@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Shield, TrendingUp, Bitcoin, Users, CheckCircle2, ArrowRight, LayoutDashboard, Target, Zap, Globe } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -6,9 +6,27 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useLocation } from 'wouter';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
+import { useToast } from '@/hooks/use-toast';
 
 export default function CreditClubDetails() {
   const [, setLocation] = useLocation();
+  const [email, setEmail] = useState('');
+  const { toast } = useToast();
+  
+  const signupMutation = useMutation({
+    mutationFn: async (data: { email: string; name: string }) => {
+      await apiRequest("POST", "/api/credit-club", data);
+    },
+    onSuccess: () => {
+      toast({ title: "Welcome to the Club!", description: "We'll be in touch with your next steps." });
+      setEmail('');
+    },
+    onError: () => {
+      toast({ title: "Error", description: "Failed to sign up. Please try again.", variant: "destructive" });
+    },
+  });
 
   const subNavItems = [
     { name: 'Repair', icon: <Shield size={16} />, id: 'repair' },
@@ -138,16 +156,18 @@ export default function CreditClubDetails() {
               <p className="text-xl text-white/60 mb-10 max-w-2xl mx-auto">
                 Secure your spot in the next monthly mastermind and start your journey to 800 FICO today.
               </p>
-              <form action="https://formspree.io/f/mqaeodkq" method="POST" className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+              <form onSubmit={(e) => { e.preventDefault(); signupMutation.mutate({ email, name: '' }); }} className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
                 <input 
                   type="email" 
-                  name="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email" 
                   required 
+                  data-testid="input-credit-club-email"
                   className="flex-1 px-8 py-5 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-secondary"
                 />
-                <Button type="submit" className="bg-secondary text-primary hover:bg-white font-bold px-12 h-16 text-lg rounded-none shadow-2xl">
-                  JOIN NOW
+                <Button type="submit" disabled={signupMutation.isPending || !email} data-testid="button-credit-club-join" className="bg-secondary text-primary hover:bg-white font-bold px-12 h-16 text-lg rounded-none shadow-2xl">
+                  {signupMutation.isPending ? "JOINING..." : "JOIN NOW"}
                 </Button>
               </form>
             </div>

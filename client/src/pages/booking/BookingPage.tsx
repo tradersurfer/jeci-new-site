@@ -13,6 +13,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import { apiRequest } from "@/lib/queryClient";
 
 type Step = 'category' | 'service' | 'addons' | 'datetime' | 'contact' | 'payment' | 'confirmation';
 
@@ -70,24 +72,50 @@ export default function BookingPage() {
     return total;
   };
 
-  const handleBookingSubmit = () => {
-    // 1. Simulate Sending Emails
-    // In a real app, this would be an API call to a backend that handles SendGrid/Mailgun
-    console.log("SENDING CONFIRMATION EMAIL TO:", contactInfo.email);
-    console.log("SENDING ADMIN NOTIFICATION TO: jecitax@gmail.com");
-    
-    // Simulate network delay
-    setTimeout(() => {
-      // 2. Show Success Toast simulating email dispatch
+  const bookingMutation = useMutation({
+    mutationFn: async () => {
+      const category = SERVICE_CATEGORIES.find(c => c.id === selectedCategory);
+      const addOnsData = selectedService?.addOns
+        ?.filter(a => selectedAddOns.includes(a.id))
+        .map(a => ({ name: a.name, price: a.price })) || [];
+
+      await apiRequest("POST", "/api/bookings", {
+        serviceName: selectedService!.name,
+        serviceCategory: category?.name || "",
+        servicePrice: selectedService!.price,
+        addOns: addOnsData,
+        totalAmount: calculateTotal(),
+        date: date ? format(date, "yyyy-MM-dd") : "",
+        time: time || "",
+        clientName: contactInfo.name,
+        clientEmail: contactInfo.email,
+        clientPhone: contactInfo.phone,
+        businessName: contactInfo.businessName,
+        businessType: contactInfo.businessType,
+        description: contactInfo.description,
+        referralSource: contactInfo.source,
+      });
+    },
+    onSuccess: () => {
       toast({
         title: "✓ Confirmation Email Sent",
         description: `We've sent a booking receipt and Zoom details to ${contactInfo.email}`,
         duration: 5000,
       });
-
-      // 3. Move to Confirmation Page
       setStep('confirmation');
-    }, 1500);
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Booking Failed",
+        description: error.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+        duration: 5000,
+      });
+    },
+  });
+
+  const handleBookingSubmit = () => {
+    bookingMutation.mutate();
   };
 
   const timeSlots = [
@@ -434,8 +462,9 @@ export default function BookingPage() {
                    <Button 
                      onClick={handleBookingSubmit} 
                      className="w-full bg-secondary text-primary hover:bg-primary hover:text-white font-bold h-12 text-lg"
+                     disabled={bookingMutation.isPending}
                    >
-                     Pay ${calculateTotal()}
+                     {bookingMutation.isPending ? "Processing..." : `Pay $${calculateTotal()}`}
                    </Button>
                    <p className="text-xs text-center text-slate-400 mt-4">
                      By clicking pay, you agree to our Terms of Service.

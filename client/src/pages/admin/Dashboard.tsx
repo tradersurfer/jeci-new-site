@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'wouter';
+import { useQuery } from "@tanstack/react-query";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -13,18 +14,30 @@ import {
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Mock Data
-  const stats = [
-    { label: "Today's Bookings", value: "3", icon: <Calendar className="text-blue-500" /> },
-    { label: "Revenue (Week)", value: "$2,450", icon: <DollarSign className="text-green-500" /> },
-    { label: "Pending", value: "5", icon: <Users className="text-orange-500" /> },
-    { label: "Top Service", value: "Crypto Tax", icon: <TrendingUp className="text-purple-500" /> },
-  ];
+  const { data: dashboardData, isLoading } = useQuery<{
+    totalBookings: number;
+    totalRevenue: number;
+    totalContacts: number;
+    totalSubscribers: number;
+    recentBookings: Array<{
+      id: string;
+      clientName: string;
+      serviceName: string;
+      date: string;
+      time: string;
+      totalAmount: number;
+      status: string;
+      createdAt: string;
+    }>;
+  }>({
+    queryKey: ["/api/admin/dashboard"],
+  });
 
-  const bookings = [
-    { id: 1, name: "John Doe", service: "Crypto Tax Consultation", date: "Oct 24, 2:00 PM", amount: "$149", status: "Confirmed" },
-    { id: 2, name: "Sarah Smith", service: "LLC Formation", date: "Oct 25, 10:00 AM", amount: "$599", status: "Confirmed" },
-    { id: 3, name: "Mike Johnson", service: "Individual Tax Prep", date: "Oct 25, 1:00 PM", amount: "$399", status: "Pending" },
+  const stats = [
+    { label: "Total Bookings", value: String(dashboardData?.totalBookings || 0), icon: <Calendar className="text-blue-500" /> },
+    { label: "Revenue", value: `$${(dashboardData?.totalRevenue || 0).toLocaleString()}`, icon: <DollarSign className="text-green-500" /> },
+    { label: "Contacts", value: String(dashboardData?.totalContacts || 0), icon: <Users className="text-orange-500" /> },
+    { label: "Subscribers", value: String(dashboardData?.totalSubscribers || 0), icon: <TrendingUp className="text-purple-500" /> },
   ];
 
   return (
@@ -65,53 +78,70 @@ export default function AdminDashboard() {
 
             {activeTab === 'overview' && (
               <>
-                <div className="grid md:grid-cols-4 gap-6 mb-8">
-                  {stats.map((stat, i) => (
-                    <Card key={i} className="border-slate-200 shadow-sm">
-                      <CardContent className="p-6 flex items-center justify-between">
-                        <div>
-                          <p className="text-sm text-slate-500 font-medium">{stat.label}</p>
-                          <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
-                        </div>
-                        <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center">
-                          {stat.icon}
+                {isLoading ? (
+                  <div className="text-center py-20 text-slate-500">
+                    <p>Loading dashboard data...</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid md:grid-cols-4 gap-6 mb-8">
+                      {stats.map((stat, i) => (
+                        <Card key={i} className="border-slate-200 shadow-sm">
+                          <CardContent className="p-6 flex items-center justify-between">
+                            <div>
+                              <p className="text-sm text-slate-500 font-medium">{stat.label}</p>
+                              <p className="text-2xl font-bold text-slate-900" data-testid={`stat-value-${i}`}>{stat.value}</p>
+                            </div>
+                            <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center">
+                              {stat.icon}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+
+                    <Card className="border-slate-200 shadow-sm">
+                      <CardHeader>
+                        <CardTitle>Recent Bookings</CardTitle>
+                        <CardDescription>Latest appointments scheduled.</CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-4">
+                          {dashboardData?.recentBookings && dashboardData.recentBookings.length > 0 ? (
+                            dashboardData.recentBookings.map(booking => (
+                              <div key={booking.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-100" data-testid={`booking-row-${booking.id}`}>
+                                <div className="flex items-center gap-4">
+                                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
+                                    {booking.clientName.charAt(0)}
+                                  </div>
+                                  <div>
+                                    <p className="font-bold text-slate-900">{booking.clientName}</p>
+                                    <p className="text-sm text-slate-500">{booking.serviceName}</p>
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <p className="font-bold text-slate-900">{booking.date} {booking.time}</p>
+                                  <span className={`text-xs font-bold px-2 py-1 rounded-full ${
+                                    booking.status.toLowerCase() === 'confirmed' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
+                                  }`}>
+                                    {booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                                  </span>
+                                </div>
+                                <div className="text-right ml-4">
+                                  <p className="font-bold text-slate-900">${booking.totalAmount}</p>
+                                </div>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="text-center py-8 text-slate-500" data-testid="no-bookings-message">
+                              <p>No bookings yet</p>
+                            </div>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
-                </div>
-
-                <Card className="border-slate-200 shadow-sm">
-                  <CardHeader>
-                    <CardTitle>Recent Bookings</CardTitle>
-                    <CardDescription>Latest appointments scheduled.</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {bookings.map(booking => (
-                        <div key={booking.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-lg border border-slate-100">
-                          <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">
-                              {booking.name.charAt(0)}
-                            </div>
-                            <div>
-                              <p className="font-bold text-slate-900">{booking.name}</p>
-                              <p className="text-sm text-slate-500">{booking.service}</p>
-                            </div>
-                          </div>
-                          <div className="text-right">
-                            <p className="font-bold text-slate-900">{booking.date}</p>
-                            <span className={`text-xs font-bold px-2 py-1 rounded-full ${
-                              booking.status === 'Confirmed' ? 'bg-green-100 text-green-700' : 'bg-orange-100 text-orange-700'
-                            }`}>
-                              {booking.status}
-                            </span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+                  </>
+                )}
               </>
             )}
             
