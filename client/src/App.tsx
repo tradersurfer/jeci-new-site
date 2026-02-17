@@ -40,6 +40,7 @@ import {
 import ServiceDetailPage from "./pages/services/ServiceDetailPage";
 
 import AdminDashboard from "./pages/admin/Dashboard";
+import AdminLogin from "./pages/admin/AdminLogin";
 
 function Router() {
   return (
@@ -48,7 +49,9 @@ function Router() {
       <ChatWidget />
       <Switch>
         <Route path="/" component={Home} />
-        <Route path="/admin/dashboard" component={AdminDashboard} />
+        <Route path="/jeci-ops" component={AdminLogin} />
+        <Route path="/jeci-ops/dashboard" component={AdminDashboard} />
+
         <Route path="/book-consultation" component={BookingPage} />
         <Route path="/book" component={BookingPage} />
 

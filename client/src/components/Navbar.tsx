@@ -240,14 +240,6 @@ export default function Navbar() {
             >
               Book a Call
             </Button>
-            <Button
-              size="sm"
-              onClick={() => setLocation('/admin/dashboard')}
-              className="bg-secondary text-primary hover:bg-secondary/90 font-bold rounded-full px-5 h-9 text-xs uppercase tracking-wider"
-              data-testid="nav-client-portal"
-            >
-              Client Portal
-            </Button>
           </div>
 
           <button
@@ -286,13 +278,6 @@ export default function Navbar() {
                   data-testid="nav-mobile-book"
                 >
                   Book a Call
-                </Button>
-                <Button
-                  onClick={() => { setLocation('/admin/dashboard'); closeMobile(); }}
-                  className="w-full bg-secondary text-primary hover:bg-secondary/90 font-bold rounded-full h-11"
-                  data-testid="nav-mobile-portal"
-                >
-                  Client Portal
                 </Button>
               </div>
 

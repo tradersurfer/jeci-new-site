@@ -1,18 +1,52 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery } from "@tanstack/react-query";
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { SERVICE_CATEGORIES } from '@/data/services';
 import { 
-  Users, DollarSign, Calendar, TrendingUp, Search, 
-  BarChart2, FileText, Settings, ShieldCheck, PieChart 
+  Users, DollarSign, Calendar, TrendingUp, 
+  BarChart2, FileText, Settings, ShieldCheck, PieChart, LogOut 
 } from 'lucide-react';
+
+function getAdminToken() {
+  return sessionStorage.getItem('admin_token') || '';
+}
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
+  const [, setLocation] = useLocation();
+  const [verified, setVerified] = useState(false);
+
+  useEffect(() => {
+    const token = getAdminToken();
+    if (!token) {
+      setLocation('/jeci-ops');
+      return;
+    }
+    fetch('/api/admin/verify', {
+      headers: { 'x-admin-token': token },
+    }).then(res => {
+      if (!res.ok) {
+        sessionStorage.removeItem('admin_token');
+        setLocation('/jeci-ops');
+      } else {
+        setVerified(true);
+      }
+    }).catch(() => {
+      setLocation('/jeci-ops');
+    });
+  }, [setLocation]);
+
+  const handleLogout = async () => {
+    const token = getAdminToken();
+    await fetch('/api/admin/logout', {
+      method: 'POST',
+      headers: { 'x-admin-token': token },
+    }).catch(() => {});
+    sessionStorage.removeItem('admin_token');
+    setLocation('/jeci-ops');
+  };
 
   const { data: dashboardData, isLoading } = useQuery<{
     totalBookings: number;
@@ -31,7 +65,23 @@ export default function AdminDashboard() {
     }>;
   }>({
     queryKey: ["/api/admin/dashboard"],
+    queryFn: async () => {
+      const res = await fetch('/api/admin/dashboard', {
+        headers: { 'x-admin-token': getAdminToken() },
+      });
+      if (!res.ok) throw new Error('Unauthorized');
+      return res.json();
+    },
+    enabled: verified,
   });
+
+  if (!verified) {
+    return (
+      <div className="min-h-screen bg-slate-100 flex items-center justify-center">
+        <p className="text-slate-500">Verifying access...</p>
+      </div>
+    );
+  }
 
   const stats = [
     { label: "Total Bookings", value: String(dashboardData?.totalBookings || 0), icon: <Calendar className="text-blue-500" /> },
@@ -42,15 +92,13 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
-      <Navbar />
-      
-      <div className="flex pt-20 h-screen">
-        {/* Sidebar */}
-        <aside className="w-64 bg-slate-900 text-white hidden md:block pt-6">
+      <div className="flex h-screen">
+        <aside className="w-64 bg-slate-900 text-white hidden md:flex flex-col pt-6">
           <div className="px-6 mb-8">
-            <h2 className="font-serif font-bold text-xl">JECI Admin</h2>
+            <h2 className="font-serif font-bold text-xl">JECI Ops</h2>
+            <p className="text-xs text-slate-500 mt-1">Internal Portal</p>
           </div>
-          <nav className="space-y-1">
+          <nav className="space-y-1 flex-1">
             {['Overview', 'Bookings', 'Availability', 'Clients', 'Analytics', 'Settings'].map((item) => (
               <button
                 key={item}
@@ -69,12 +117,30 @@ export default function AdminDashboard() {
               </button>
             ))}
           </nav>
+          <div className="p-4 border-t border-slate-800">
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800 rounded transition-colors"
+              data-testid="button-admin-logout"
+            >
+              <LogOut size={16} />
+              Sign Out
+            </button>
+          </div>
         </aside>
 
-        {/* Main Content */}
         <main className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-5xl mx-auto">
-            <h1 className="text-3xl font-bold text-slate-900 mb-8 capitalize">{activeTab}</h1>
+            <div className="flex items-center justify-between mb-8">
+              <h1 className="text-3xl font-bold text-slate-900 capitalize">{activeTab}</h1>
+              <button
+                onClick={handleLogout}
+                className="md:hidden flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900"
+              >
+                <LogOut size={16} />
+                Sign Out
+              </button>
+            </div>
 
             {activeTab === 'overview' && (
               <>

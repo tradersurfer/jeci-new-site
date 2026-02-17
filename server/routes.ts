@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import {
@@ -8,11 +8,48 @@ import {
   insertCreditClubSchema,
 } from "@shared/schema";
 import { fromError } from "zod-validation-error";
+import crypto from "crypto";
+
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "jeci-admin-2026";
+
+const adminTokens = new Set<string>();
+
+function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  const token = req.headers["x-admin-token"] as string;
+  if (token && adminTokens.has(token)) {
+    return next();
+  }
+  return res.status(401).json({ error: "Unauthorized" });
+}
 
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+
+  app.post("/api/admin/login", (req, res) => {
+    const { password } = req.body;
+    if (password === ADMIN_PASSWORD) {
+      const token = crypto.randomBytes(32).toString("hex");
+      adminTokens.add(token);
+      return res.json({ token });
+    }
+    return res.status(401).json({ error: "Invalid password" });
+  });
+
+  app.post("/api/admin/logout", (req, res) => {
+    const token = req.headers["x-admin-token"] as string;
+    if (token) adminTokens.delete(token);
+    return res.json({ success: true });
+  });
+
+  app.get("/api/admin/verify", (req, res) => {
+    const token = req.headers["x-admin-token"] as string;
+    if (token && adminTokens.has(token)) {
+      return res.json({ authenticated: true });
+    }
+    return res.status(401).json({ authenticated: false });
+  });
 
   // ==================== BOOKINGS ====================
   app.post("/api/bookings", async (req, res) => {
@@ -29,7 +66,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/bookings", async (_req, res) => {
+  app.get("/api/bookings", requireAdmin, async (_req, res) => {
     try {
       const bookings = await storage.getBookings();
       res.json(bookings);
@@ -38,7 +75,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/bookings/:id", async (req, res) => {
+  app.get("/api/bookings/:id", requireAdmin, async (req, res) => {
     try {
       const booking = await storage.getBookingById(req.params.id);
       if (!booking) return res.status(404).json({ error: "Booking not found" });
@@ -48,7 +85,7 @@ export async function registerRoutes(
     }
   });
 
-  app.patch("/api/bookings/:id/status", async (req, res) => {
+  app.patch("/api/bookings/:id/status", requireAdmin, async (req, res) => {
     try {
       const { status } = req.body;
       if (!status) return res.status(400).json({ error: "Status required" });
@@ -75,7 +112,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/contacts", async (_req, res) => {
+  app.get("/api/contacts", requireAdmin, async (_req, res) => {
     try {
       const contacts = await storage.getContacts();
       res.json(contacts);
@@ -102,7 +139,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/newsletter", async (_req, res) => {
+  app.get("/api/newsletter", requireAdmin, async (_req, res) => {
     try {
       const subscribers = await storage.getNewsletterSubscribers();
       res.json(subscribers);
@@ -126,7 +163,7 @@ export async function registerRoutes(
     }
   });
 
-  app.get("/api/credit-club", async (_req, res) => {
+  app.get("/api/credit-club", requireAdmin, async (_req, res) => {
     try {
       const signups = await storage.getCreditClubSignups();
       res.json(signups);
@@ -135,8 +172,8 @@ export async function registerRoutes(
     }
   });
 
-  // ==================== ADMIN DASHBOARD ====================
-  app.get("/api/admin/dashboard", async (_req, res) => {
+  // ==================== ADMIN DASHBOARD (protected) ====================
+  app.get("/api/admin/dashboard", requireAdmin, async (_req, res) => {
     try {
       const stats = await storage.getDashboardStats();
       res.json(stats);
