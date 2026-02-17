@@ -10,7 +10,7 @@ import {
 import { fromError } from "zod-validation-error";
 import crypto from "crypto";
 
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "jeci-admin-2026";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
 const adminTokens = new Set<string>();
 
@@ -29,6 +29,9 @@ export async function registerRoutes(
 
   app.post("/api/admin/login", (req, res) => {
     const { password } = req.body;
+    if (!ADMIN_PASSWORD) {
+      return res.status(500).json({ error: "Admin password not configured" });
+    }
     if (password === ADMIN_PASSWORD) {
       const token = crypto.randomBytes(32).toString("hex");
       adminTokens.add(token);
