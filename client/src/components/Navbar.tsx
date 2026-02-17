@@ -187,85 +187,90 @@ export default function Navbar() {
   const closeMobile = () => setIsOpen(false);
 
   return (
-    <nav
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-md"
-          : "bg-primary/90 backdrop-blur-sm"
-      )}
-    >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-16 md:h-[72px]">
-        <Link href="/">
-          <div className="flex items-center gap-2.5 group cursor-pointer shrink-0" data-testid="nav-logo">
-            <div className="bg-secondary text-primary font-serif font-bold text-lg w-9 h-9 flex items-center justify-center rounded group-hover:scale-105 transition-transform">
-              J
+    <>
+      <nav
+        className={cn(
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          scrolled
+            ? "bg-white/95 backdrop-blur-md shadow-md"
+            : "bg-primary/90 backdrop-blur-sm"
+        )}
+      >
+        <div className="container mx-auto px-4 md:px-6 flex items-center justify-between h-16 md:h-[72px]">
+          <Link href="/">
+            <div className="flex items-center gap-2.5 group cursor-pointer shrink-0" data-testid="nav-logo">
+              <div className="bg-secondary text-primary font-serif font-bold text-lg w-9 h-9 flex items-center justify-center rounded group-hover:scale-105 transition-transform">
+                J
+              </div>
+              <div className="flex flex-col leading-none">
+                <span className={cn(
+                  "font-serif font-bold text-lg tracking-wide",
+                  scrolled ? "text-primary" : "text-white"
+                )}>
+                  JECI GROUP
+                </span>
+                <span className={cn(
+                  "text-[9px] font-semibold tracking-[0.2em] uppercase",
+                  scrolled ? "text-slate-400" : "text-white/50"
+                )}>
+                  Consulting & Financial Services
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col leading-none">
-              <span className={cn(
-                "font-serif font-bold text-lg tracking-wide",
-                scrolled ? "text-primary" : "text-white"
-              )}>
-                JECI GROUP
-              </span>
-              <span className={cn(
-                "text-[9px] font-semibold tracking-[0.2em] uppercase",
-                scrolled ? "text-slate-400" : "text-white/50"
-              )}>
-                Consulting & Financial Services
-              </span>
-            </div>
+          </Link>
+
+          <div className="hidden lg:flex items-center gap-5">
+            {dropdowns.map((dd) => (
+              <DesktopDropdown key={dd.label} dropdown={dd} scrolled={scrolled} />
+            ))}
           </div>
-        </Link>
 
-        <div className="hidden lg:flex items-center gap-5">
-          {dropdowns.map((dd) => (
-            <DesktopDropdown key={dd.label} dropdown={dd} scrolled={scrolled} />
-          ))}
-        </div>
+          <div className="hidden lg:flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => setLocation('/book-consultation')}
+              className={cn(
+                "font-bold rounded-full px-5 h-9 text-xs uppercase tracking-wider border-2",
+                scrolled
+                  ? "border-primary text-primary hover:bg-primary hover:text-white"
+                  : "border-white text-white hover:bg-white hover:text-primary"
+              )}
+              data-testid="nav-book-call"
+            >
+              Book a Call
+            </Button>
+            <Button
+              size="sm"
+              onClick={() => setLocation('/admin/dashboard')}
+              className="bg-secondary text-primary hover:bg-secondary/90 font-bold rounded-full px-5 h-9 text-xs uppercase tracking-wider"
+              data-testid="nav-client-portal"
+            >
+              Client Portal
+            </Button>
+          </div>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setLocation('/book-consultation')}
-            className={cn(
-              "font-bold rounded-full px-5 h-9 text-xs uppercase tracking-wider border-2",
-              scrolled
-                ? "border-primary text-primary hover:bg-primary hover:text-white"
-                : "border-white text-white hover:bg-white hover:text-primary"
+          <button
+            className="lg:hidden p-2 -mr-2"
+            onClick={() => setIsOpen(!isOpen)}
+            data-testid="nav-mobile-toggle"
+          >
+            {isOpen ? (
+              <X className={scrolled ? "text-primary" : "text-white"} size={24} />
+            ) : (
+              <Menu className={scrolled ? "text-primary" : "text-white"} size={24} />
             )}
-            data-testid="nav-book-call"
-          >
-            Book a Call
-          </Button>
-          <Button
-            size="sm"
-            onClick={() => setLocation('/admin/dashboard')}
-            className="bg-secondary text-primary hover:bg-secondary/90 font-bold rounded-full px-5 h-9 text-xs uppercase tracking-wider"
-            data-testid="nav-client-portal"
-          >
-            Client Portal
-          </Button>
+          </button>
         </div>
-
-        <button
-          className="lg:hidden p-2 -mr-2"
-          onClick={() => setIsOpen(!isOpen)}
-          data-testid="nav-mobile-toggle"
-        >
-          {isOpen ? (
-            <X className={scrolled ? "text-primary" : "text-white"} size={24} />
-          ) : (
-            <Menu className={scrolled ? "text-primary" : "text-white"} size={24} />
-          )}
-        </button>
-      </div>
+      </nav>
 
       {isOpen && (
         <>
-          <div className="fixed inset-0 top-16 bg-black/30 z-40 lg:hidden" onClick={closeMobile} />
-          <div className="fixed top-16 right-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden shadow-2xl overflow-y-auto">
+          <div className="fixed inset-0 top-16 bg-black/30 z-[60] lg:hidden" onClick={closeMobile} />
+          <div
+            className="fixed top-16 right-0 bottom-0 w-full max-w-sm z-[70] lg:hidden shadow-2xl overflow-y-auto"
+            style={{ backgroundColor: '#ffffff' }}
+          >
             <div className="p-5 flex flex-col h-full">
               <div className="flex-1 space-y-0">
                 {dropdowns.map((dd) => (
@@ -309,6 +314,6 @@ export default function Navbar() {
           </div>
         </>
       )}
-    </nav>
+    </>
   );
 }
