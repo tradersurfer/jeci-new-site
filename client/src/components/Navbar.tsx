@@ -23,6 +23,7 @@ export default function Navbar() {
     { name: "Accounting", href: "/accounting-services" },
     { name: "Credit & Funding", href: "/credit-funding" },
     { name: "Credit Club", href: "/credit-club-details" },
+    { name: "Resources", href: "/resources" },
     { name: "Hub", href: "/blog" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" }

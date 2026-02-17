@@ -16,6 +16,8 @@ import FinancialModel from "./pages/tools/FinancialModel";
 import RetirementCalculator from "./pages/tools/RetirementCalculator";
 import WeeklyTracker from "./pages/tools/WeeklyTracker";
 import WealthDiversification from "./pages/tools/WealthDiversification";
+import CryptoTaxChecklist from "./pages/tools/CryptoTaxChecklist";
+import Resources from "./pages/Resources";
 import AccountingServiceDetail from "./pages/AccountingServiceDetail";
 import CreditClubDetails from "./pages/CreditClubDetails";
 import Blog from "./pages/Blog";
@@ -77,6 +79,8 @@ function Router() {
         <Route path="/tools/retirement-calculator" component={RetirementCalculator} />
         <Route path="/tools/weekly-tracker" component={WeeklyTracker} />
         <Route path="/tools/wealth-diversification" component={WealthDiversification} />
+        <Route path="/crypto-tax-checklist" component={CryptoTaxChecklist} />
+        <Route path="/resources" component={Resources} />
         <Route path="/accounting/:id">
           {(params) => <AccountingServiceDetail id={params.id} />}
         </Route>

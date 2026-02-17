@@ -82,7 +82,7 @@ export default function NewsletterIssue1() {
               </p>
             </div>
 
-            <p className="mb-4 leading-relaxed text-slate-700">Many new clients come to us with "messy wallets." The IRS isn't playing games with digital assets anymore. If you haven't tracked your cost basis, you could be paying taxes on pure revenue instead of net gains.</p>
+            <p className="mb-4 leading-relaxed text-slate-700">Many new clients come to us with "messy wallets." The IRS isn't playing games with digital assets anymore. If you haven't tracked your cost basis, you could be paying taxes on pure revenue instead of net gains. Use our free <Link href="/crypto-tax-checklist"><a className="text-[#0066cc] font-bold hover:underline">Crypto Tax Health Checklist</a></Link> to spot leaks before filing.</p>
             
             <ul className="pl-5 mb-6 space-y-2 text-slate-700">
               <li><span className="bg-gradient-to-br from-[#f093fb] to-[#f5576c] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider mr-2">Action</span> Connect your exchanges to a tracker (like Koinly or CoinTracker) NOW.</li>
@@ -124,7 +124,7 @@ export default function NewsletterIssue1() {
 
             <Link href="/resources">
               <a className="inline-block bg-transparent text-[#0066cc] font-bold text-sm border-2 border-[#0066cc] px-6 py-3 rounded-md hover:bg-[#0066cc] hover:text-white transition-all">
-                Get Your Free Profit Leak Detector Worksheet
+                Access Free Resources Hub
               </a>
             </Link>
           </div>
@@ -174,10 +174,10 @@ export default function NewsletterIssue1() {
               </div>
             </div>
             <h3 className="text-lg font-bold text-[#1a1a1a] mb-2">Want the Tools Mentioned?</h3>
-            <p className="text-sm text-slate-600 mb-4">Download the Crypto Tax Health Checklist, Profit Leak Detector, and Ops Quick Audit.</p>
+            <p className="text-sm text-slate-600 mb-4">Access the Crypto Tax Health Checklist, Profit Leak Detector, and Ops Quick Audit.</p>
             <Link href="/resources">
               <a className="inline-block bg-[#ffc107] text-slate-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-[#ffb300] hover:shadow-md transition-all">
-                Access Free Resources Hub
+                Access Free Resources Hub →
               </a>
             </Link>
           </div>

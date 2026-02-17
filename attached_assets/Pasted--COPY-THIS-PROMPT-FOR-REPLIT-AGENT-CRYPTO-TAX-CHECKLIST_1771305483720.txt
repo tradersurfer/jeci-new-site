@@ -1,0 +1,147 @@
+# COPY THIS PROMPT FOR REPLIT AGENT - CRYPTO TAX CHECKLIST
+
+I need to add an interactive Crypto Tax Health Checklist to my website as a free resource for newsletter subscribers and potential clients.
+
+## What This Is
+
+A premium, interactive web-based checklist that helps crypto investors and traders organize their tax documentation. This is a lead generation tool and value-add resource mentioned in the JECI Edge Weekly newsletter Issue #1.
+
+## Key Features to Preserve
+
+- **Dark Fintech Theme**: Modern dark interface with cyan/teal (#00d9ff) and purple (#7c3aed) gradients
+- **Interactive Checkboxes**: Click anywhere on an item to check/uncheck
+- **Auto-save Progress**: Uses localStorage to remember checked items between sessions
+- **Real-time Progress Tracker**: Visual progress bar showing completion percentage
+- **Fully Responsive**: Mobile, tablet, and desktop optimized
+- **Sora Font**: Modern tech-forward typography (loads from Google Fonts)
+- **7 Organized Categories** with 24 total checklist items:
+1. 📊 Exchange & Platform Activity (3 items)
+1. 👛 Wallet Activity (3 items)
+1. 💰 Crypto Income (5 items)
+1. 🔗 DeFi & Advanced Transactions (5 items)
+1. 🎨 NFT Transactions (3 items)
+1. 🔄 Stablecoins & Transfers (2 items)
+1. 📅 Prior Year Information (3 items)
+
+## Implementation Tasks
+
+### 1. Create the Checklist Page
+
+Create a new file called `crypto-tax-checklist.html` (or `/resources/crypto-tax-checklist.html`) using the complete HTML I’ll provide separately.
+
+**Important**: Keep ALL the styling, JavaScript, and interactive features intact. This is a fully self-contained page.
+
+### 2. Add to Resources/Downloads Section
+
+- If you have a `/resources.html` page, add a card/link to this checklist
+- If not, create a simple resources page that features this as the primary download
+- Include a brief description: “Interactive crypto tax preparation checklist - track your documentation progress in real-time”
+
+### 3. Update Newsletter CTA Links
+
+In the newsletter page (`newsletter-issue-1.html`), update the “Crypto Tax Health Checklist” link to point to this new page:
+
+- Find the text that says “Use our free ‘Crypto Tax Health Checklist’”
+- Make it link to `/crypto-tax-checklist.html`
+
+Also update the Resources Hub button to link to this page (or a resources index page).
+
+### 4. Add Navigation Link (Optional)
+
+Consider adding a “Free Resources” or “Tools” link in your main navigation that goes to this checklist or a resources landing page.
+
+### 5. Create a Simple Landing/Intro Section
+
+Above the checklist content, add a brief intro section that includes:
+
+- A “Back to Resources” or “Back to Home” link
+- Optional: Email capture form (collect email before allowing access)
+- Brief explanation: “Complete this checklist before tax season to ensure you’re fully prepared”
+
+### 6. Social Sharing Integration (Optional)
+
+Add social share buttons so users can share the tool:
+
+- “Share this free crypto tax checklist”
+- X/Twitter, LinkedIn share buttons
+- Pre-populated share text: “Free interactive crypto tax prep checklist from @adrianjordan_io 🪙”
+
+## Design Notes
+
+- **Color Scheme**: Dark background (#0f172a), cyan primary (#00d9ff), purple accents (#7c3aed)
+- **Fonts**: Sora for headings (already loaded via Google Fonts CDN), Inter for body text
+- **Animations**: Smooth fade-in animations, hover effects, checkbox pop animations
+- **Progress Bar**: Fills from cyan to purple gradient as items are checked
+
+## Integration with Existing Site
+
+- Make sure the page has consistent header/footer with your main site (or keep it as a standalone branded page)
+- Ensure the “Back to Home” link goes to your homepage
+- Update contact information in footer to match your site’s current phone/email
+- Test that localStorage persistence works (check a few items, reload page, items should stay checked)
+
+## Value Proposition
+
+This tool positions you as:
+
+- Tech-forward and innovative (interactive web tool vs. boring PDF)
+- Client-focused (helps them organize before engaging with you)
+- Professional and modern (premium design aesthetic)
+- Lead generation (people share it, mention your brand, drives traffic)
+
+## Testing Checklist
+
+After implementation, verify:
+
+- [ ] Checklist page loads with all styling intact
+- [ ] Checkboxes work (click to check/uncheck)
+- [ ] Progress bar updates in real-time
+- [ ] Progress persists after page reload (localStorage working)
+- [ ] Mobile responsive design works properly
+- [ ] All animations and hover effects work
+- [ ] Contact info in footer is correct
+- [ ] Links back to main site work
+- [ ] Newsletter links to this page correctly
+- [ ] Google Fonts (Sora) load properly
+
+## Files You’ll Need
+
+I’ll provide the complete HTML file separately. It’s a self-contained single-page application with:
+
+- All CSS embedded in <style> tags
+- All JavaScript embedded in <script> tags
+- Google Fonts CDN link for Sora and Inter fonts
+- No external dependencies except fonts
+
+## Future Enhancements (Not Required Now)
+
+- Add email gate (require email to access)
+- Add “Download PDF” button (print-friendly version)
+- Add “Email Results” feature (send completed checklist to user’s email)
+- Add analytics tracking (Google Analytics event tracking for checkbox clicks)
+- Add “Share Progress” feature (generate shareable link)
+
+## Important: Preserve Interactivity
+
+This is NOT a static page. The JavaScript functionality is critical:
+
+- Checkbox state management
+- localStorage persistence
+- Progress bar calculation
+- Click handlers on entire checklist items
+- Smooth animations
+
+Don’t simplify or remove any of the JavaScript or CSS animations. This is meant to be a premium interactive tool that showcases your tech-forward approach.
+
+-----
+
+## Additional Context
+
+This checklist was designed to complement the JECI Edge Weekly newsletter and serves as:
+
+1. A free lead magnet (mentioned in newsletter)
+1. A practical client tool (helps them prepare for tax season)
+1. A brand showcase (demonstrates your modern, innovative approach)
+1. SEO content (crypto tax preparation keywords)
+
+Please confirm you understand the requirements before I provide the HTML file!
