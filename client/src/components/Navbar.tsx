@@ -87,7 +87,7 @@ function DesktopDropdown({ dropdown, scrolled }: { dropdown: NavDropdown; scroll
 
       {open && (
         <div className="absolute top-full left-0 pt-2 z-50" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-          <div className="bg-white rounded-lg shadow-xl border border-slate-100 py-2 min-w-[260px] animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="bg-white rounded-lg shadow-xl border border-slate-100 py-2 min-w-[260px]">
             {dropdown.items.map((item) => (
               item.external ? (
                 <a
@@ -134,7 +134,7 @@ function MobileAccordion({ dropdown, onNavigate }: { dropdown: NavDropdown; onNa
       </button>
 
       {open && (
-        <div className="pb-3 pl-4 space-y-1 animate-in slide-in-from-top-2 duration-200">
+        <div className="pb-3 pl-4 space-y-1">
           {dropdown.items.map((item) => (
             item.external ? (
               <a
@@ -265,7 +265,7 @@ export default function Navbar() {
       {isOpen && (
         <>
           <div className="fixed inset-0 top-16 bg-black/30 z-40 lg:hidden" onClick={closeMobile} />
-          <div className="fixed top-16 right-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden shadow-2xl overflow-y-auto animate-in slide-in-from-right duration-300">
+          <div className="fixed top-16 right-0 bottom-0 w-full max-w-sm bg-white z-50 lg:hidden shadow-2xl overflow-y-auto">
             <div className="p-5 flex flex-col h-full">
               <div className="flex-1 space-y-0">
                 {dropdowns.map((dd) => (
