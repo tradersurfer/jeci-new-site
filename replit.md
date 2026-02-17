@@ -25,7 +25,8 @@ Preferred communication style: Simple, everyday language.
 - **Runtime**: Node.js with Express v5
 - **Language**: TypeScript, compiled with tsx for development and esbuild for production
 - **API Pattern**: RESTful JSON API with all endpoints under `/api/`
-- **Key Endpoints**: `/api/bookings`, `/api/contacts`, `/api/newsletter`, `/api/credit-club`, `/api/admin/dashboard`
+- **Key Endpoints**: `/api/bookings`, `/api/contacts`, `/api/newsletter`, `/api/credit-club`, `/api/admin/dashboard`, `/api/admin/login`, `/api/admin/verify`, `/api/admin/logout`
+- **Admin Auth**: Token-based auth using `ADMIN_PASSWORD` secret; admin portal hidden at `/jeci-ops` (login) and `/jeci-ops/dashboard`; all admin/data-reading GET endpoints protected with `requireAdmin` middleware; no public links exist to admin area
 - **Validation**: Zod schemas (shared between client and server via `drizzle-zod`) with `zod-validation-error` for readable error messages
 - **Build Process**: Custom `script/build.ts` that runs Vite for client and esbuild for server, outputting to `dist/`
 
