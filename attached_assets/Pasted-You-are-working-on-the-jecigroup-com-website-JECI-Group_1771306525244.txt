@@ -1,0 +1,127 @@
+You are working on the jecigroup.com website (JECI™ Group — a financial services firm 
+serving entrepreneurs, small business owners, and high-net-worth individuals in Washington, 
+DC and the DMV area). The site offers Bookkeeping, Tax Services, Entity Formation, 
+QuickBooks Setup, Real Estate Tax Planning, Online Courses, and a Free Business Consultation.
+
+Contact info: 80 M St SE, Washington, DC | 202-430-5058 | info@jecigroup.com
+
+Make the following changes:
+
+---
+
+## 1. NAVBAR — FULL REDESIGN (Desktop + Mobile)
+
+### Desktop Navbar:
+- Build a sticky, modern navbar with a clean professional look matching JECI's brand
+- Fix the header layout so the centered logo text and left logo icon do NOT overlap — 
+  the logo icon should sit to the left of the logo text, aligned together as one unit, 
+  left-aligned OR centered cleanly as a single group (not competing)
+- Add dropdown menus to the following nav items:
+
+  **Services ▾**
+  - Bookkeeping & Financial Reporting
+  - Tax Services
+  - Entity Formation
+  - QuickBooks Setup
+  - Real Estate Tax Planning
+  - Free Business Consultation
+
+  **Tools & Resources ▾**
+  - All items currently in the MoneyVibes Hub (tools, calculators, links, templates, etc.)
+  - Blog & News
+
+  **Community ▾** (if applicable — Online Courses, Skool group link, events)
+
+  **About ▾**
+  - About Us
+  - Our Team
+  - Testimonials (if exists)
+
+- Add two buttons on the far right of the navbar:
+  - "Book a Call" — outlined/secondary style, links to /book-online
+  - "Login" or "Client Portal" — filled/primary button style
+
+### Mobile Navbar (Hamburger Menu):
+- Clean slide-out or dropdown hamburger menu
+- All dropdown sections should expand/collapse as accordions on mobile
+- Include contact info directly in the mobile menu at the bottom:
+  📍 80 M St SE, Washington, DC
+  📞 202-430-5058
+  ✉️ info@jecigroup.com
+- Include the "Book a Call" and "Login" buttons inside the mobile menu as well
+
+---
+
+## 2. TOOLS & RESOURCES PAGE (rename from "Resources")
+
+- Rename the existing "Resources" tab/page to **"Tools & Resources"**
+- Move all content currently displayed in the **MoneyVibes Hub section on the Home Screen** 
+  into this Tools & Resources page
+- Remove the MoneyVibes Hub section from the Home Screen entirely after migrating content
+
+### Tools & Resources Page Design:
+Design this page similar to how the MoneyVibes Hub tab currently looks on the Home Screen — 
+use cards, icon grids, or category sections. The page's purpose is to provide tools that 
+resolve the PRIMARY PAIN POINTS of entrepreneurs and small business owners, making their 
+business life easier, more efficient, and scalable.
+
+Organize the page into clear categories such as:
+
+**💰 Financial Tools**
+- Cash flow calculator
+- Budget planner / template
+- Profit & Loss tracker
+- Invoice templates
+- Break-even calculator
+
+**📊 Business Setup & Compliance**
+- LLC formation checklist
+- EIN application guide
+- Business license lookup tool or link
+- Operating agreement template
+
+**📁 Tax Resources**
+- Tax deduction checklist (small business)
+- Quarterly estimated tax calculator
+- IRS deadlines calendar
+- Home office deduction guide
+
+**📈 Growth & Operations**
+- Business credit building guide
+- Funding & grant resources
+- QuickBooks tips & tutorials
+- Time-saving automation tools (links to Zapier, Notion, etc.)
+
+**📚 Learning & Training**
+- Link to JECI Online Courses (/challenges)
+- Link to Free Business Consultation (/service-page/free-business-consultation)
+- Blog & News (/blog)
+- Link to 700 Credit Club Experts Skool group: https://www.skool.com/700-credit-club-experts-7830
+
+Each resource card should have:
+- An icon or emoji
+- A short title
+- A 1–2 sentence description
+- A CTA button ("Access Tool", "Download", "Learn More", or "Book Now")
+
+Style the page with a clean grid layout (2–3 columns on desktop, 1 column on mobile), 
+consistent card styling, and section headers with subtle dividers. Use JECI's existing 
+brand colors and typography throughout.
+
+---
+
+## 3. HOME SCREEN CLEANUP
+
+- Remove the MoneyVibes Hub section/tab from the Home Screen (content has been migrated 
+  to the Tools & Resources page)
+- Ensure the Home Screen flows cleanly without the gap left by removing MoneyVibes Hub
+- Add a new teaser section on the Home Screen in place of MoneyVibes Hub that says something like:
+
+  **"Explore Our Tools & Resources Hub"**
+  "Everything you need to run a smarter, more efficient business — in one place."
+  [CTA Button: "Visit Tools & Resources →"]
+
+---
+
+Keep all existing pages, content, styling, and functionality intact unless otherwise 
+specified above. Do not remove any services, forms, booking flows, or existing routes.

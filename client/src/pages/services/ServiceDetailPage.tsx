@@ -580,7 +580,7 @@ function getDefaultDetails(service: Service): ServiceDetailData {
       "Ongoing support and accountability"
     ],
     faqs: [
-      { question: "How do I get started?", answer: "Book a consultation through our website or call (202) 430-5078. We'll schedule a time that works for you." },
+      { question: "How do I get started?", answer: "Book a consultation through our website or call 202-430-5058. We'll schedule a time that works for you." },
       { question: "Can this be done remotely?", answer: "Yes, all services are available via Zoom for your convenience." },
       { question: "What should I prepare?", answer: "Any relevant business documents, financial records, and a list of your goals and challenges." },
       { question: "Do you offer payment plans?", answer: "Yes, we offer flexible payment options for larger engagements. A $50 deposit secures most consultations." },

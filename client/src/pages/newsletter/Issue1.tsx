@@ -197,7 +197,7 @@ export default function NewsletterIssue1() {
             <p className="text-[#666] text-sm mb-3">Founder, The JECI Group</p>
             <div className="text-sm text-[#666] space-y-1">
               <p>🌐 <a href="https://www.jecigroup.com" className="text-[#0066cc] hover:underline">www.jecigroup.com</a></p>
-              <p>📧 <a href="mailto:jecitax@gmail.com" className="text-[#0066cc] hover:underline">jecitax@gmail.com</a></p>
+              <p>📧 <a href="mailto:info@jecigroup.com" className="text-[#0066cc] hover:underline">info@jecigroup.com</a></p>
             </div>
           </div>
 

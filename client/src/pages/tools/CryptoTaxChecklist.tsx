@@ -650,11 +650,11 @@ export default function CryptoTaxChecklist() {
               <div className="ctc-contact-info">
                 <div className="ctc-contact-item">
                   <span>📞</span>
-                  <span>(202) 430-5078</span>
+                  <span>202-430-5058</span>
                 </div>
                 <div className="ctc-contact-item">
                   <span>✉️</span>
-                  <span>jecitax@gmail.com</span>
+                  <span>info@jecigroup.com</span>
                 </div>
                 <div className="ctc-contact-item">
                   <span>🌐</span>

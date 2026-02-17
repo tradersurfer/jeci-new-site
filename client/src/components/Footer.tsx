@@ -1,7 +1,9 @@
-import { Link } from "wouter";
-import { Facebook, Twitter, Linkedin, Instagram, Send } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { Facebook, Linkedin, Instagram, Send, MapPin, Phone, Mail } from "lucide-react";
 
 export default function Footer() {
+  const [, setLocation] = useLocation();
+
   return (
     <footer className="bg-primary text-white pt-20 pb-10">
       <div className="container mx-auto px-4 md:px-6">
@@ -11,30 +13,43 @@ export default function Footer() {
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
               Empowering individuals and businesses to navigate complex financial landscapes and achieve sustainable growth.
             </p>
+            <div className="space-y-2 pt-2 text-sm text-white/60">
+              <div className="flex items-center gap-2">
+                <MapPin size={14} className="text-secondary shrink-0" />
+                <span>80 M St SE, Washington, DC</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Phone size={14} className="text-secondary shrink-0" />
+                <a href="tel:202-430-5058" className="hover:text-white transition-colors">202-430-5058</a>
+              </div>
+              <div className="flex items-center gap-2">
+                <Mail size={14} className="text-secondary shrink-0" />
+                <a href="mailto:info@jecigroup.com" className="hover:text-white transition-colors">info@jecigroup.com</a>
+              </div>
+            </div>
           </div>
           
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Quick Links</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href="/"><a className="hover:text-white transition-colors">Home</a></Link></li>
-              <li><Link href="/about"><a className="hover:text-white transition-colors">About Us</a></Link></li>
-              <li><Link href="/explore"><a className="hover:text-white transition-colors">Services</a></Link></li>
-              <li><Link href="/pillar-2"><a className="hover:text-white transition-colors">Pricing Plans</a></Link></li>
-              <li><Link href="/resources"><a className="hover:text-white transition-colors">Free Resources</a></Link></li>
-              <li><Link href="/contact"><a className="hover:text-white transition-colors">Contact</a></Link></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/')}>Home</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/about')}>About Us</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/explore')}>All Services</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/resources')}>Tools & Resources</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/blog')}>Blog & News</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/contact')}>Contact</span></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-serif text-lg font-bold mb-6 text-secondary">Services</h4>
             <ul className="space-y-3 text-sm text-white/70">
-              <li><Link href="/accounting/entity-core"><a className="hover:text-white transition-colors">Entity & Core Accounting</a></Link></li>
-              <li><Link href="/accounting/indirect-tax"><a className="hover:text-white transition-colors">Indirect & Transaction Taxes</a></Link></li>
-              <li><Link href="/accounting/salt"><a className="hover:text-white transition-colors">State & Local (SALT)</a></Link></li>
-              <li><Link href="/accounting/compliance-payroll"><a className="hover:text-white transition-colors">Compliance & Payroll</a></Link></li>
-              <li><Link href="/accounting/specialty-crypto"><a className="hover:text-white transition-colors">Specialty & Crypto</a></Link></li>
-              <li><Link href="/credit-club-details"><a className="hover:text-white transition-colors font-bold text-secondary">700 Credit Club</a></Link></li>
-              <li><Link href="/blog"><a className="hover:text-white transition-colors">The Hub (Blog)</a></Link></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/accounting-services')}>Bookkeeping & Reporting</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/tax-services')}>Tax Services</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/services/llc-formation')}>Entity Formation</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/services/quickbooks-setup')}>QuickBooks Setup</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/credit-club-details')}>700 Credit Club</span></li>
+              <li><span className="hover:text-white transition-colors cursor-pointer" onClick={() => setLocation('/book-consultation')}>Book Consultation</span></li>
             </ul>
           </div>
 
@@ -55,16 +70,16 @@ export default function Footer() {
               </a>
             </div>
             <p className="text-white/50 text-xs">
-              © {new Date().getFullYear()} The JECI Group. All rights reserved.
+              &copy; {new Date().getFullYear()} The JECI Group. All rights reserved.
             </p>
           </div>
         </div>
         
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-white/40">
           <div className="flex gap-6">
-            <Link href="/privacy"><a className="hover:text-white">Privacy Policy</a></Link>
-            <Link href="/terms"><a className="hover:text-white">Terms of Service</a></Link>
-            <a href="#" className="hover:text-white">Cookie Policy</a>
+            <span className="hover:text-white cursor-pointer" onClick={() => setLocation('/privacy')}>Privacy Policy</span>
+            <span className="hover:text-white cursor-pointer" onClick={() => setLocation('/terms')}>Terms of Service</span>
+            <span className="hover:text-white cursor-pointer">Cookie Policy</span>
           </div>
           <p>Designed with precision.</p>
         </div>
