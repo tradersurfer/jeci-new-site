@@ -1,0 +1,685 @@
+# Tax Portal App - Replit Agent Build Prompt
+
+## Project Overview
+
+Build a mobile-first Tax Portal web application with separate client and admin interfaces. The app should enable clients to upload tax documents, sign returns digitally, chat with tax professionals, and view completed tax returns. The admin side should allow tax professionals to manage clients, upload completed returns, and respond to client inquiries.
+
+-----
+
+## Technical Stack
+
+- **Frontend:** React.js with TypeScript
+- **Backend:** Node.js with Express
+- **Database:** SQLite (for local development) or PostgreSQL (production-ready)
+- **Authentication:** JWT with local storage (client-side credential storage)
+- **File Storage:** Local file system or cloud storage integration ready
+- **Email Service:** NodeMailer for password reset emails
+- **Styling:** Tailwind CSS for mobile-first responsive design
+- **Icons:** React Icons or Lucide React
+
+-----
+
+## Core Features & Requirements
+
+### 1. AUTHENTICATION SYSTEM
+
+**Login Flow:**
+
+- Email and password login form
+- “Forgot Password” link that triggers email reset flow
+- Password reset email with secure token (expires in 1 hour)
+- Reset password page where users create new password
+- Successful login stores JWT token locally (localStorage)
+- Auto-login if valid token exists
+- Logout clears local credentials
+
+**Security:**
+
+- Passwords hashed with bcrypt (min 8 characters)
+- JWT tokens with 7-day expiration
+- Secure password reset tokens
+- Client-side credential storage only
+- Input validation and sanitization
+
+**User Roles:**
+
+- Client (default)
+- Admin/Tax Professional
+
+-----
+
+### 2. CLIENT PORTAL INTERFACE
+
+#### Navigation (Footer Navbar - Mobile Optimized)
+
+Create a sticky bottom navigation bar with these tabs:
+
+- 📄 **Documents** - Upload center
+- ✍️ **Sign** - Signature & returns
+- 💬 **Chat** - Message tax pro
+- 🪙 **Crypto** - Bitcoin/crypto taxes
+- 👤 **Profile** - Settings & info
+
+#### A. Documents Tab
+
+**Features:**
+
+- Drag-and-drop file upload interface
+- Support multiple file types: PDF, JPG, PNG, DOC, DOCX, XLSX, CSV
+- File categorization:
+  - W-2s & Income Documents
+  - 1099 Forms
+  - Business Expenses
+  - Crypto Transaction Records
+  - Other Documents
+- Progress bar for uploads
+- Uploaded documents list with:
+  - File name
+  - Upload date
+  - File size
+  - Delete option (before submission)
+  - Preview/download option
+- “Submit Documents” button (marks as ready for tax pro review)
+- Status indicators: Draft, Submitted, Under Review, Complete
+
+#### B. Sign Tab
+
+**Features:**
+
+- Canvas-based signature capture
+  - Touch-optimized for mobile
+  - Clear/reset button
+  - Save signature
+- List of documents ready to sign
+- View tax return (PDF viewer embedded)
+- Digital signature field on tax return
+- “Sign & Approve” button
+- Timestamp of signature
+- Download signed return option
+- Signature history/log
+
+#### C. Chat Tab
+
+**Features:**
+
+- Real-time or async messaging interface
+- Message thread with tax professional
+- Send text messages
+- Attach documents/images to chat
+- Typing indicators
+- Message timestamps
+- Unread message badges
+- Auto-scroll to latest message
+- Professional greeting message on first load
+
+#### D. Crypto Tab (Adrian’s Special Feature)
+
+**Features:**
+
+- Bitcoin/Crypto tax filing section
+- Upload crypto transaction CSV/reports
+- Integration placeholder for CoinTracker API (future)
+- Manual transaction entry form:
+  - Date
+  - Cryptocurrency type (Bitcoin, Ethereum, etc.)
+  - Transaction type (Buy, Sell, Trade, Mining, Staking)
+  - Amount
+  - USD Value
+  - Cost Basis
+- Crypto transaction summary table
+- Capital gains/losses calculator preview
+- Educational content about crypto taxes
+- Resources and links about crypto tax reporting
+- “Ready for CoinTracker Integration” status badge
+
+#### E. Profile Tab
+
+**Features:**
+
+- Client information display/edit:
+  - Full name
+  - Email address
+  - Phone number
+  - Mailing address
+  - Tax filing status
+- Change password option
+- Notification preferences
+- Tax year selection
+- Download all documents option
+- Privacy Policy link
+- Terms & Conditions link
+- Logout button
+
+-----
+
+### 3. ADMIN PORTAL INTERFACE
+
+#### Admin Navigation (Dashboard Style)
+
+Sidebar or top navigation with:
+
+- 📊 **Dashboard** - Overview stats
+- 👥 **Clients** - Client management
+- 📁 **Documents** - All client docs
+- 📝 **Returns** - Upload completed returns
+- 💬 **Messages** - Client communications
+- 🪙 **Crypto Hub** - All crypto filings
+- ⚙️ **Settings** - Admin settings
+
+#### A. Dashboard
+
+**Features:**
+
+- Total clients count
+- Pending document reviews
+- Returns waiting for signature
+- Unread messages count
+- Recent activity feed
+- Quick action buttons
+- Tax season statistics
+
+#### B. Clients Management
+
+**Features:**
+
+- Client list with search and filters
+- Client status: Active, Pending, Complete
+- Add new client (sends invitation email)
+- View client details
+- Access client portal as admin
+- Client document overview
+- Client communication history
+- Delete/archive client option
+
+#### C. Documents Review
+
+**Features:**
+
+- All client documents organized by client
+- Filter by: Client, Document type, Upload date, Status
+- Mark documents as reviewed
+- Download documents
+- Add notes to documents
+- Request additional documents from client
+- Bulk download option
+
+#### D. Returns Upload
+
+**Features:**
+
+- Select client from dropdown
+- Upload completed tax return (PDF)
+- Add return notes/instructions
+- Notify client (email + in-app notification)
+- Set signature required flag
+- Return status tracking
+- Return history per client
+
+#### E. Messages Center
+
+**Features:**
+
+- All client conversations in one place
+- Filter by client or unread
+- Send messages to specific clients
+- Attach files to messages
+- Mark conversations as resolved
+- Search message history
+- Bulk messaging option (announcements)
+
+#### F. Crypto Hub (Admin View)
+
+**Features:**
+
+- All client crypto transactions aggregated
+- Filter by client or crypto type
+- Review crypto tax calculations
+- Flag discrepancies or issues
+- Export crypto data for further review
+- CoinTracker integration status per client
+- Crypto tax resources for tax pros
+
+#### G. Settings
+
+**Features:**
+
+- Admin profile management
+- Email templates configuration
+- Tax year settings
+- Notification preferences
+- User role management (if multiple admins)
+- System logs
+- Backup/export data
+
+-----
+
+### 4. PRIVACY POLICY & TERMS OF SERVICE
+
+**Reference jecigroup.com footer for base template:**
+
+#### Privacy Policy (Tailored for Tax Preparation)
+
+Include sections on:
+
+- Information we collect (personal, financial, tax documents)
+- How we use your information (tax preparation only)
+- Data security measures (encryption, secure storage)
+- Third-party services (email, potential CoinTracker integration)
+- Your rights (access, deletion, portability)
+- Data retention policy
+- Cookies and tracking
+- Contact information for privacy concerns
+- GDPR/CCPA compliance statements
+- IRS confidentiality requirements (IRS Publication 4600)
+
+#### Terms & Conditions
+
+Include sections on:
+
+- Service description
+- User accounts and responsibilities
+- Document submission deadlines
+- Electronic signature consent
+- Payment terms (if applicable)
+- Limitation of liability
+- Tax professional responsibilities
+- Dispute resolution
+- Service termination
+- Changes to terms
+- Governing law
+- Contact information
+
+**Implementation:**
+
+- Create `/privacy-policy` and `/terms-conditions` routes
+- Make accessible from footer navbar
+- Require acceptance on first login
+- Display last updated date
+- Allow download as PDF
+
+-----
+
+### 5. DESIGN & UX REQUIREMENTS
+
+#### Mobile-First Approach
+
+- Bottom navigation bar (sticky footer)
+- Touch-optimized buttons (min 44px tap targets)
+- Swipe gestures for navigation
+- Responsive breakpoints: Mobile (320px+), Tablet (768px+), Desktop (1024px+)
+- Hamburger menu for secondary options
+- Large, readable fonts (16px minimum)
+- High contrast for accessibility
+
+#### Color Scheme (Adrian’s Branding)
+
+- Primary: Professional blue (#1E40AF or custom brand color)
+- Secondary: Trust green (#059669 for success states)
+- Accent: Bitcoin orange (#F7931A for crypto section)
+- Neutral: Grays for backgrounds
+- Error: Red (#DC2626)
+- Warning: Amber (#F59E0B)
+
+#### Visual Elements
+
+- Clean, modern interface
+- Card-based layouts
+- Subtle shadows and borders
+- Loading states and skeletons
+- Success/error toast notifications
+- Progress indicators
+- Empty states with helpful messages
+- Icon-driven navigation
+
+#### Accessibility
+
+- WCAG 2.1 AA compliance
+- Keyboard navigation support
+- Screen reader friendly
+- Focus indicators
+- Alt text for images
+- ARIA labels where needed
+
+-----
+
+### 6. EMAIL TEMPLATES
+
+#### Password Reset Email
+
+```
+Subject: Reset Your Tax Portal Password
+
+Hi [Client Name],
+
+We received a request to reset your password for your Tax Portal account.
+
+Click the link below to create a new password:
+[Reset Link - Valid for 1 hour]
+
+If you didn't request this, you can safely ignore this email.
+
+Best regards,
+[Tax Pro Name]
+[Company Name]
+```
+
+#### Document Upload Confirmation
+
+```
+Subject: Documents Received - Tax Portal
+
+Hi [Client Name],
+
+We've received your tax documents! Our team will review them shortly.
+
+Documents uploaded: [Count]
+
+You can track the status in your portal.
+
+Best regards,
+[Tax Pro Name]
+```
+
+#### Tax Return Ready
+
+```
+Subject: Your Tax Return is Ready for Review
+
+Hi [Client Name],
+
+Great news! Your tax return is ready for your review and signature.
+
+Log in to your Tax Portal to:
+- Review your completed return
+- Sign electronically
+- Download a copy
+
+[Login Link]
+
+Best regards,
+[Tax Pro Name]
+```
+
+-----
+
+### 7. DATABASE SCHEMA
+
+#### Users Table
+
+```sql
+- id (primary key)
+- email (unique)
+- password_hash
+- full_name
+- phone
+- address
+- role (client/admin)
+- created_at
+- last_login
+- is_active
+```
+
+#### Documents Table
+
+```sql
+- id (primary key)
+- user_id (foreign key)
+- file_name
+- file_path
+- file_size
+- file_type
+- category
+- upload_date
+- status (draft/submitted/reviewed)
+- admin_notes
+```
+
+#### Signatures Table
+
+```sql
+- id (primary key)
+- user_id (foreign key)
+- signature_data (base64)
+- signed_at
+- return_id (foreign key)
+- ip_address
+```
+
+#### Tax Returns Table
+
+```sql
+- id (primary key)
+- user_id (foreign key)
+- file_name
+- file_path
+- upload_date (by admin)
+- status (pending_signature/signed/complete)
+- admin_notes
+- tax_year
+```
+
+#### Messages Table
+
+```sql
+- id (primary key)
+- sender_id (foreign key to users)
+- recipient_id (foreign key to users)
+- message_text
+- attachments (JSON array)
+- sent_at
+- read_at
+- is_read
+```
+
+#### Crypto Transactions Table
+
+```sql
+- id (primary key)
+- user_id (foreign key)
+- date
+- crypto_type
+- transaction_type
+- amount
+- usd_value
+- cost_basis
+- notes
+- created_at
+- cointracker_sync (boolean)
+```
+
+#### Password Reset Tokens Table
+
+```sql
+- id (primary key)
+- user_id (foreign key)
+- token (unique)
+- created_at
+- expires_at
+- used (boolean)
+```
+
+-----
+
+### 8. API ENDPOINTS
+
+#### Authentication
+
+- `POST /api/auth/register` - Create new user account
+- `POST /api/auth/login` - Login user
+- `POST /api/auth/forgot-password` - Request password reset
+- `POST /api/auth/reset-password` - Reset password with token
+- `POST /api/auth/verify-token` - Verify JWT token
+- `POST /api/auth/logout` - Logout user
+
+#### Documents
+
+- `GET /api/documents` - Get user documents
+- `POST /api/documents/upload` - Upload document
+- `DELETE /api/documents/:id` - Delete document
+- `GET /api/documents/:id/download` - Download document
+- `PATCH /api/documents/:id/status` - Update document status (admin)
+
+#### Signatures
+
+- `POST /api/signatures` - Save signature
+- `GET /api/signatures/:userId` - Get user signatures
+- `POST /api/signatures/sign-return` - Sign tax return
+
+#### Tax Returns
+
+- `GET /api/returns` - Get user returns
+- `POST /api/returns/upload` - Upload return (admin)
+- `GET /api/returns/:id` - Get specific return
+- `PATCH /api/returns/:id/notify` - Notify client of new return
+
+#### Messages
+
+- `GET /api/messages/:userId` - Get conversation
+- `POST /api/messages` - Send message
+- `PATCH /api/messages/:id/read` - Mark as read
+- `GET /api/messages/unread-count` - Get unread count
+
+#### Crypto
+
+- `GET /api/crypto/transactions` - Get crypto transactions
+- `POST /api/crypto/transactions` - Add crypto transaction
+- `PUT /api/crypto/transactions/:id` - Update transaction
+- `DELETE /api/crypto/transactions/:id` - Delete transaction
+- `GET /api/crypto/summary` - Get crypto tax summary
+
+#### Admin
+
+- `GET /api/admin/clients` - Get all clients
+- `GET /api/admin/dashboard-stats` - Get dashboard statistics
+- `POST /api/admin/clients/invite` - Invite new client
+- `GET /api/admin/documents/all` - Get all client documents
+- `GET /api/admin/messages/all` - Get all conversations
+
+-----
+
+### 9. SECURITY CONSIDERATIONS
+
+1. **Input Validation:** Validate all user inputs on both client and server
+1. **File Upload Security:**
+- Limit file sizes (max 10MB per file)
+- Whitelist allowed file types
+- Scan for malware
+- Sanitize file names
+1. **SQL Injection Prevention:** Use parameterized queries
+1. **XSS Protection:** Sanitize all user-generated content
+1. **CSRF Protection:** Implement CSRF tokens for forms
+1. **Rate Limiting:** Limit API requests to prevent abuse
+1. **HTTPS Only:** Force SSL in production
+1. **Session Management:** Secure JWT implementation
+1. **Data Encryption:** Encrypt sensitive data at rest
+1. **Audit Logging:** Log all admin actions
+
+-----
+
+### 10. FUTURE ENHANCEMENTS (Phase 2)
+
+- [ ] CoinTracker API integration for automated crypto import
+- [ ] E-signature compliance (ESIGN Act certification)
+- [ ] IRS e-file integration
+- [ ] Payment processing for tax preparation fees
+- [ ] Client portal mobile app (React Native)
+- [ ] Multi-language support
+- [ ] Two-factor authentication (2FA)
+- [ ] Video call integration with tax pro
+- [ ] AI-powered document classification
+- [ ] Automated tax deadline reminders
+- [ ] Client referral program
+- [ ] Tax planning tools and calculators
+- [ ] Integration with accounting software (QuickBooks, Xero)
+
+-----
+
+### 11. DEPLOYMENT CHECKLIST
+
+- [ ] Environment variables configured (.env file)
+- [ ] Database migrations run
+- [ ] Email service configured
+- [ ] File storage configured
+- [ ] SSL certificate installed
+- [ ] Domain configured
+- [ ] Privacy Policy published
+- [ ] Terms & Conditions published
+- [ ] Admin account created
+- [ ] Test client account created
+- [ ] Email templates tested
+- [ ] All API endpoints tested
+- [ ] Mobile responsiveness verified
+- [ ] Cross-browser testing completed
+- [ ] Security audit passed
+- [ ] Backup system configured
+
+-----
+
+### 12. ADRIAN’S SPECIAL TOUCHES
+
+1. **Crypto-First Approach:** Make the crypto tab prominent and educational
+1. **Modern Animations:** Smooth transitions, subtle micro-interactions
+1. **Personal Branding:** Incorporate company logo, brand colors consistently
+1. **Client Education:** Add tooltips, help sections, tax term glossary
+1. **Progress Gamification:** Show completion percentage for document uploads
+1. **Smart Defaults:** Pre-fill common information, remember user preferences
+1. **Proactive Communication:** Auto-remind clients of missing documents
+1. **Mobile Excellence:** Test extensively on iOS and Android devices
+1. **Speed Optimization:** Lazy loading, image optimization, code splitting
+1. **Professional Polish:** Attention to detail in every interaction
+
+-----
+
+## Build Instructions for Replit Agent
+
+1. **Initialize Project:**
+- Create a new Node.js + React project
+- Install all necessary dependencies
+- Set up folder structure: `/client`, `/server`, `/database`
+1. **Set Up Authentication First:**
+- Build login/register flow
+- Implement password reset
+- Test JWT token system
+1. **Build Client Portal:**
+- Start with footer navigation
+- Build each tab incrementally
+- Test on mobile viewport
+1. **Build Admin Portal:**
+- Create separate admin routes
+- Implement client management
+- Build document/return upload system
+1. **Add Real-Time Features:**
+- Implement chat/messaging
+- Add notifications
+1. **Create Legal Pages:**
+- Privacy Policy
+- Terms & Conditions
+1. **Test Everything:**
+- User flows
+- Mobile responsiveness
+- Security
+- Email delivery
+1. **Polish & Deploy:**
+- Optimize performance
+- Add loading states
+- Fix bugs
+- Deploy to production
+
+-----
+
+## Expected Deliverables
+
+1. Fully functional web application
+1. Client portal with all 5 tabs
+1. Admin portal with management features
+1. Working authentication system
+1. Privacy Policy and Terms pages
+1. Mobile-responsive design
+1. Email notification system
+1. Documentation (README.md)
+1. Environment setup guide
+1. Demo accounts (client + admin)
+
+-----
+
+**Let’s build an exceptional tax portal that makes tax season easier for everyone! 🚀**

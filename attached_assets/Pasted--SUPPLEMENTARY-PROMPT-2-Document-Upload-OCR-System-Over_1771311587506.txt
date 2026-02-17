@@ -1,0 +1,853 @@
+# SUPPLEMENTARY PROMPT #2: Document Upload & OCR System
+
+## Overview
+
+Build a robust document management system with drag-and-drop upload, automatic classification using OCR, preview capabilities, and secure storage for tax documents.
+
+-----
+
+## File Upload System
+
+### Frontend Upload Component
+
+#### Drag-and-Drop Interface
+
+```jsx
+<DocumentUploadZone>
+  <div 
+    onDragOver={handleDragOver}
+    onDragLeave={handleDragLeave}
+    onDrop={handleDrop}
+    className={isDragging ? 'dragging' : ''}
+  >
+    <UploadIcon />
+    <h3>Drag & drop your documents here</h3>
+    <p>or click to browse</p>
+    <input 
+      type="file" 
+      multiple 
+      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx,.xlsx,.csv"
+      onChange={handleFileSelect}
+    />
+  </div>
+</DocumentUploadZone>
+```
+
+#### Multi-File Upload with Progress
+
+```jsx
+<UploadProgressList>
+  {uploadingFiles.map(file => (
+    <FileUploadItem key={file.id}>
+      <FileIcon type={file.type} />
+      <div className="file-info">
+        <p className="filename">{file.name}</p>
+        <p className="filesize">{formatFileSize(file.size)}</p>
+      </div>
+      <ProgressBar 
+        percentage={file.progress} 
+        status={file.status} // 'uploading', 'processing', 'complete', 'error'
+      />
+      {file.status === 'uploading' && (
+        <Button onClick={() => cancelUpload(file.id)}>Cancel</Button>
+      )}
+      {file.status === 'error' && (
+        <span className="error">{file.errorMessage}</span>
+      )}
+    </FileUploadItem>
+  ))}
+</UploadProgressList>
+```
+
+### File Validation
+
+#### Client-Side Validation
+
+```javascript
+const FILE_VALIDATION = {
+  maxSize: 10 * 1024 * 1024, // 10MB
+  maxFiles: 20, // Per upload batch
+  allowedTypes: [
+    'application/pdf',
+    'image/jpeg',
+    'image/png',
+    'image/heic',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'text/csv'
+  ],
+  allowedExtensions: ['.pdf', '.jpg', '.jpeg', '.png', '.heic', '.doc', '.docx', '.xlsx', '.xls', '.csv']
+}
+
+function validateFile(file) {
+  const errors = []
+  
+  // Check file size
+  if (file.size > FILE_VALIDATION.maxSize) {
+    errors.push(`File too large. Maximum size is ${formatFileSize(FILE_VALIDATION.maxSize)}`)
+  }
+  
+  // Check file type
+  if (!FILE_VALIDATION.allowedTypes.includes(file.type)) {
+    const extension = file.name.split('.').pop()
+    if (!FILE_VALIDATION.allowedExtensions.includes(`.${extension}`)) {
+      errors.push(`File type not supported. Allowed types: ${FILE_VALIDATION.allowedExtensions.join(', ')}`)
+    }
+  }
+  
+  // Check file name
+  if (file.name.length > 255) {
+    errors.push('File name too long')
+  }
+  
+  return { isValid: errors.length === 0, errors }
+}
+```
+
+#### Image Optimization (Before Upload)
+
+```javascript
+// Compress large images before uploading
+async function compressImage(file, maxWidth = 1920, quality = 0.8) {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        let { width, height } = img
+        
+        if (width > maxWidth) {
+          height = (height * maxWidth) / width
+          width = maxWidth
+        }
+        
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, width, height)
+        
+        canvas.toBlob(resolve, 'image/jpeg', quality)
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(file)
+  })
+}
+```
+
+### Upload API Implementation
+
+#### Chunked Upload (for large files)
+
+```javascript
+async function uploadFileInChunks(file, onProgress) {
+  const CHUNK_SIZE = 1024 * 1024 // 1MB chunks
+  const totalChunks = Math.ceil(file.size / CHUNK_SIZE)
+  const uploadId = generateUploadId()
+  
+  for (let chunkIndex = 0; chunkIndex < totalChunks; chunkIndex++) {
+    const start = chunkIndex * CHUNK_SIZE
+    const end = Math.min(start + CHUNK_SIZE, file.size)
+    const chunk = file.slice(start, end)
+    
+    const formData = new FormData()
+    formData.append('chunk', chunk)
+    formData.append('chunkIndex', chunkIndex)
+    formData.append('totalChunks', totalChunks)
+    formData.append('uploadId', uploadId)
+    formData.append('fileName', file.name)
+    
+    await fetch('/api/documents/upload-chunk', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: formData
+    })
+    
+    onProgress((chunkIndex + 1) / totalChunks * 100)
+  }
+  
+  // Finalize upload
+  return await finalizeUpload(uploadId)
+}
+```
+
+#### Server-Side Upload Handler
+
+```javascript
+// Express.js endpoint
+const multer = require('multer')
+const path = require('path')
+const crypto = require('crypto')
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const userId = req.user.id
+    const uploadPath = path.join(__dirname, '../uploads', userId)
+    fs.mkdirSync(uploadPath, { recursive: true })
+    cb(null, uploadPath)
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = `${Date.now()}-${crypto.randomBytes(6).toString('hex')}${path.extname(file.originalname)}`
+    cb(null, uniqueName)
+  }
+})
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = /pdf|jpg|jpeg|png|doc|docx|xlsx|csv/
+    const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase())
+    const mimetype = allowedTypes.test(file.mimetype)
+    
+    if (extname && mimetype) {
+      cb(null, true)
+    } else {
+      cb(new Error('Invalid file type'))
+    }
+  }
+})
+
+router.post('/documents/upload', upload.array('documents', 20), async (req, res) => {
+  try {
+    const { category } = req.body
+    const userId = req.user.id
+    
+    // Process uploaded files
+    const documents = await Promise.all(
+      req.files.map(async (file) => {
+        // Run virus scan
+        await scanForViruses(file.path)
+        
+        // Run OCR if PDF or image
+        let ocrText = null
+        let suggestedCategory = category
+        
+        if (['.pdf', '.jpg', '.jpeg', '.png'].includes(path.extname(file.originalname).toLowerCase())) {
+          ocrText = await performOCR(file.path)
+          suggestedCategory = await classifyDocument(ocrText)
+        }
+        
+        // Save to database
+        const document = await db.documents.create({
+          userId,
+          fileName: file.originalname,
+          filePath: file.path,
+          fileSize: file.size,
+          fileType: file.mimetype,
+          category: suggestedCategory,
+          ocrText,
+          uploadDate: new Date(),
+          status: 'draft'
+        })
+        
+        return document
+      })
+    )
+    
+    res.json({ success: true, documents })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+```
+
+-----
+
+## OCR (Optical Character Recognition)
+
+### OCR Engine Integration
+
+#### Option 1: Tesseract.js (Free, Client or Server)
+
+```javascript
+const Tesseract = require('tesseract.js')
+
+async function performOCR(imagePath) {
+  const { data: { text } } = await Tesseract.recognize(
+    imagePath,
+    'eng',
+    {
+      logger: m => console.log(m) // Progress logger
+    }
+  )
+  return text
+}
+```
+
+#### Option 2: Google Cloud Vision API (Paid, More Accurate)
+
+```javascript
+const vision = require('@google-cloud/vision')
+const client = new vision.ImageAnnotatorClient()
+
+async function performOCRWithGoogle(imagePath) {
+  const [result] = await client.documentTextDetection(imagePath)
+  const fullTextAnnotation = result.fullTextAnnotation
+  return fullTextAnnotation ? fullTextAnnotation.text : ''
+}
+```
+
+#### Option 3: AWS Textract (Paid, Best for Forms)
+
+```javascript
+const AWS = require('aws-sdk')
+const textract = new AWS.Textract()
+
+async function performOCRWithTextract(imagePath) {
+  const imageBytes = fs.readFileSync(imagePath)
+  
+  const params = {
+    Document: {
+      Bytes: imageBytes
+    },
+    FeatureTypes: ['FORMS', 'TABLES']
+  }
+  
+  const result = await textract.analyzeDocument(params).promise()
+  return extractTextFromTextract(result)
+}
+```
+
+### Document Classification
+
+#### AI-Powered Classification
+
+```javascript
+// Use extracted OCR text to classify document type
+async function classifyDocument(ocrText) {
+  const classifications = {
+    'W2': /W-2|Wage and Tax Statement|Employer Identification Number/i,
+    '1099-NEC': /1099-NEC|Nonemployee Compensation/i,
+    '1099-INT': /1099-INT|Interest Income/i,
+    '1099-DIV': /1099-DIV|Dividends and Distributions/i,
+    '1099-B': /1099-B|Proceeds from Broker/i,
+    '1099-K': /1099-K|Payment Card and Third Party/i,
+    '1098': /1098|Mortgage Interest Statement/i,
+    'Receipt': /receipt|invoice|paid|total|subtotal/i,
+    'Bank Statement': /bank statement|account summary|beginning balance|ending balance/i,
+    'Crypto Transaction': /bitcoin|ethereum|cryptocurrency|wallet|blockchain/i,
+    'Business Expense': /expense|vendor|supplier|purchase order/i
+  }
+  
+  for (const [category, pattern] of Object.entries(classifications)) {
+    if (pattern.test(ocrText)) {
+      return category
+    }
+  }
+  
+  return 'Other Documents'
+}
+```
+
+#### Extract Key Information
+
+```javascript
+// Extract specific data points from tax forms
+function extractW2Data(ocrText) {
+  const w2Data = {
+    employerName: extractPattern(ocrText, /employer[^\n]*\n([^\n]+)/i),
+    employerEIN: extractPattern(ocrText, /EIN[:\s]+(\d{2}-\d{7})/i),
+    wages: extractPattern(ocrText, /wages.*?(\d+[\d,]*\.?\d{0,2})/i),
+    federalWithholding: extractPattern(ocrText, /federal.*withheld.*?(\d+[\d,]*\.?\d{0,2})/i),
+    socialSecurityWages: extractPattern(ocrText, /social security wages.*?(\d+[\d,]*\.?\d{0,2})/i),
+    medicareWages: extractPattern(ocrText, /medicare wages.*?(\d+[\d,]*\.?\d{0,2})/i)
+  }
+  
+  return w2Data
+}
+
+function extractPattern(text, regex) {
+  const match = text.match(regex)
+  return match ? match[1].trim() : null
+}
+```
+
+### Quality Check & Validation
+
+```javascript
+// Check if scanned document is readable
+async function assessDocumentQuality(imagePath) {
+  const metadata = await sharp(imagePath).metadata()
+  const stats = await sharp(imagePath).stats()
+  
+  const qualityIssues = []
+  
+  // Check resolution
+  if (metadata.density < 150) {
+    qualityIssues.push('Low resolution. Please rescan at higher quality.')
+  }
+  
+  // Check if too dark/light
+  const brightness = (stats.channels[0].mean + stats.channels[1].mean + stats.channels[2].mean) / 3
+  if (brightness < 50) {
+    qualityIssues.push('Image too dark. Please use better lighting.')
+  } else if (brightness > 200) {
+    qualityIssues.push('Image too bright. May be overexposed.')
+  }
+  
+  // Check if blurry (using Laplacian variance)
+  // Lower variance = more blurry
+  const blurriness = await detectBlurriness(imagePath)
+  if (blurriness < 100) {
+    qualityIssues.push('Image appears blurry. Please take a sharper photo.')
+  }
+  
+  return {
+    isGoodQuality: qualityIssues.length === 0,
+    issues: qualityIssues
+  }
+}
+```
+
+-----
+
+## Document Organization
+
+### Category System
+
+```javascript
+const DOCUMENT_CATEGORIES = {
+  'Income Documents': {
+    icon: '💰',
+    subcategories: ['W-2', '1099-NEC', '1099-INT', '1099-DIV', '1099-K', 'K-1']
+  },
+  'Deduction Documents': {
+    icon: '📝',
+    subcategories: ['1098 Mortgage', 'Charitable Donations', 'Medical Expenses', 'Business Expenses']
+  },
+  'Investment Documents': {
+    icon: '📈',
+    subcategories: ['1099-B', 'Stock Sales', 'Dividend Statements']
+  },
+  'Crypto Documents': {
+    icon: '🪙',
+    subcategories: ['Exchange Reports', 'Wallet Transactions', 'Mining Records', 'Staking Rewards']
+  },
+  'Business Documents': {
+    icon: '🏢',
+    subcategories: ['Receipts', 'Invoices', 'Profit & Loss', 'Balance Sheet']
+  },
+  'Previous Returns': {
+    icon: '📋',
+    subcategories: ['Prior Year Return', 'Amended Return']
+  },
+  'Identification': {
+    icon: '🪪',
+    subcategories: ['Driver License', 'Social Security Card', 'Birth Certificate']
+  },
+  'Other Documents': {
+    icon: '📄',
+    subcategories: []
+  }
+}
+```
+
+### Smart Folder View
+
+```jsx
+<DocumentLibrary>
+  <CategoryFilter>
+    {Object.entries(DOCUMENT_CATEGORIES).map(([category, config]) => (
+      <CategoryButton 
+        key={category}
+        active={selectedCategory === category}
+        onClick={() => setSelectedCategory(category)}
+      >
+        <span>{config.icon}</span>
+        <span>{category}</span>
+        <Badge>{getCategoryCount(category)}</Badge>
+      </CategoryButton>
+    ))}
+  </CategoryFilter>
+  
+  <DocumentGrid>
+    {documents.map(doc => (
+      <DocumentCard key={doc.id}>
+        <ThumbnailPreview src={doc.thumbnailUrl} />
+        <DocumentInfo>
+          <h4>{doc.fileName}</h4>
+          <p>{formatDate(doc.uploadDate)}</p>
+          <p>{formatFileSize(doc.fileSize)}</p>
+          <CategoryBadge>{doc.category}</CategoryBadge>
+        </DocumentInfo>
+        <ActionButtons>
+          <Button onClick={() => previewDocument(doc)}>View</Button>
+          <Button onClick={() => downloadDocument(doc)}>Download</Button>
+          <Button onClick={() => moveDocument(doc)}>Move</Button>
+          {doc.status === 'draft' && (
+            <Button onClick={() => deleteDocument(doc)}>Delete</Button>
+          )}
+        </ActionButtons>
+      </DocumentCard>
+    ))}
+  </DocumentGrid>
+</DocumentLibrary>
+```
+
+-----
+
+## Document Preview
+
+### PDF Viewer
+
+```jsx
+import { Document, Page, pdfjs } from 'react-pdf'
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`
+
+function PDFPreview({ fileUrl }) {
+  const [numPages, setNumPages] = useState(null)
+  const [pageNumber, setPageNumber] = useState(1)
+  
+  return (
+    <PDFViewerModal>
+      <Document
+        file={fileUrl}
+        onLoadSuccess={({ numPages }) => setNumPages(numPages)}
+      >
+        <Page pageNumber={pageNumber} />
+      </Document>
+      
+      <Controls>
+        <Button 
+          onClick={() => setPageNumber(Math.max(1, pageNumber - 1))}
+          disabled={pageNumber <= 1}
+        >
+          Previous
+        </Button>
+        <span>Page {pageNumber} of {numPages}</span>
+        <Button 
+          onClick={() => setPageNumber(Math.min(numPages, pageNumber + 1))}
+          disabled={pageNumber >= numPages}
+        >
+          Next
+        </Button>
+      </Controls>
+      
+      <ActionBar>
+        <Button onClick={downloadPDF}>Download</Button>
+        <Button onClick={printPDF}>Print</Button>
+        <Button onClick={closePDF}>Close</Button>
+      </ActionBar>
+    </PDFViewerModal>
+  )
+}
+```
+
+### Image Lightbox
+
+```jsx
+function ImagePreview({ imageUrl }) {
+  const [zoom, setZoom] = useState(1)
+  
+  return (
+    <Lightbox>
+      <img 
+        src={imageUrl} 
+        alt="Document preview"
+        style={{ transform: `scale(${zoom})` }}
+      />
+      <ZoomControls>
+        <Button onClick={() => setZoom(z => Math.max(0.5, z - 0.25))}>-</Button>
+        <span>{Math.round(zoom * 100)}%</span>
+        <Button onClick={() => setZoom(z => Math.min(3, z + 0.25))}>+</Button>
+      </ZoomControls>
+    </Lightbox>
+  )
+}
+```
+
+-----
+
+## Thumbnail Generation
+
+```javascript
+const sharp = require('sharp')
+
+async function generateThumbnail(filePath, outputPath) {
+  if (filePath.endsWith('.pdf')) {
+    // Convert first page of PDF to image thumbnail
+    const { PDFImage } = require('pdf-image')
+    const pdfImage = new PDFImage(filePath)
+    const imagePath = await pdfImage.convertPage(0)
+    
+    await sharp(imagePath)
+      .resize(300, 400, { fit: 'inside' })
+      .jpeg({ quality: 80 })
+      .toFile(outputPath)
+  } else {
+    // Generate thumbnail from image
+    await sharp(filePath)
+      .resize(300, 400, { fit: 'inside' })
+      .jpeg({ quality: 80 })
+      .toFile(outputPath)
+  }
+}
+```
+
+-----
+
+## Document Status Workflow
+
+```javascript
+const DOCUMENT_STATUSES = {
+  DRAFT: 'draft',           // Uploaded but not submitted
+  SUBMITTED: 'submitted',   // Submitted for review
+  REVIEWING: 'reviewing',   // Tax pro is reviewing
+  APPROVED: 'approved',     // Looks good
+  NEEDS_INFO: 'needs_info', // Missing information
+  REJECTED: 'rejected',     // Wrong document/unusable
+  COMPLETE: 'complete'      // Used in tax return
+}
+
+// Status transitions
+function updateDocumentStatus(documentId, newStatus, adminNotes) {
+  // Update database
+  await db.documents.update({
+    where: { id: documentId },
+    data: { 
+      status: newStatus,
+      adminNotes,
+      reviewedAt: new Date()
+    }
+  })
+  
+  // Notify client if needed
+  if (newStatus === DOCUMENT_STATUSES.NEEDS_INFO) {
+    await sendEmail({
+      to: document.user.email,
+      subject: 'Additional Information Needed',
+      template: 'document-needs-info',
+      data: { documentName: document.fileName, notes: adminNotes }
+    })
+  }
+}
+```
+
+-----
+
+## Bulk Operations
+
+### Bulk Upload
+
+```jsx
+<BulkUploadSection>
+  <Button onClick={() => fileInput.click()}>
+    Select Multiple Files
+  </Button>
+  <p>Selected: {selectedFiles.length} files</p>
+  
+  <CategorySelector>
+    <label>Apply category to all:</label>
+    <select value={bulkCategory} onChange={e => setBulkCategory(e.target.value)}>
+      {categories.map(cat => <option key={cat}>{cat}</option>)}
+    </select>
+  </CategorySelector>
+  
+  <Button onClick={uploadAll}>Upload All</Button>
+</BulkUploadSection>
+```
+
+### Bulk Download (Admin)
+
+```javascript
+// Create ZIP file of all client documents
+const archiver = require('archiver')
+
+router.get('/admin/clients/:clientId/documents/download-all', async (req, res) => {
+  const { clientId } = req.params
+  const documents = await db.documents.findMany({
+    where: { userId: clientId }
+  })
+  
+  const archive = archiver('zip', { zlib: { level: 9 } })
+  
+  archive.pipe(res)
+  
+  documents.forEach(doc => {
+    archive.file(doc.filePath, { name: doc.fileName })
+  })
+  
+  await archive.finalize()
+})
+```
+
+-----
+
+## Security & Compliance
+
+### Virus Scanning
+
+```javascript
+const ClamScan = require('clamscan')
+
+async function scanForViruses(filePath) {
+  const clamscan = await new ClamScan().init({
+    clamdscan: {
+      host: 'localhost',
+      port: 3310
+    }
+  })
+  
+  const { isInfected, viruses } = await clamscan.isInfected(filePath)
+  
+  if (isInfected) {
+    fs.unlinkSync(filePath) // Delete infected file
+    throw new Error(`File infected with: ${viruses.join(', ')}`)
+  }
+}
+```
+
+### Encryption at Rest
+
+```javascript
+const crypto = require('crypto')
+
+function encryptFile(inputPath, outputPath, key) {
+  const cipher = crypto.createCipher('aes-256-cbc', key)
+  const input = fs.createReadStream(inputPath)
+  const output = fs.createWriteStream(outputPath)
+  
+  input.pipe(cipher).pipe(output)
+}
+
+function decryptFile(inputPath, outputPath, key) {
+  const decipher = crypto.createDecipher('aes-256-cbc', key)
+  const input = fs.createReadStream(inputPath)
+  const output = fs.createWriteStream(outputPath)
+  
+  input.pipe(decipher).pipe(output)
+}
+```
+
+### Access Logging
+
+```javascript
+// Log every document access
+async function logDocumentAccess(userId, documentId, action) {
+  await db.accessLogs.create({
+    userId,
+    documentId,
+    action, // 'view', 'download', 'delete', 'edit'
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'],
+    timestamp: new Date()
+  })
+}
+```
+
+-----
+
+## Admin Document Management
+
+### Admin Review Interface
+
+```jsx
+<AdminDocumentReview>
+  <DocumentPreviewPane>
+    <PDFViewer file={currentDocument.filePath} />
+  </DocumentPreviewPane>
+  
+  <ReviewActionsPane>
+    <DocumentMetadata>
+      <p>Client: {currentDocument.user.name}</p>
+      <p>Category: {currentDocument.category}</p>
+      <p>Uploaded: {formatDate(currentDocument.uploadDate)}</p>
+    </DocumentMetadata>
+    
+    {currentDocument.ocrText && (
+      <ExtractedText>
+        <h4>Extracted Text:</h4>
+        <pre>{currentDocument.ocrText}</pre>
+      </ExtractedText>
+    )}
+    
+    <StatusButtons>
+      <Button 
+        onClick={() => approveDocument(currentDocument.id)}
+        variant="success"
+      >
+        ✓ Approve
+      </Button>
+      <Button 
+        onClick={() => showRequestInfoModal(currentDocument.id)}
+        variant="warning"
+      >
+        ? Request Info
+      </Button>
+      <Button 
+        onClick={() => rejectDocument(currentDocument.id)}
+        variant="danger"
+      >
+        ✗ Reject
+      </Button>
+    </StatusButtons>
+    
+    <AdminNotes>
+      <label>Internal Notes:</label>
+      <textarea 
+        value={adminNotes}
+        onChange={e => setAdminNotes(e.target.value)}
+        placeholder="Add notes visible only to tax pros..."
+      />
+      <Button onClick={saveNotes}>Save Notes</Button>
+    </AdminNotes>
+  </ReviewActionsPane>
+</AdminDocumentReview>
+```
+
+-----
+
+## Mobile Camera Integration
+
+### Direct Camera Capture (Mobile)
+
+```jsx
+<CameraCapture>
+  <input 
+    type="file" 
+    accept="image/*" 
+    capture="environment" // Use rear camera
+    onChange={handleCameraCapture}
+  />
+  
+  {/* Or use full camera component */}
+  <Camera
+    onCapture={(imageBlob) => {
+      uploadDocument(imageBlob, 'camera-capture.jpg')
+    }}
+  />
+</CameraCapture>
+```
+
+-----
+
+## Testing Checklist
+
+- [ ] Upload single file
+- [ ] Upload multiple files
+- [ ] Upload large file (9MB+)
+- [ ] Upload invalid file type
+- [ ] Cancel mid-upload
+- [ ] OCR on clear document
+- [ ] OCR on poor quality document
+- [ ] Automatic classification
+- [ ] Manual category change
+- [ ] Document preview (PDF)
+- [ ] Document preview (image)
+- [ ] Thumbnail generation
+- [ ] Delete document
+- [ ] Download document
+- [ ] Bulk download (admin)
+- [ ] Virus scanning
+- [ ] Mobile camera capture
+- [ ] Drag and drop on desktop
+
+-----
+
+**This creates a professional, user-friendly document system! 📄✨**

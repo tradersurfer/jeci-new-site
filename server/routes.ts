@@ -27,6 +27,9 @@ export async function registerRoutes(
   app: Express
 ): Promise<Server> {
 
+  const { registerPortalRoutes } = await import("./portalRoutes");
+  registerPortalRoutes(app);
+
   app.post("/api/admin/login", (req, res) => {
     const { password } = req.body;
     if (!ADMIN_PASSWORD) {

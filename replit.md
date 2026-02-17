@@ -34,7 +34,7 @@ Preferred communication style: Simple, everyday language.
 - **Database**: PostgreSQL via `DATABASE_URL` environment variable
 - **ORM**: Drizzle ORM with PostgreSQL dialect
 - **Schema Location**: `shared/schema.ts` — shared between frontend and backend
-- **Tables**: `users`, `bookings`, `contacts`, `newsletter_subscribers`, `credit_club_signups`
+- **Tables**: `users`, `bookings`, `contacts`, `newsletter_subscribers`, `credit_club_signups`, `portal_users`, `portal_documents`, `portal_tax_returns`, `portal_signatures`, `portal_messages`, `portal_crypto_transactions`, `portal_password_resets`
 - **IDs**: UUID primary keys generated via `gen_random_uuid()`
 - **Migrations**: Drizzle Kit with `drizzle-kit push` for schema sync (migrations output to `./migrations/`)
 
@@ -67,8 +67,20 @@ shared/              → Code shared between client and server
 attached_assets/     → Reference documents and design specs (not served to users)
 ```
 
+### Tax Portal (Sub-Application)
+- **Location**: `/tax-portal/*` routes — completely separate layout from main site (no shared Navbar/Footer)
+- **Auth**: JWT-based authentication with bcryptjs password hashing and role-based access (client/admin)
+- **Client Portal**: Bottom navbar with 5 tabs: Documents, Sign, Chat, Crypto, Profile at `/tax-portal/*`
+- **Admin Portal**: Sidebar layout at `/tax-portal/admin/*` with Dashboard, Clients, Documents, Returns, Messages, Crypto Hub
+- **Backend**: Routes in `server/portalRoutes.ts`, storage in `server/portalStorage.ts`
+- **Frontend**: Components in `client/src/components/portal/`, pages in `client/src/pages/portal/`
+- **File Uploads**: Multer-based, stored in `uploads/` directory on disk
+- **Auth Context**: `PortalAuthProvider` wraps all portal routes, `usePortalAuth()` hook for auth state, `portalFetch()` for authenticated API calls
+- **Legal Pages**: Privacy Policy at `/tax-portal/privacy`, Terms of Service at `/tax-portal/terms`
+
 ### Key Design Patterns
 - **Storage Interface**: `IStorage` interface in `server/storage.ts` abstracts all database operations, with `DatabaseStorage` as the concrete implementation — makes it easy to swap storage backends
+- **Portal Storage**: `PortalStorage` class in `server/portalStorage.ts` handles all tax portal database operations separately from main site storage
 - **Shared Schema**: Drizzle schemas in `shared/schema.ts` generate both database table definitions and Zod validation schemas used on both client and server
 - **SPA with Server Fallback**: In production, Express serves the built Vite output and falls back to `index.html` for all unmatched routes (SPA pattern). In development, Vite middleware handles HMR
 - **Path Aliases**: `@/` maps to `client/src/`, `@shared/` maps to `shared/`, `@assets/` maps to `attached_assets/`
@@ -94,8 +106,10 @@ attached_assets/     → Reference documents and design specs (not served to use
 - `zod` — schema validation
 - `connect-pg-simple` — PostgreSQL session store (available but sessions may not be fully implemented yet)
 - `nodemailer` — email sending capability (in build allowlist)
-- `multer` — file upload handling (in build allowlist)
+- `multer` — file upload handling for tax portal documents
 - `stripe` — payment processing (in build allowlist)
+- `bcryptjs` — password hashing for tax portal auth
+- `jsonwebtoken` — JWT token generation/verification for tax portal auth
 
 ### Replit-Specific
 - `@replit/vite-plugin-runtime-error-modal` — error overlay in development

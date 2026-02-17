@@ -42,6 +42,49 @@ import ServiceDetailPage from "./pages/services/ServiceDetailPage";
 import AdminDashboard from "./pages/admin/Dashboard";
 import AdminLogin from "./pages/admin/AdminLogin";
 
+import { PortalAuthProvider } from "./components/portal/PortalAuthContext";
+import PortalLogin from "./pages/portal/PortalLogin";
+import PortalRegister from "./pages/portal/PortalRegister";
+import DocumentsTab from "./pages/portal/DocumentsTab";
+import SignTab from "./pages/portal/SignTab";
+import ChatTab from "./pages/portal/ChatTab";
+import CryptoTab from "./pages/portal/CryptoTab";
+import ProfileTab from "./pages/portal/ProfileTab";
+
+import PortalAdminDashboard from "./pages/portal/admin/AdminDashboard";
+import PortalAdminClients from "./pages/portal/admin/AdminClients";
+import PortalAdminDocuments from "./pages/portal/admin/AdminDocuments";
+import PortalAdminReturns from "./pages/portal/admin/AdminReturns";
+import PortalAdminMessages from "./pages/portal/admin/AdminMessages";
+import PortalAdminCrypto from "./pages/portal/admin/AdminCrypto";
+import PrivacyPolicy from "./pages/portal/PrivacyPolicy";
+import TermsOfService from "./pages/portal/TermsOfService";
+
+function PortalRoutes() {
+  return (
+    <PortalAuthProvider>
+      <Switch>
+        <Route path="/tax-portal/login" component={PortalLogin} />
+        <Route path="/tax-portal/register" component={PortalRegister} />
+        <Route path="/tax-portal/privacy" component={PrivacyPolicy} />
+        <Route path="/tax-portal/terms" component={TermsOfService} />
+        <Route path="/tax-portal/admin/clients" component={PortalAdminClients} />
+        <Route path="/tax-portal/admin/documents" component={PortalAdminDocuments} />
+        <Route path="/tax-portal/admin/returns" component={PortalAdminReturns} />
+        <Route path="/tax-portal/admin/messages" component={PortalAdminMessages} />
+        <Route path="/tax-portal/admin/crypto" component={PortalAdminCrypto} />
+        <Route path="/tax-portal/admin" component={PortalAdminDashboard} />
+        <Route path="/tax-portal/documents" component={DocumentsTab} />
+        <Route path="/tax-portal/sign" component={SignTab} />
+        <Route path="/tax-portal/chat" component={ChatTab} />
+        <Route path="/tax-portal/crypto" component={CryptoTab} />
+        <Route path="/tax-portal/profile" component={ProfileTab} />
+        <Route path="/tax-portal">{() => { window.location.href = '/tax-portal/documents'; return null; }}</Route>
+      </Switch>
+    </PortalAuthProvider>
+  );
+}
+
 function Router() {
   return (
     <>
@@ -51,6 +94,7 @@ function Router() {
         <Route path="/" component={Home} />
         <Route path="/jeci-ops" component={AdminLogin} />
         <Route path="/jeci-ops/dashboard" component={AdminDashboard} />
+        <Route path="/tax-portal/:rest*" component={PortalRoutes} />
 
         <Route path="/book-consultation" component={BookingPage} />
         <Route path="/book" component={BookingPage} />
