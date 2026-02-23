@@ -9,6 +9,7 @@ import {
 } from "@shared/schema";
 import { fromError } from "zod-validation-error";
 import crypto from "crypto";
+import { sendBookingConfirmationEmail } from "./email";
 
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
@@ -65,6 +66,22 @@ export async function registerRoutes(
         return res.status(400).json({ error: fromError(parsed.error).message });
       }
       const booking = await storage.createBooking(parsed.data);
+
+      sendBookingConfirmationEmail({
+        clientName: parsed.data.clientName,
+        clientEmail: parsed.data.clientEmail,
+        clientPhone: parsed.data.clientPhone || "",
+        serviceName: parsed.data.serviceName,
+        serviceCategory: parsed.data.serviceCategory || "",
+        date: parsed.data.date,
+        time: parsed.data.time,
+        totalAmount: parsed.data.totalAmount,
+        businessName: parsed.data.businessName || undefined,
+        businessType: parsed.data.businessType || undefined,
+        description: parsed.data.description || undefined,
+        addOns: parsed.data.addOns as { name: string; price: number }[] || [],
+      }).catch(err => console.error("Email send failed (non-blocking):", err));
+
       res.status(201).json(booking);
     } catch (error: any) {
       console.error("Booking error:", error);
