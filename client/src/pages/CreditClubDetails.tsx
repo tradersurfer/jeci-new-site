@@ -24,7 +24,7 @@ export default function CreditClubDetails() {
   const [, setLocation] = useLocation();
   const [email, setEmail] = useState('');
   const { toast } = useToast();
-  
+
   const signupMutation = useMutation({
     mutationFn: async (data: { email: string; name: string }) => {
       await apiRequest("POST", "/api/credit-club", data);
@@ -48,9 +48,10 @@ export default function CreditClubDetails() {
   return (
     <div className="min-h-screen bg-slate-50">
       <Navbar />
-      
+
+      {/* Sub-nav */}
       <div className="fixed top-20 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 hidden md:block">
-        <div className="container px-4 py-3 flex justify-center gap-8">
+        <div className="container px-4 md:px-6 py-3 flex justify-center gap-8">
           {subNavItems.map((item) => (
             <button 
               key={item.id}
@@ -65,6 +66,7 @@ export default function CreditClubDetails() {
         </div>
       </div>
 
+      {/* Hero */}
       <section className="pt-40 pb-20 bg-primary text-white relative overflow-hidden">
         <div className="absolute inset-0">
           <img src="/images/credit-club/vault-graphic.jpg" alt="" className="w-full h-full object-cover opacity-20" />
@@ -103,8 +105,9 @@ export default function CreditClubDetails() {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-secondary/5 -skew-x-12 transform translate-x-1/2" />
       </section>
 
+      {/* Stats Bar — FIX: was missing md:px-6, now matches all other sections */}
       <section className="py-6 bg-slate-900 text-white">
-        <div className="container px-4">
+        <div className="container px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
               { value: "500+", label: "Clients Served" },
@@ -121,6 +124,7 @@ export default function CreditClubDetails() {
         </div>
       </section>
 
+      {/* Offers */}
       <section id="offers" className="py-24">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-16">
@@ -162,6 +166,7 @@ export default function CreditClubDetails() {
             ))}
           </div>
 
+          {/* Bundle */}
           <div className="bg-gradient-to-r from-slate-900 to-primary p-8 md:p-12 text-white">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
@@ -192,6 +197,7 @@ export default function CreditClubDetails() {
         </div>
       </section>
 
+      {/* Roadmap */}
       <section id="roadmap" className="py-24 bg-primary text-white overflow-hidden">
         <div className="container px-4 md:px-6">
           <div className="max-w-5xl mx-auto">
@@ -202,116 +208,72 @@ export default function CreditClubDetails() {
                 Each phase is available in our Skool community classroom. Follow the roadmap and join the Discord channels for live support.
               </p>
             </div>
-            
+
             <div className="space-y-6">
-              <a href={PHASE_LINKS.phase1} target="_blank" rel="noopener noreferrer" className="block">
-                <div id="repair" className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/10 transition-colors group cursor-pointer">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <span className="text-secondary font-black text-sm uppercase tracking-widest block mb-2">Step 01</span>
-                      <h3 className="text-2xl md:text-3xl font-bold">Phase 1: Credit Repair</h3>
-                    </div>
-                    <div className="flex items-center gap-2 text-secondary">
-                      <span className="text-sm font-bold hidden md:block">Join Discord</span>
-                      <ExternalLink className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <p className="text-xl text-white/60 leading-relaxed italic mb-6">
-                    Remove 80% of negatives in 30-60 days with AI-powered disputes. Average +100 points.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {["AI dispute letter generation", "All 3 bureaus challenged", "Collections & charge-offs removed", "Late payments disputed", "Hard inquiries challenged", "Results tracking dashboard"].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-white/70">
-                        <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" />
-                        {item}
+              {[
+                {
+                  link: PHASE_LINKS.phase1,
+                  step: "Step 01",
+                  title: "Phase 1: Credit Repair",
+                  linkLabel: "Join Discord",
+                  desc: "Remove 80% of negatives in 30-60 days with AI-powered disputes. Average +100 points.",
+                  features: ["AI dispute letter generation", "All 3 bureaus challenged", "Collections & charge-offs removed", "Late payments disputed", "Hard inquiries challenged", "Results tracking dashboard"]
+                },
+                {
+                  link: PHASE_LINKS.phase2,
+                  step: "Step 02",
+                  title: "Phase 2: Credit Building",
+                  linkLabel: "Join Discord",
+                  desc: "Boost to 800 FICO with secured loans, authorized user tradelines, and optimized credit mix. +85 points in 6-12 months.",
+                  features: ["Secured card strategy", "Authorized user placement", "Credit utilization optimization", "Payment history building", "Credit mix diversification", "Score monitoring & alerts"]
+                },
+                {
+                  link: PHASE_LINKS.phase3,
+                  step: "Step 03",
+                  title: "Phase 3: 700 Crypto",
+                  linkLabel: "Join Discord",
+                  desc: "Unlock BTC-backed loans at 4.5% APR. Borrow against your crypto without selling your stack. DeFi meets traditional finance.",
+                  features: ["BTC-backed lending setup", "4.5% APR prime rates", "No credit check required", "Keep full BTC exposure", "DeFi lending platforms", "Crypto tax optimization"]
+                },
+                {
+                  link: PHASE_LINKS.phase4,
+                  step: "Step 04",
+                  title: "Phase 4: 800 Wealth Club & Funding",
+                  linkLabel: "Join on Skool",
+                  desc: "Access business funding, passive income strategies, prime investments, and legacy planning. Exclusive for 800+ FICO members.",
+                  features: ["Business funding access", "SBA loan qualification", "Investment deal flow", "Passive income strategies", "Legacy wealth planning", "Monthly mastermind calls"]
+                }
+              ].map((phase, i) => (
+                <a key={i} href={phase.link} target="_blank" rel="noopener noreferrer" className="block">
+                  <div className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/10 transition-colors group cursor-pointer">
+                    <div className="flex items-center justify-between mb-6">
+                      <div>
+                        <span className="text-secondary font-black text-sm uppercase tracking-widest block mb-2">{phase.step}</span>
+                        <h3 className="text-2xl md:text-3xl font-bold">{phase.title}</h3>
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </a>
-
-              <a href={PHASE_LINKS.phase2} target="_blank" rel="noopener noreferrer" className="block">
-                <div id="building" className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/10 transition-colors group cursor-pointer">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <span className="text-secondary font-black text-sm uppercase tracking-widest block mb-2">Step 02</span>
-                      <h3 className="text-2xl md:text-3xl font-bold">Phase 2: Credit Building</h3>
-                    </div>
-                    <div className="flex items-center gap-2 text-secondary">
-                      <span className="text-sm font-bold hidden md:block">Join Discord</span>
-                      <ExternalLink className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <p className="text-xl text-white/60 leading-relaxed italic mb-6">
-                    Boost to 800 FICO with secured loans, authorized user tradelines, and optimized credit mix. +85 points in 6-12 months.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {["Secured card strategy", "Authorized user placement", "Credit utilization optimization", "Payment history building", "Credit mix diversification", "Score monitoring & alerts"].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-white/70">
-                        <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" />
-                        {item}
+                      <div className="flex items-center gap-2 text-secondary">
+                        <span className="text-sm font-bold hidden md:block">{phase.linkLabel}</span>
+                        <ExternalLink className="w-5 h-5" />
                       </div>
-                    ))}
-                  </div>
-                </div>
-              </a>
-
-              <a href={PHASE_LINKS.phase3} target="_blank" rel="noopener noreferrer" className="block">
-                <div id="crypto" className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/10 transition-colors group cursor-pointer">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <span className="text-secondary font-black text-sm uppercase tracking-widest block mb-2">Step 03</span>
-                      <h3 className="text-2xl md:text-3xl font-bold">Phase 3: 700 Crypto</h3>
                     </div>
-                    <div className="flex items-center gap-2 text-secondary">
-                      <span className="text-sm font-bold hidden md:block">Join Discord</span>
-                      <ExternalLink className="w-5 h-5" />
+                    <p className="text-xl text-white/60 leading-relaxed italic mb-6">{phase.desc}</p>
+                    <div className="grid sm:grid-cols-3 gap-4">
+                      {phase.features.map((item, j) => (
+                        <div key={j} className="flex items-center gap-2 text-sm text-white/70">
+                          <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" />
+                          {item}
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <p className="text-xl text-white/60 leading-relaxed italic mb-6">
-                    Unlock BTC-backed loans at 4.5% APR. Borrow against your crypto without selling your stack. DeFi meets traditional finance.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {["BTC-backed lending setup", "4.5% APR prime rates", "No credit check required", "Keep full BTC exposure", "DeFi lending platforms", "Crypto tax optimization"].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-white/70">
-                        <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </a>
-
-              <a href={PHASE_LINKS.phase4} target="_blank" rel="noopener noreferrer" className="block">
-                <div id="wealth" className="bg-white/5 border border-white/10 p-8 md:p-10 hover:bg-white/10 transition-colors group cursor-pointer">
-                  <div className="flex items-center justify-between mb-6">
-                    <div>
-                      <span className="text-secondary font-black text-sm uppercase tracking-widest block mb-2">Step 04</span>
-                      <h3 className="text-2xl md:text-3xl font-bold">Phase 4: 800 Wealth Club & Funding</h3>
-                    </div>
-                    <div className="flex items-center gap-2 text-secondary">
-                      <span className="text-sm font-bold hidden md:block">Join on Skool</span>
-                      <ExternalLink className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <p className="text-xl text-white/60 leading-relaxed italic mb-6">
-                    Access business funding, passive income strategies, prime investments, and legacy planning. Exclusive for 800+ FICO members.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    {["Business funding access", "SBA loan qualification", "Investment deal flow", "Passive income strategies", "Legacy wealth planning", "Monthly mastermind calls"].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-white/70">
-                        <CheckCircle2 className="w-4 h-4 text-secondary shrink-0" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </a>
+                </a>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
+      {/* Results */}
       <section id="results" className="py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-16">
@@ -368,7 +330,7 @@ export default function CreditClubDetails() {
                 </div>
                 <h3 className="font-bold text-primary text-lg mb-2">All Scores 725+ — "Very Good"</h3>
                 <p className="text-slate-500 text-sm mb-3">
-                  Equifax 735 (+31 pts), TransUnion 727 (+22 pts), Experian 727 (+727 pts from no score). Complete credit profile built from scratch.
+                  Equifax 735 (+31 pts), TransUnion 727 (+22 pts), Experian 727 (from no score). Complete credit profile built from scratch.
                 </p>
                 <div className="flex gap-2">
                   <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold rounded-full">+31 pts</span>
@@ -427,6 +389,7 @@ export default function CreditClubDetails() {
         </div>
       </section>
 
+      {/* Community */}
       <section id="community" className="py-24 bg-slate-900 text-white">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-16">
@@ -486,6 +449,7 @@ export default function CreditClubDetails() {
         </div>
       </section>
 
+      {/* Final CTA */}
       <section className="py-24 bg-white">
         <div className="container px-4 md:px-6">
           <div className="max-w-4xl mx-auto bg-slate-900 rounded-none p-12 md:p-20 text-white relative overflow-hidden">
@@ -509,7 +473,10 @@ export default function CreditClubDetails() {
               </div>
               <div className="border-t border-white/10 pt-8">
                 <p className="text-white/40 text-sm mb-4">Or get updates via email:</p>
-                <form onSubmit={(e) => { e.preventDefault(); signupMutation.mutate({ email, name: '' }); }} className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto">
+                <form
+                  onSubmit={(e) => { e.preventDefault(); signupMutation.mutate({ email, name: '' }); }}
+                  className="flex flex-col md:flex-row gap-4 max-w-xl mx-auto"
+                >
                   <input 
                     type="email" 
                     value={email}
@@ -519,7 +486,12 @@ export default function CreditClubDetails() {
                     data-testid="input-credit-club-email"
                     className="flex-1 px-8 py-5 bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-secondary"
                   />
-                  <Button type="submit" disabled={signupMutation.isPending || !email} data-testid="button-credit-club-join" className="bg-secondary text-primary hover:bg-white font-bold px-12 h-16 text-lg rounded-none shadow-2xl">
+                  <Button
+                    type="submit"
+                    disabled={signupMutation.isPending || !email}
+                    data-testid="button-credit-club-join"
+                    className="bg-secondary text-primary hover:bg-white font-bold px-12 h-16 text-lg rounded-none shadow-2xl"
+                  >
                     {signupMutation.isPending ? "JOINING..." : "JOIN NOW"}
                   </Button>
                 </form>
