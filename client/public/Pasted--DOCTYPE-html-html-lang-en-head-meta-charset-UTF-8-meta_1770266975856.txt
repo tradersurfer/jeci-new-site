@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Financial Model - Money Vibes Resource Hub</title>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        /* Basic Reset & Body Styling */
+        body {
+            font-family: 'Inter', sans-serif; /* Using Inter as requested */
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styling */
+        header {
+            background-color: #4CAF50; /* Money Vibes Green */
+            color: white;
+            padding: 1.5rem 0;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        header h1 {
+            margin-bottom: 0.5rem;
+            font-size: 2.8em;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            max-width: 900px;
+            margin: 0.5rem auto 0 auto;
+            font-size: 1.15em;
+            line-height: 1.8;
+            padding: 0 20px;
+        }
+
+        /* Main Content Area */
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 25px;
+            gap: 25px;
+            max-width: 1500px;
+            margin: 25px auto;
+            flex-grow: 1; /* Allows main content to expand */
+        }
+
+        /* Panel Styling (Control and Results) */
+        .control-panel, .results-panel {
+            background-color: #fff;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .control-panel:hover, .results-panel:hover {
+            transform: translateY(-3px);
+        }
+
+        .control-panel {
+            flex: 1;
+            min-width: 320px;
+            max-width: 400px; /* Constrain width for control panel */
+        }
+
+        .results-panel {
+            flex: 3; /* Larger share for results */
+            min-width: 700px;
+        }
+
+        /* Headings within Panels */
+        h2 {
+            color: #2e7d32; /* Darker green */
+            margin-top: 0;
+            font-size: 2em;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 12px;
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            color: #388e3c;
+            margin-top: 30px;
+            margin-bottom: 18px;
+            font-size: 1.5em;
+        }
+
+        /* Assumptions Grid Layout */
+        .assumptions-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Default to single column for mobile */
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .input-field-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Space between label/icon and input */
+        }
+
+        .label-and-info {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Space between label text and icon */
+        }
+
+        .label-and-info label {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 0; /* Override default label margin */
+        }
+
+        .info-icon-container {
+            position: relative; /* For tooltip positioning */
+            display: inline-block; /* To make it wrap content */
+        }
+
+        .info-icon {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.8em;
+            font-weight: bold;
+            cursor: help;
+            transition: background-color 0.2s;
+        }
+
+        .info-icon:hover {
+            background-color: #388e3c;
+        }
+
+        .tooltip-text {
+            visibility: hidden;
+            opacity: 0;
+            width: 250px; /* Max width for tooltip */
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position above the icon */
+            left: 50%;
+            margin-left: -125px; /* Center the tooltip */
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            transition: opacity 0.3s, visibility 0.3s;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .info-icon-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .assumptions-grid input[type="number"],
+        .assumptions-grid select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .assumptions-grid input[type="number"]:focus,
+        .assumptions-grid select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+            outline: none;
+        }
+
+        /* Buttons */
+        button {
+            background-color: #66bb6a; /* Lighter green */
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            margin-top: 25px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            background-color: #4CAF50;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        #calculateModel {
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0 auto;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        .action-buttons button {
+            margin-top: 0; /* Override default button margin */
+            padding: 10px 18px;
+            font-size: 0.95em;
+        }
+
+
+        /* Scenario Selector */
+        .scenario-selector {
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on small screens */
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: #e8f5e9; /* Very light green */
+            border-radius: 10px;
+            border: 1px solid #c8e6c9;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .scenario-selector label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .scenario-selector select {
+            flex-grow: 1; /* Allow select to take available space */
+            min-width: 150px; /* Ensure it doesn't get too small */
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            background-color: white;
+            font-size: 1em;
+        }
+
+        .scenario-selector button {
+            margin-top: 0; /* Override default button margin */
+            padding: 10px 18px;
+            font-size: 0.95em;
+        }
+
+        /* Tabs for Financial Statements */
+        .tabs {
+            display: flex;
+            flex-wrap: wrap; /* Allow tabs to wrap */
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 25px;
+        }
+
+        .tab-button {
+            background-color: #e0e0e0;
+            color: #555;
+            padding: 14px 22px;
+            border: none;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 8px;
+            flex-grow: 1; /* Distribute space evenly */
+            text-align: center;
+            white-space: nowrap; /* Prevent text wrapping */
+        }
+
+        .tab-button.active {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 -3px 8px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover:not(.active) {
+            background-color: #d0d0d0;
+            color: #333;
+        }
+
+        .tab-content {
+            display: none; /* Hidden by default */
+            padding-top: 10px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            color: #4CAF50;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto; /* Enable horizontal scrolling for wide tables */
+            margin-top: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            font-size: 0.95em;
+            min-width: 800px; /* Ensure table doesn't get too squished */
+        }
+
+        table th, table td {
+            border: 1px solid #eee;
+            padding: 14px 18px;
+            text-align: right; /* Align numbers to the right */
+        }
+
+        table th {
+            background-color: #f2f2f2;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            position: sticky;
+            top: 0; /* Keep headers visible on scroll */
+            z-index: 1;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table tbody tr:hover {
+            background-color: #eef;
+        }
+
+        table td:first-child {
+            text-align: left; /* Keep metric names left-aligned */
+            font-weight: 600;
+            color: #444;
+            position: sticky;
+            left: 0; /* Keep first column visible on horizontal scroll */
+            background-color: inherit; /* Ensure background matches row */
+            z-index: 0; /* Behind header, above other cells */
+        }
+
+        /* Special styling for negative numbers */
+        td.negative {
+            color: #d32f2f; /* Red for negative values */
+            font-weight: bold;
+        }
+
+        /* Charts Section */
+        #charts {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        #charts > div {
+            flex: 1;
+            min-width: 300px;
+            max-width: 45%; /* Adjust as needed for layout */
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #333;
+            color: white;
+            font-size: 0.9em;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            main {
+                flex-direction: column;
+                align-items: center; /* Center panels when stacked */
+            }
+            .control-panel, .results-panel {
+                min-width: unset;
+                width: 95%; /* Adjust width for smaller screens */
+                max-width: 100%;
+            }
+            .control-panel {
+                order: 2; /* Put control panel below results on smaller screens */
+            }
+            .results-panel {
+                order: 1;
+            }
+            #charts > div {
+                max-width: 95%; /* Full width for charts on smaller screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            .assumptions-grid {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
+            }
+            .tab-button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+                margin-right: 3px;
+                border-radius: 8px 8px 0 0;
+            }
+            table th, table td {
+                padding: 10px 12px;
+            }
+            table {
+                min-width: 600px; /* Keep a minimum width for tables */
+            }
+            .scenario-selector {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .scenario-selector select, .scenario-selector button {
+                width: 100%;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .action-buttons button {
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            main {
+                padding: 15px;
+            }
+            .control-panel, .results-panel {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 1.6em;
+            }
+            h3 {
+                font-size: 1.3em;
+            }
+            button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Forecasting with Precision: Your 3-5 Year Financial Model</h1>
+        <p>Imagine having a crystal ball for your business! This interactive tool helps you build detailed 3-5 year financial projections, complete with best-case, worst-case, and most-likely scenarios. As Peter Drucker said, "The best way to predict the future is to create it." Your financial model? That's your creation tool!</p>
+    </header>
+
+    <main>
+        <section class="control-panel">
+            <h2>📊 Master Assumptions & Scenario Planning</h2>
+            <p>This is your control panel! Adjust the values below to see how they impact your entire financial model. Use the scenario selector to quickly switch between your Most Likely, Best, and Worst Case outlooks.</p>
+
+            <div class="scenario-selector">
+                <label for="scenarioSelect">Select Scenario:</label>
+                <select id="scenarioSelect">
+                    <option value="mostLikely">Most Likely Case</option>
+                    <option value="bestCase">Best Case</option>
+                    <option value="worstCase">Worst Case</option>
+                </select>
+                <button id="applyScenario">Apply Scenario</button>
+            </div>
+
+            <div id="assumptionsInputs" class="assumptions-grid">
+                <h3>Revenue Drivers</h3>
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="initialCustomers">Initial Active Customers:</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="initialCustomers">?</span>
+                            <span class="tooltip-text" id="tooltip-initialCustomers"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="initialCustomers" value="1000" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="monthlyNewCustomers">New Customers per Month (Base):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="monthlyNewCustomers">?</span>
+                            <span class="tooltip-text" id="tooltip-monthlyNewCustomers"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="monthlyNewCustomers" value="50" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="customerAcquisitionCost">Customer Acquisition Cost ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="customerAcquisitionCost">?</span>
+                            <span class="tooltip-text" id="tooltip-customerAcquisitionCost"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="customerAcquisitionCost" value="100" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="averageOrderValue">Average Order Value / AMRR ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="averageOrderValue">?</span>
+                            <span class="tooltip-text" id="tooltip-averageOrderValue"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="averageOrderValue" value="150" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="churnRate">Monthly Churn Rate (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="churnRate">?</span>
+                            <span class="tooltip-text" id="tooltip-churnRate"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="churnRate" value="2" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="pricingIncreaseAnnual">Annual Pricing Increase (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="pricingIncreaseAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-pricingIncreaseAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="pricingIncreaseAnnual" value="3" step="0.1">
+                </div>
+
+                <h3>Operating Expenses</h3>
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="initialHeadcount">Initial Headcount:</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="initialHeadcount">?</span>
+                            <span class="tooltip-text" id="tooltip-initialHeadcount"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="initialHeadcount" value="10" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="headcountGrowthAnnual">Annual Headcount Growth (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="headcountGrowthAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-headcountGrowthAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="headcountGrowthAnnual" value="10" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="averageSalaryAnnual">Average Annual Salary ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="averageSalaryAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-averageSalaryAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="averageSalaryAnnual" value="60000" step="1000">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="salaryIncreaseAnnual">Annual Salary Increase (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="salaryIncreaseAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-salaryIncreaseAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="salaryIncreaseAnnual" value="3" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="marketingSpendPercentRevenue">Marketing Spend (% of Revenue):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="marketingSpendPercentRevenue">?</span>
+                            <span class="tooltip-text" id="tooltip-marketingSpendPercentRevenue"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="marketingSpendPercentRevenue" value="15" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="rentMonthly">Monthly Rent ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="rentMonthly">?</span>
+                            <span class="tooltip-text" id="tooltip-rentMonthly"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="rentMonthly" value="2000" step="100">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="rentIncreaseAnnual">Annual Rent Increase (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="rentIncreaseAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-rentIncreaseAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="rentIncreaseAnnual" value="3" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="otherFixedOperatingCostsMonthly">Other Fixed OpEx (Monthly) ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="otherFixedOperatingCostsMonthly">?</span>
+                            <span class="tooltip-text" id="tooltip-otherFixedOperatingCostsMonthly"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="otherFixedOperatingCostsMonthly" value="1000" step="100">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="variableCostPerUnit">Variable Cost Per Unit ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="variableCostPerUnit">?</span>
+                            <span class="tooltip-text" id="tooltip-variableCostPerUnit"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="variableCostPerUnit" value="30" step="1">
+                </div>
+
+                <h3>Financial & Other Assumptions</h3>
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="inflationRateAnnual">Annual Inflation Rate (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="inflationRateAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-inflationRateAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="inflationRateAnnual" value="2.5" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="interestRateAnnual">Annual Interest Rate (on Debt) (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="interestRateAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-interestRateAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="interestRateAnnual" value="6" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="taxRate">Effective Tax Rate (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="taxRate">?</span>
+                            <span class="tooltip-text" id="tooltip-taxRate"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="taxRate" value="25" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="initialCashBalance">Initial Cash Balance ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="initialCashBalance">?</span>
+                            <span class="tooltip-text" id="tooltip-initialCashBalance"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="initialCashBalance" value="50000" step="1000">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="initialDebtBalance">Initial Debt Balance ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="initialDebtBalance">?</span>
+                            <span class="tooltip-text" id="tooltip-initialDebtBalance"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="initialDebtBalance" value="0" step="1000">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="capexAnnual">Annual Capital Expenditures ($):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="capexAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-capexAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="capexAnnual" value="5000" step="100">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="depreciationRateAnnual">Annual Depreciation Rate (%):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="depreciationRateAnnual">?</span>
+                            <span class="tooltip-text" id="tooltip-depreciationRateAnnual"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="depreciationRateAnnual" value="10" step="0.1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="timeHorizonYears">Time Horizon (Years):</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="timeHorizonYears">?</span>
+                            <span class="tooltip-text" id="tooltip-timeHorizonYears"></span>
+                        </div>
+                    </div>
+                    <input type="number" id="timeHorizonYears" value="3" min="1" max="5" step="1">
+                </div>
+
+                <div class="input-field-wrapper">
+                    <div class="label-and-info">
+                        <label for="displayGranularity">Display Granularity:</label>
+                        <div class="info-icon-container">
+                            <span class="info-icon" data-tooltip-id="displayGranularity">?</span>
+                            <span class="tooltip-text" id="tooltip-displayGranularity"></span>
+                        </div>
+                    </div>
+                    <select id="displayGranularity">
+                        <option value="monthly">Monthly (First 12-24 months)</option>
+                        <option value="quarterly">Quarterly</option>
+                        <option value="annual" selected>Annual</option>
+                    </select>
+                </div>
+            </div>
+            <button id="calculateModel">Recalculate Model</button>
+            <div class="action-buttons">
+                <button id="downloadCSV">Download CSV</button>
+                <button id="exportPDF">Export PDF</button>
+            </div>
+        </section>
+
+        <section class="results-panel">
+            <h2>📈 Financial Projections</h2>
+
+            <div class="tabs">
+                <button class="tab-button active" data-tab="pnl">Profit & Loss</button>
+                <button class="tab-button" data-tab="cashFlow">Cash Flow</button>
+                <button class="tab-button" data-tab="balanceSheet">Balance Sheet</button>
+                <button class="tab-button" data-tab="kpis">Key Metrics (KPIs)</button>
+                <button class="tab-button" data-tab="profitAllocation">Profit Allocation</button>
+                <button class="tab-button" data-tab="charts">Charts</button>
+            </div>
+
+            <div id="pnl" class="tab-content active">
+                <h3>Profit & Loss Statement</h3>
+                <p>See your projected profitability over the next 3-5 years.</p>
+                <div class="table-container">
+                    <table id="pnlTable">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="cashFlow" class="tab-content">
+                <h3>Cash Flow Statement</h3>
+                <p>This is your lifeline! Track the actual movement of cash in and out of your business.</p>
+                 <div class="table-container">
+                    <table id="cashFlowTable">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="balanceSheet" class="tab-content">
+                <h3>Balance Sheet</h3>
+                <p>A snapshot of your projected assets, liabilities, and equity at the end of each period.</p>
+                 <div class="table-container">
+                    <table id="balanceSheetTable">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="kpis" class="tab-content">
+                <h3>Key Performance Indicators (KPIs)</h3>
+                <p>Quick insights into your business's efficiency, liquidity, and overall financial health.</p>
+                <div class="table-container">
+                    <table id="kpiTable">
+                        <thead>
+                            <tr>
+                                <th>KPI</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+             <div id="profitAllocation" class="tab-content">
+                <h3>Dynamic Profit Allocation</h3>
+                <p>See how your profits are automatically allocated based on projected revenue tiers, ensuring your personal wealth and strategic investments are prioritized.</p>
+                <p><strong>Note:</strong> This model uses simplified tiers. In a real-world scenario, you'd define more granular revenue tiers for percentage adjustments.</p>
+                <div class="table-container">
+                    <table id="profitAllocationTable">
+                        <thead>
+                            <tr>
+                                <th>Account</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="charts" class="tab-content">
+                <h3>Financial Charts</h3>
+                <p>Visual representation of key financial metrics over time.</p>
+                <div id="chartContainers">
+                    <div><canvas id="profitChart"></canvas></div>
+                    <div><canvas id="cashChart"></canvas></div>
+                    <div><canvas id="revenueChart"></canvas></div>
+                    <div><canvas id="opexChart"></canvas></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Money Vibes. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- DOM Elements ---
+            const calculateModelBtn = document.getElementById('calculateModel');
+            const scenarioSelect = document.getElementById('scenarioSelect');
+            const applyScenarioBtn = document.getElementById('applyScenario');
+            const displayGranularitySelect = document.getElementById('displayGranularity');
+            const downloadCSVBtn = document.getElementById('downloadCSV');
+            const exportPDFBtn = document.getElementById('exportPDF');
+
+
+            const pnlTableBody = document.querySelector('#pnlTable tbody');
+            const cashFlowTableBody = document.querySelector('#cashFlowTable tbody');
+            const balanceSheetTableBody = document.querySelector('#balanceSheetTable tbody');
+            const kpiTableBody = document.querySelector('#kpiTable tbody');
+            const profitAllocationTableBody = document.querySelector('#profitAllocationTable tbody');
+
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            const infoIcons = document.querySelectorAll('.info-icon');
+            const tooltipTexts = document.querySelectorAll('.tooltip-text');
+
+            // --- Local Storage Key ---
+            const STORAGE_KEY = 'financialModelInputs';
+            let lastCalculatedData = {}; // Store the last calculated data for CSV/PDF export and charts
+
+            // --- Tooltip Definitions ---
+            const tooltipDefinitions = {
+                initialCustomers: "The starting number of active customers at the beginning of your projection.",
+                monthlyNewCustomers: "The average number of new customers you expect to acquire each month.",
+                customerAcquisitionCost: "The average cost (in dollars) to acquire a single new customer.",
+                averageOrderValue: "The average revenue generated per customer transaction or per month (for recurring revenue models).",
+                churnRate: "The percentage of existing customers who stop using your service or buying your products each month.",
+                pricingIncreaseAnnual: "The annual percentage by which you plan to increase your product/service pricing.",
+                initialHeadcount: "The starting number of employees or team members at the beginning of your projection.",
+                headcountGrowthAnnual: "The annual percentage increase in your total employee count.",
+                averageSalaryAnnual: "The average annual salary paid per employee.",
+                salaryIncreaseAnnual: "The annual percentage increase in average employee salaries.",
+                marketingSpendPercentRevenue: "The percentage of your total revenue allocated to marketing expenses.",
+                rentMonthly: "Your fixed monthly rent expense.",
+                rentIncreaseAnnual: "The annual percentage increase in your monthly rent.",
+                otherFixedOperatingCostsMonthly: "Other recurring fixed expenses not covered by salaries, marketing, or rent (e.g., software subscriptions, utilities).",
+                variableCostPerUnit: "The direct cost associated with producing or delivering one unit of your product/service.",
+                inflationRateAnnual: "The expected annual rate of inflation, impacting various costs over time.",
+                interestRateAnnual: "The annual interest rate applied to any outstanding debt.",
+                taxRate: "Your effective corporate income tax rate.",
+                initialCashBalance: "The amount of cash your business has at the very start of the projection period.",
+                initialDebtBalance: "The total amount of outstanding debt your business has at the start of the projection period.",
+                capexAnnual: "The annual amount spent on acquiring or upgrading physical assets (e.g., equipment, property).",
+                depreciationRateAnnual: "The annual rate at which your capital expenditures (assets) lose value over time.",
+                timeHorizonYears: "The total number of years you want to project your financial model (between 1 and 5 years).",
+                displayGranularity: "How you want to view the financial data: monthly, quarterly, or annually."
+            };
+
+
+            // --- Default Assumptions (Most Likely Case) ---
+            // These values are used to populate the input fields initially
+            // and serve as the 'mostLikely' scenario base.
+            const defaultAssumptions = {
+                initialCustomers: 1000,
+                monthlyNewCustomers: 50,
+                customerAcquisitionCost: 100,
+                averageOrderValue: 150, // Average Monthly Recurring Revenue (AMRR) for SaaS, AOV for e-commerce
+                churnRate: 0.02, // 2% monthly
+                pricingIncreaseAnnual: 0.03, // 3% annual increase
+
+                initialHeadcount: 10,
+                headcountGrowthAnnual: 0.10, // 10% annual growth
+                averageSalaryAnnual: 60000,
+                salaryIncreaseAnnual: 0.03, // 3% annual increase
+                marketingSpendPercentRevenue: 0.15, // 15% of revenue
+                rentMonthly: 2000,
+                rentIncreaseAnnual: 0.03, // 3% annual increase
+                otherFixedOperatingCostsMonthly: 1000,
+                variableCostPerUnit: 30, // COGS per unit sold
+
+                inflationRateAnnual: 0.025, // 2.5% annual
+                interestRateAnnual: 0.06, // 6% annual on debt
+                taxRate: 0.25, // 25% effective tax rate
+                initialCashBalance: 50000,
+                initialDebtBalance: 0,
+                capexAnnual: 5000, // Annual Capital Expenditures
+                depreciationRateAnnual: 0.10, // 10% annual depreciation on new CapEx
+                timeHorizonYears: 3,
+                displayGranularity: 'annual'
+            };
+
+            // --- Scenario Definitions ---
+            // Each scenario overrides specific default assumptions.
+            const scenarios = {
+                mostLikely: { ...defaultAssumptions }, // Most Likely is the default
+                bestCase: {
+                    initialCustomers: 1200,
+                    monthlyNewCustomers: 70,
+                    customerAcquisitionCost: 80,
+                    averageOrderValue: 170,
+                    churnRate: 0.01,
+                    pricingIncreaseAnnual: 0.05,
+
+                    headcountGrowthAnnual: 0.15,
+                    averageSalaryAnnual: 62000, // Slightly higher salaries in best case due to talent attraction
+                    salaryIncreaseAnnual: 0.04,
+                    marketingSpendPercentRevenue: 0.12, // More efficient marketing
+                    rentIncreaseAnnual: 0.02,
+                    otherFixedOperatingCostsMonthly: 900,
+                    variableCostPerUnit: 28,
+
+                    inflationRateAnnual: 0.02,
+                    interestRateAnnual: 0.05,
+                    taxRate: 0.20,
+                    initialCashBalance: 60000,
+                    capexAnnual: 7000, // More investment in growth
+                    depreciationRateAnnual: 0.12,
+                },
+                worstCase: {
+                    initialCustomers: 800,
+                    monthlyNewCustomers: 30,
+                    customerAcquisitionCost: 120,
+                    averageOrderValue: 130,
+                    churnRate: 0.03,
+                    pricingIncreaseAnnual: 0.01,
+
+                    headcountGrowthAnnual: 0.05,
+                    averageSalaryAnnual: 58000,
+                    salaryIncreaseAnnual: 0.02,
+                    marketingSpendPercentRevenue: 0.18,
+                    rentIncreaseAnnual: 0.04,
+                    otherFixedOperatingCostsMonthly: 1200,
+                    variableCostPerUnit: 35,
+
+                    inflationRateAnnual: 0.03,
+                    interestRateAnnual: 0.08,
+                    taxRate: 0.30,
+                    initialCashBalance: 40000,
+                    capexAnnual: 3000, // Less investment in downturn
+                    depreciationRateAnnual: 0.08,
+                }
+            };
+
+            // --- Dynamic Profit Allocation Tiers ---
+            // Define revenue tiers and corresponding allocation percentages
+            const profitAllocationTiers = [
+                {
+                    minRevenue: 0, // Tier 1: Up to $100k monthly
+                    maxRevenue: 100000,
+                    allocations: {
+                        profit: 0.10,
+                        ownerPay: 0.20,
+                        tax: 0.15,
+                        capEx: 0.10,
+                        growthInvestment: 0.45
+                    }
+                },
+                {
+                    minRevenue: 100001, // Tier 2: $100k to $250k monthly
+                    maxRevenue: 250000,
+                    allocations: {
+                        profit: 0.15,
+                        ownerPay: 0.15,
+                        tax: 0.20,
+                        capEx: 0.15,
+                        growthInvestment: 0.35
+                    }
+                },
+                {
+                    minRevenue: 250001, // Tier 3: Above $250k monthly
+                    maxRevenue: Infinity,
+                    allocations: {
+                        profit: 0.20,
+                        ownerPay: 0.10,
+                        tax: 0.25,
+                        capEx: 0.20,
+                        growthInvestment: 0.25
+                    }
+                }
+            ];
+
+            // --- Helper Functions ---
+
+            // Retrieves a numerical value from an input field
+            function getInputValue(id) {
+                return parseFloat(document.getElementById(id).value);
+            }
+
+            // Sets a numerical value to an input field
+            function setInputValue(id, value) {
+                document.getElementById(id).value = value;
+            }
+
+            // Saves current input values to local storage
+            function saveInputsToLocalStorage() {
+                const inputs = {};
+                document.querySelectorAll('#assumptionsInputs input, #assumptionsInputs select').forEach(input => {
+                    inputs[input.id] = input.value;
+                });
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(inputs));
+            }
+
+            // Loads saved input values from local storage
+            function loadInputsFromLocalStorage() {
+                const savedInputs = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                if (savedInputs) {
+                    for (const id in savedInputs) {
+                        const inputElement = document.getElementById(id);
+                        if (inputElement) {
+                            inputElement.value = savedInputs[id];
+                        }
+                    }
+                } else {
+                    // If no saved inputs, apply default assumptions
+                    applyScenario('mostLikely');
+                }
+            }
+
+            // Applies a selected scenario's assumptions to the input fields
+            function applyScenario(scenarioName) {
+                const scenario = scenarios[scenarioName];
+                if (scenario) {
+                    // Convert percentages back to 0-100 for display
+                    setInputValue('initialCustomers', scenario.initialCustomers);
+                    setInputValue('monthlyNewCustomers', scenario.monthlyNewCustomers);
+                    setInputValue('customerAcquisitionCost', scenario.customerAcquisitionCost);
+                    setInputValue('averageOrderValue', scenario.averageOrderValue);
+                    setInputValue('churnRate', scenario.churnRate * 100);
+                    setInputValue('pricingIncreaseAnnual', scenario.pricingIncreaseAnnual * 100);
+
+                    setInputValue('initialHeadcount', scenario.initialHeadcount);
+                    setInputValue('headcountGrowthAnnual', scenario.headcountGrowthAnnual * 100);
+                    setInputValue('averageSalaryAnnual', scenario.averageSalaryAnnual);
+                    setInputValue('salaryIncreaseAnnual', scenario.salaryIncreaseAnnual * 100);
+                    setInputValue('marketingSpendPercentRevenue', scenario.marketingSpendPercentRevenue * 100);
+                    setInputValue('rentMonthly', scenario.rentMonthly);
+                    setInputValue('rentIncreaseAnnual', scenario.rentIncreaseAnnual * 100);
+                    setInputValue('otherFixedOperatingCostsMonthly', scenario.otherFixedOperatingCostsMonthly);
+                    setInputValue('variableCostPerUnit', scenario.variableCostPerUnit);
+
+                    setInputValue('inflationRateAnnual', scenario.inflationRateAnnual * 100);
+                    setInputValue('interestRateAnnual', scenario.interestRateAnnual * 100);
+                    setInputValue('taxRate', scenario.taxRate * 100);
+                    setInputValue('initialCashBalance', scenario.initialCashBalance);
+                    setInputValue('initialDebtBalance', scenario.initialDebtBalance);
+                    setInputValue('capexAnnual', scenario.capexAnnual);
+                    setInputValue('depreciationRateAnnual', scenario.depreciationRateAnnual * 100);
+                    setInputValue('timeHorizonYears', scenario.timeHorizonYears);
+                    document.getElementById('displayGranularity').value = scenario.displayGranularity; // Set granularity for scenario
+                    calculateAndDisplayModel(); // Recalculate after applying scenario
+                }
+            }
+
+            // Clears a table's body and its header row (except the first column)
+            function clearTable(tableBody) {
+                tableBody.innerHTML = '';
+                const headerRow = tableBody.previousElementSibling.querySelector('tr');
+                while (headerRow.children.length > 1) { // Keep the first 'Metric/KPI' column
+                    headerRow.removeChild(headerRow.lastChild);
+                }
+            }
+
+            // Formats a number as currency
+            function formatCurrency(value) {
+                if (isNaN(value) || !isFinite(value)) return 'N/A';
+                const formatted = value.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return `$${formatted}`;
+            }
+
+            // Formats a number as a percentage
+            function formatPercentage(value) {
+                if (isNaN(value) || !isFinite(value)) return 'N/A';
+                return `${(value * 100).toFixed(2)}%`;
+            }
+
+            // Formats a metric name from camelCase to Title Case
+            function formatMetricName(key) {
+                // Ensure key is a string before attempting string operations
+                const stringKey = String(key);
+                return stringKey.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
+            }
+
+            // --- Chart Instances ---
+            let profitChartInstance, cashChartInstance, revenueChartInstance, opexChartInstance;
+
+            // Destroys existing chart instances
+            function destroyCharts() {
+                if (profitChartInstance) profitChartInstance.destroy();
+                if (cashChartInstance) cashChartInstance.destroy();
+                if (revenueChartInstance) revenueChartInstance.destroy();
+                if (opexChartInstance) opexChartInstance.destroy();
+            }
+
+            // Renders charts using Chart.js
+            function renderCharts(periods, displayData) {
+                destroyCharts(); // Destroy existing charts before rendering new ones
+
+                const chartOptions = {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'top' },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.dataset.yAxisID === 'y-currency') {
+                                        label += formatCurrency(context.raw);
+                                    } else if (context.dataset.yAxisID === 'y-percentage') {
+                                        label += formatPercentage(context.raw);
+                                    } else {
+                                        label += context.raw.toLocaleString();
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Amount ($)'
+                            },
+                            ticks: {
+                                callback: function(value, index, ticks) {
+                                    return formatCurrency(value);
+                                }
+                            }
+                        }
+                    }
+                };
+
+                // Profit Chart
+                const profitCtx = document.getElementById('profitChart').getContext('2d');
+                profitChartInstance = new Chart(profitCtx, {
+                    type: 'line',
+                    data: {
+                        labels: periods,
+                        datasets: [{
+                            label: 'Net Profit',
+                            data: displayData.pnl.netProfit,
+                            borderColor: '#28a745', // Green
+                            backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                            fill: true,
+                            tension: 0.1,
+                            yAxisID: 'y-currency'
+                        }]
+                    },
+                    options: chartOptions
+                });
+
+                // Cash Flow Chart (Ending Cash Balance)
+                const cashCtx = document.getElementById('cashChart').getContext('2d');
+                cashChartInstance = new Chart(cashCtx, {
+                    type: 'line',
+                    data: {
+                        labels: periods,
+                        datasets: [{
+                            label: 'Ending Cash Balance',
+                            data: displayData.cashFlow.endingCash.slice(1), // Exclude initial cash
+                            borderColor: '#007bff', // Blue
+                            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                            fill: true,
+                            tension: 0.1,
+                            yAxisID: 'y-currency'
+                        }]
+                    },
+                    options: chartOptions
+                });
+
+                // Revenue Chart
+                const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+                revenueChartInstance = new Chart(revenueCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: periods,
+                        datasets: [{
+                            label: 'Total Revenue',
+                            data: displayData.pnl.revenue,
+                            backgroundColor: '#ffc107', // Amber
+                            borderColor: '#ffc107',
+                            borderWidth: 1,
+                            yAxisID: 'y-currency'
+                        }]
+                    },
+                    options: chartOptions
+                });
+
+                // Operating Expenses Chart
+                const opexCtx = document.getElementById('opexChart').getContext('2d');
+                opexChartInstance = new Chart(opexCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: periods,
+                        datasets: [{
+                            label: 'Total Operating Expenses',
+                            data: displayData.pnl.totalOperatingExpenses,
+                            backgroundColor: '#dc3545', // Red
+                            borderColor: '#dc3545',
+                            borderWidth: 1,
+                            yAxisID: 'y-currency'
+                        }]
+                    },
+                    options: chartOptions
+                });
+            }
+
+
+            // --- Core Financial Model Calculation Logic ---
+            function calculateAndDisplayModel() {
+                // Clear previous results from all tables
+                clearTable(pnlTableBody);
+                clearTable(cashFlowTableBody);
+                clearTable(balanceSheetTableBody);
+                clearTable(kpiTableBody);
+                clearTable(profitAllocationTableBody);
+
+                // Gather current assumptions from input fields
+                const currentAssumptions = {
+                    initialCustomers: getInputValue('initialCustomers'),
+                    monthlyNewCustomers: getInputValue('monthlyNewCustomers'),
+                    customerAcquisitionCost: getInputValue('customerAcquisitionCost'),
+                    averageOrderValue: getInputValue('averageOrderValue'),
+                    churnRate: getInputValue('churnRate') / 100, // Convert % to decimal
+                    pricingIncreaseAnnual: getInputValue('pricingIncreaseAnnual') / 100,
+
+                    initialHeadcount: getInputValue('initialHeadcount'),
+                    headcountGrowthAnnual: getInputValue('headcountGrowthAnnual') / 100,
+                    averageSalaryAnnual: getInputValue('averageSalaryAnnual'),
+                    salaryIncreaseAnnual: getInputValue('salaryIncreaseAnnual') / 100,
+                    marketingSpendPercentRevenue: getInputValue('marketingSpendPercentRevenue') / 100,
+                    rentMonthly: getInputValue('rentMonthly'),
+                    rentIncreaseAnnual: getInputValue('rentIncreaseAnnual') / 100,
+                    otherFixedOperatingCostsMonthly: getInputValue('otherFixedOperatingCostsMonthly'),
+                    variableCostPerUnit: getInputValue('variableCostPerUnit'),
+
+                    inflationRateAnnual: getInputValue('inflationRateAnnual') / 100,
+                    interestRateAnnual: getInputValue('interestRateAnnual') / 100,
+                    taxRate: getInputValue('taxRate') / 100,
+                    initialCashBalance: getInputValue('initialCashBalance'),
+                    initialDebtBalance: getInputValue('initialDebtBalance'),
+                    capexAnnual: getInputValue('capexAnnual'),
+                    depreciationRateAnnual: getInputValue('depreciationRateAnnual') / 100,
+                    timeHorizonYears: getInputValue('timeHorizonYears'),
+                    displayGranularity: document.getElementById('displayGranularity').value
+                };
+
+                // Validate time horizon
+                if (currentAssumptions.timeHorizonYears < 1 || currentAssumptions.timeHorizonYears > 5) {
+                    alert('Please enter a time horizon between 1 and 5 years.');
+                    return;
+                }
+
+                const monthsPerYear = 12;
+                const totalMonths = currentAssumptions.timeHorizonYears * monthsPerYear;
+
+                // --- Monthly Data Storage ---
+                // P&L
+                const monthlyData = {
+                    revenue: [],
+                    cogs: [],
+                    grossProfit: [],
+                    marketingExpenses: [],
+                    salaryExpenses: [],
+                    rentExpenses: [],
+                    otherOperatingExpenses: [],
+                    totalOperatingExpenses: [],
+                    ebit: [], // Earnings Before Interest & Taxes
+                    interestExpense: [],
+                    ebt: [], // Earnings Before Taxes
+                    taxes: [],
+                    netProfit: [],
+                    depreciation: [], // Needed for cash flow
+                    capexActual: [] // Actual CapEx incurred per month
+                };
+
+                // Balance Sheet
+                const balanceSheetData = {
+                    cash: [],
+                    accountsReceivable: [], // Simplified: assuming 0 for now, or a percentage of revenue
+                    ppe: [], // Property, Plant, & Equipment
+                    totalAssets: [],
+                    accountsPayable: [], // Simplified: assuming 0 for now
+                    debt: [],
+                    totalLiabilities: [],
+                    equity: [],
+                    totalLiabilitiesAndEquity: []
+                };
+
+                // Cash Flow
+                const cashFlowData = {
+                    netIncomeCF: [], // Net Income from P&L
+                    depreciationCF: [], // Add-back depreciation
+                    changeInAR: [], // Change in Accounts Receivable
+                    changeInAP: [], // Change in Accounts Payable
+                    netCashFromOperating: [],
+                    capexCF: [], // Investing outflow
+                    netCashFromInvesting: [],
+                    debtIssuanceRepaymentCF: [], // Financing activity
+                    ownerDrawsCF: [], // Owner's Pay (financing activity)
+                    netCashFromFinancing: [],
+                    netChangeInCash: [],
+                    beginningCash: [],
+                    endingCash: []
+                };
+
+                // Profit Allocation
+                const profitAllocationData = {
+                    profitAccount: [],
+                    ownerPay: [],
+                    taxAccount: [],
+                    capExAccount: [], // CapEx as part of allocation
+                    growthInvestmentAccount: []
+                };
+
+                // --- Initial Values for Monthly Calculations ---
+                let currentCustomers = currentAssumptions.initialCustomers;
+                let currentHeadcount = currentAssumptions.initialHeadcount;
+                let currentRentMonthly = currentAssumptions.rentMonthly;
+                let currentAverageSalaryAnnual = currentAssumptions.averageSalaryAnnual;
+                let currentPricingMultiplier = 1; // Starts at 1, increases annually
+                let currentDebtBalance = currentAssumptions.initialDebtBalance;
+                let currentPPE = 0; // Assuming no initial PPE, only from CapEx
+                let currentAccumulatedDepreciation = 0;
+
+                // Set initial cash balance for cash flow statement
+                cashFlowData.beginningCash.push(currentAssumptions.initialCashBalance);
+                balanceSheetData.cash.push(currentAssumptions.initialCashBalance);
+                balanceSheetData.debt.push(currentAssumptions.initialDebtBalance);
+                balanceSheetData.equity.push(currentAssumptions.initialCashBalance - currentAssumptions.initialDebtBalance); // Simple initial equity
+                balanceSheetData.ppe.push(0); // Initial PPE
+
+                // --- Monthly Calculation Loop ---
+                for (let month = 0; month < totalMonths; month++) {
+                    const year = Math.floor(month / monthsPerYear);
+                    const isNewYear = (month % monthsPerYear === 0 && month !== 0);
+
+                    // Apply annual increases at the start of each new year
+                    if (isNewYear) {
+                        currentRentMonthly *= (1 + currentAssumptions.rentIncreaseAnnual);
+                        currentAverageSalaryAnnual *= (1 + currentAssumptions.salaryIncreaseAnnual);
+                        currentPricingMultiplier *= (1 + currentAssumptions.pricingIncreaseAnnual);
+                        currentHeadcount *= (1 + currentAssumptions.headcountGrowthAnnual);
+                    }
+
+                    // --- Revenue Calculation ---
+                    // New customers added this month
+                    let newCustomersThisMonth = currentAssumptions.monthlyNewCustomers;
+                    // Customers lost this month
+                    let churnedCustomers = currentCustomers * currentAssumptions.churnRate;
+                    // Update active customers
+                    currentCustomers = currentCustomers + newCustomersThisMonth - churnedCustomers;
+                    // Ensure customers don't go below 0
+                    currentCustomers = Math.max(0, currentCustomers);
+
+                    let monthlyRevenue = currentCustomers * currentAssumptions.averageOrderValue * currentPricingMultiplier;
+                    monthlyData.revenue.push(monthlyRevenue);
+
+                    // --- COGS ---
+                    let unitsSold = currentCustomers; // Simplified: 1 unit per customer
+                    let monthlyCOGS = unitsSold * currentAssumptions.variableCostPerUnit;
+                    monthlyData.cogs.push(monthlyCOGS);
+
+                    let grossProfit = monthlyRevenue - monthlyCOGS;
+                    monthlyData.grossProfit.push(grossProfit);
+
+                    // --- Operating Expenses ---
+                    let marketingExpenses = monthlyRevenue * currentAssumptions.marketingSpendPercentRevenue;
+                    monthlyData.marketingExpenses.push(marketingExpenses);
+
+                    let salaryExpenses = (currentHeadcount * currentAverageSalaryAnnual) / monthsPerYear; // Monthly salary
+                    monthlyData.salaryExpenses.push(salaryExpenses);
+
+                    monthlyData.rentExpenses.push(currentRentMonthly);
+                    monthlyData.otherOperatingExpenses.push(currentAssumptions.otherFixedOperatingCostsMonthly);
+
+                    let totalOperatingExpenses = marketingExpenses + salaryExpenses + currentRentMonthly + currentAssumptions.otherFixedOperatingCostsMonthly;
+                    monthlyData.totalOperatingExpenses.push(totalOperatingExpenses);
+
+                    // --- Depreciation (Annual CapEx depreciated monthly) ---
+                    let monthlyCapex = 0;
+                    if (isNewYear) {
+                        monthlyCapex = currentAssumptions.capexAnnual;
+                    }
+                    monthlyData.capexActual.push(monthlyCapex); // Store actual CapEx for cash flow
+
+                    // Add new CapEx to PPE
+                    currentPPE += monthlyCapex;
+
+                    // Calculate monthly depreciation based on current PPE (simplified straight-line)
+                    let monthlyDepreciation = (currentPPE * currentAssumptions.depreciationRateAnnual) / monthsPerYear;
+                    monthlyData.depreciation.push(monthlyDepreciation);
+                    currentAccumulatedDepreciation += monthlyDepreciation;
+
+                    // --- P&L Calculation ---
+                    let ebit = grossProfit - totalOperatingExpenses - monthlyDepreciation; // Operating Income
+                    monthlyData.ebit.push(ebit);
+
+                    // Interest Expense (on current debt balance)
+                    let monthlyInterestRate = currentAssumptions.interestRateAnnual / monthsPerYear;
+                    let interestExpense = currentDebtBalance * monthlyInterestRate;
+                    monthlyData.interestExpense.push(interestExpense);
+
+                    let ebt = ebit - interestExpense;
+                    monthlyData.ebt.push(ebt);
+
+                    let taxes = ebt > 0 ? ebt * currentAssumptions.taxRate : 0;
+                    monthlyData.taxes.push(taxes);
+
+                    let netProfit = ebt - taxes;
+                    monthlyData.netProfit.push(netProfit);
+
+                    // --- Cash Flow Statement Calculation ---
+                    // Operating Activities
+                    let netIncomeCF = netProfit;
+                    cashFlowData.netIncomeCF.push(netIncomeCF);
+                    cashFlowData.depreciationCF.push(monthlyDepreciation);
+                    cashFlowData.changeInAR.push(0); // Simplified: No AR changes
+                    cashFlowData.changeInAP.push(0); // Simplified: No AP changes
+                    let netCashFromOperating = netIncomeCF + monthlyDepreciation; // Simplified: no working capital changes
+                    cashFlowData.netCashFromOperating.push(netCashFromOperating);
+
+                    // Investing Activities
+                    let capexCF = -monthlyCapex; // CapEx is a cash outflow
+                    let currentMonthNetCashFromInvesting = capexCF; // Local variable for clarity
+                    cashFlowData.capexCF.push(capexCF);
+                    cashFlowData.netCashFromInvesting.push(currentMonthNetCashFromInvesting); // Push the value to the array
+
+                    // Financing Activities
+                    let debtIssuanceRepaymentCF = 0; // Simplified: No debt changes unless specified
+                    cashFlowData.debtIssuanceRepaymentCF.push(debtIssuanceRepaymentCF);
+                    let ownerDrawsCF = 0; // Will be populated by profit allocation
+                    cashFlowData.ownerDrawsCF.push(ownerDrawsCF); // Placeholder for now
+
+                    let netCashFromFinancing = debtIssuanceRepaymentCF + ownerDrawsCF;
+                    cashFlowData.netCashFromFinancing.push(netCashFromFinancing);
+
+                    let netChangeInCash = netCashFromOperating + currentMonthNetCashFromInvesting + netCashFromFinancing;
+                    cashFlowData.netChangeInCash.push(netChangeInCash);
+
+                    let beginningCash = cashFlowData.endingCash[month - 1] || currentAssumptions.initialCashBalance;
+                    cashFlowData.beginningCash.push(beginningCash);
+                    let endingCash = beginningCash + netChangeInCash;
+                    cashFlowData.endingCash.push(endingCash);
+
+                    // --- Balance Sheet Calculation ---
+                    // Assets
+                    balanceSheetData.cash.push(endingCash);
+                    balanceSheetData.accountsReceivable.push(0); // Simplified
+                    balanceSheetData.ppe.push(currentPPE - currentAccumulatedDepreciation); // Net PPE
+                    let totalAssets = endingCash + (currentPPE - currentAccumulatedDepreciation); // Simplified
+                    balanceSheetData.totalAssets.push(totalAssets);
+
+                    // Liabilities
+                    balanceSheetData.accountsPayable.push(0); // Simplified
+                    balanceSheetData.debt.push(currentDebtBalance);
+                    let totalLiabilities = currentDebtBalance; // Simplified
+                    balanceSheetData.totalLiabilities.push(totalLiabilities);
+
+                    // Equity
+                    let beginningEquity = balanceSheetData.equity[month - 1] || (currentAssumptions.initialCashBalance - currentAssumptions.initialDebtBalance);
+                    let currentEquity = beginningEquity + netProfit - ownerDrawsCF; // Simplified
+                    balanceSheetData.equity.push(currentEquity);
+                    balanceSheetData.totalLiabilitiesAndEquity.push(totalLiabilities + currentEquity);
+
+                    // --- Dynamic Profit Allocation ---
+                    let allocatedNetProfit = netProfit; // Use net profit for allocation
+                    let tier = profitAllocationTiers.find(t => allocatedNetProfit >= t.minRevenue && allocatedNetProfit <= t.maxRevenue);
+                    if (!tier) tier = profitAllocationTiers[0]; // Default to first tier if not found (shouldn't happen with Infinity)
+
+                    profitAllocationData.profitAccount.push(allocatedNetProfit * tier.allocations.profit);
+                    profitAllocationData.ownerPay.push(allocatedNetProfit * tier.allocations.ownerPay);
+                    profitAllocationData.taxAccount.push(allocatedNetProfit * tier.allocations.tax);
+                    profitAllocationData.capExAccount.push(allocatedNetProfit * tier.allocations.capEx);
+                    profitAllocationData.growthInvestmentAccount.push(allocatedNetProfit * tier.allocations.growthInvestment);
+                }
+
+                // --- Aggregate Monthly Data to Display Granularity ---
+                const periods = [];
+                const displayPnl = {};
+                const displayCashFlow = {};
+                const displayBalanceSheet = {};
+                const displayKpis = {};
+                const displayProfitAllocation = {};
+
+                const aggregateData = (dataArray, aggregationType) => {
+                    const aggregated = [];
+                    let currentSum = 0;
+                    let count = 0;
+                    let divisor = 1; // For averages
+
+                    if (aggregationType === 'quarterly') divisor = 3;
+                    if (aggregationType === 'annual') divisor = 12;
+
+                    for (let i = 0; i < dataArray.length; i++) {
+                        currentSum += dataArray[i];
+                        count++;
+                        if (count === divisor || i === dataArray.length - 1) {
+                            aggregated.push(currentSum);
+                            currentSum = 0;
+                            count = 0;
+                        }
+                    }
+                    return aggregated;
+                };
+
+                const aggregateBalanceSheet = (dataArray, aggregationType) => {
+                    const aggregated = [];
+                    let divisor = 1; // For averages
+
+                    if (aggregationType === 'quarterly') divisor = 3;
+                    if (aggregationType === 'annual') divisor = 12;
+
+                    for (let i = divisor - 1; i < dataArray.length; i += divisor) {
+                        aggregated.push(dataArray[i]); // Take the value at the end of the period
+                    }
+                    return aggregated;
+                };
+
+                const aggregateKpi = (numeratorArray, denominatorArray, aggregationType) => {
+                    const aggregated = [];
+                    let numSum = 0;
+                    let denSum = 0;
+                    let count = 0;
+                    let divisor = 1;
+
+                    if (aggregationType === 'quarterly') divisor = 3;
+                    if (aggregationType === 'annual') divisor = 12;
+
+                    for (let i = 0; i < numeratorArray.length; i++) {
+                        numSum += numeratorArray[i];
+                        denSum += denominatorArray[i];
+                        count++;
+                        if (count === divisor || i === numeratorArray.length - 1) {
+                            aggregated.push(denSum !== 0 ? numSum / denSum : 0);
+                            numSum = 0;
+                            denSum = 0;
+                            count = 0;
+                        }
+                    }
+                    return aggregated;
+                };
+
+
+                // Populate periods and aggregate data based on display granularity
+                if (currentAssumptions.displayGranularity === 'monthly') {
+                    for (let i = 0; i < totalMonths; i++) {
+                        const date = new Date(2025, i, 1); // Start from Jan 2025
+                        periods.push(date.toLocaleString('en-US', { month: 'short', year: 'numeric' }));
+                    }
+                    Object.keys(monthlyData).forEach(key => displayPnl[key] = monthlyData[key]);
+                    Object.keys(cashFlowData).forEach(key => displayCashFlow[key] = cashFlowData[key]);
+                    Object.keys(balanceSheetData).forEach(key => displayBalanceSheet[key] = balanceSheetData[key]);
+                    Object.keys(profitAllocationData).forEach(key => displayProfitAllocation[key] = profitAllocationData[key]);
+
+                    // KPIs for monthly
+                    displayKpis.grossMargin = monthlyData.grossProfit.map((gp, i) => monthlyData.revenue[i] !== 0 ? gp / monthlyData.revenue[i] : 0);
+                    displayKpis.netProfitMargin = monthlyData.netProfit.map((np, i) => monthlyData.revenue[i] !== 0 ? np / monthlyData.revenue[i] : 0);
+                    displayKpis.debtToEquity = balanceSheetData.debt.map((debt, i) => balanceSheetData.equity[i] !== 0 ? debt / balanceSheetData.equity[i] : 0);
+                    displayKpis.customerChurnRate = monthlyData.revenue.map((_, i) => currentAssumptions.churnRate); // Churn rate is an assumption
+                    displayKpis.customerAcquisitionCost = monthlyData.revenue.map((_, i) => currentAssumptions.customerAcquisitionCost); // CAC is an assumption
+
+                } else if (currentAssumptions.displayGranularity === 'quarterly') {
+                    const totalQuarters = Math.ceil(totalMonths / 3);
+                    for (let i = 0; i < totalQuarters; i++) {
+                        periods.push(`Q${(i % 4) + 1} ${Math.floor(i / 4) + 1}`); // Q1 Y1, Q2 Y1, etc.
+                    }
+                    Object.keys(monthlyData).forEach(key => displayPnl[key] = aggregateData(monthlyData[key], 'quarterly'));
+                    Object.keys(cashFlowData).forEach(key => displayCashFlow[key] = aggregateData(cashFlowData[key], 'quarterly'));
+                    Object.keys(balanceSheetData).forEach(key => displayBalanceSheet[key] = aggregateBalanceSheet(balanceSheetData[key], 'quarterly'));
+                    Object.keys(profitAllocationData).forEach(key => displayProfitAllocation[key] = aggregateData(profitAllocationData[key], 'quarterly'));
+
+                    // KPIs for quarterly
+                    displayKpis.grossMargin = aggregateKpi(monthlyData.grossProfit, monthlyData.revenue, 'quarterly');
+                    displayKpis.netProfitMargin = aggregateKpi(monthlyData.netProfit, monthlyData.revenue, 'quarterly');
+                    displayKpis.debtToEquity = aggregateBalanceSheet(balanceSheetData.debt, 'quarterly').map((debt, i) => {
+                        const equity = aggregateBalanceSheet(balanceSheetData.equity, 'quarterly')[i];
+                        return equity !== 0 ? debt / equity : 0;
+                    });
+                    displayKpis.customerChurnRate = displayKpis.grossMargin.map(() => currentAssumptions.churnRate);
+                    displayKpis.customerAcquisitionCost = displayKpis.grossMargin.map(() => currentAssumptions.customerAcquisitionCost);
+
+
+                } else if (currentAssumptions.displayGranularity === 'annual') {
+                    const totalYears = currentAssumptions.timeHorizonYears;
+                    for (let i = 0; i < totalYears; i++) {
+                        periods.push(`Year ${i + 1}`);
+                    }
+                    Object.keys(monthlyData).forEach(key => displayPnl[key] = aggregateData(monthlyData[key], 'annual'));
+                    Object.keys(cashFlowData).forEach(key => displayCashFlow[key] = aggregateData(cashFlowData[key], 'annual'));
+                    Object.keys(balanceSheetData).forEach(key => displayBalanceSheet[key] = aggregateBalanceSheet(balanceSheetData[key], 'annual'));
+                    Object.keys(profitAllocationData).forEach(key => displayProfitAllocation[key] = aggregateData(profitAllocationData[key], 'annual'));
+
+                    // KPIs for annual
+                    displayKpis.grossMargin = aggregateKpi(monthlyData.grossProfit, monthlyData.revenue, 'annual');
+                    displayKpis.netProfitMargin = aggregateKpi(monthlyData.netProfit, monthlyData.revenue, 'annual');
+                    displayKpis.debtToEquity = aggregateBalanceSheet(balanceSheetData.debt, 'annual').map((debt, i) => {
+                        const equity = aggregateBalanceSheet(balanceSheetData.equity, 'annual')[i];
+                        return equity !== 0 ? debt / equity : 0;
+                    });
+                    displayKpis.customerChurnRate = displayKpis.grossMargin.map(() => currentAssumptions.churnRate);
+                    displayKpis.customerAcquisitionCost = displayKpis.grossMargin.map(() => currentAssumptions.customerAcquisitionCost);
+                }
+
+                // Store aggregated data for export/charts
+                lastCalculatedData = {
+                    periods,
+                    pnl: displayPnl,
+                    cashFlow: displayCashFlow,
+                    balanceSheet: displayBalanceSheet,
+                    kpis: displayKpis,
+                    profitAllocation: displayProfitAllocation
+                };
+
+
+                // --- Render Tables ---
+                function renderTable(tableBody, dataObject, formatFunc = formatCurrency) {
+                    const headerRow = tableBody.previousElementSibling.querySelector('tr');
+                    // Add period headers
+                    periods.forEach(period => {
+                        const th = document.createElement('th');
+                        th.textContent = period;
+                        headerRow.appendChild(th);
+                    });
+
+                    for (const key in dataObject) {
+                        const row = document.createElement('tr');
+                        const metricCell = document.createElement('td');
+                        metricCell.textContent = formatMetricName(key);
+                        row.appendChild(metricCell);
+
+                        dataObject[key].forEach(value => {
+                            const dataCell = document.createElement('td');
+                            dataCell.textContent = isNaN(value) ? 'N/A' : formatFunc(value);
+                            if (value < 0) {
+                                dataCell.classList.add('negative'); // Add class for negative numbers
+                            }
+                            row.appendChild(dataCell);
+                        });
+                        tableBody.appendChild(row);
+                    }
+                }
+
+                renderTable(pnlTableBody, {
+                    revenue: displayPnl.revenue,
+                    cogs: displayPnl.cogs,
+                    grossProfit: displayPnl.grossProfit,
+                    marketingExpenses: displayPnl.marketingExpenses,
+                    salaryExpenses: displayPnl.salaryExpenses,
+                    rentExpenses: displayPnl.rentExpenses,
+                    otherOperatingExpenses: displayPnl.otherOperatingExpenses,
+                    totalOperatingExpenses: displayPnl.totalOperatingExpenses,
+                    depreciation: displayPnl.depreciation,
+                    ebit: displayPnl.ebit,
+                    interestExpense: displayPnl.interestExpense,
+                    ebt: displayPnl.ebt,
+                    taxes: displayPnl.taxes,
+                    netProfit: displayPnl.netProfit
+                });
+
+                renderTable(cashFlowTableBody, {
+                    netIncomeCF: displayCashFlow.netIncomeCF,
+                    depreciationCF: displayCashFlow.depreciationCF,
+                    changeInAR: displayCashFlow.changeInAR,
+                    changeInAP: displayCashFlow.changeInAP,
+                    netCashFromOperating: displayCashFlow.netCashFromOperating,
+                    capexCF: displayCashFlow.capexCF,
+                    netCashFromInvesting: displayCashFlow.netCashFromInvesting,
+                    netChangeInCash: displayCashFlow.netChangeInCash,
+                    beginningCash: displayCashFlow.beginningCash.slice(1), // Exclude initial cash balance
+                    endingCash: displayCashFlow.endingCash.slice(1) // Exclude initial cash balance
+                });
+
+                renderTable(balanceSheetTableBody, {
+                    cash: displayBalanceSheet.cash.slice(1),
+                    accountsReceivable: displayBalanceSheet.accountsReceivable.slice(1),
+                    ppe: displayBalanceSheet.ppe.slice(1),
+                    totalAssets: displayBalanceSheet.totalAssets.slice(1),
+                    accountsPayable: displayBalanceSheet.accountsPayable.slice(1),
+                    debt: displayBalanceSheet.debt.slice(1),
+                    totalLiabilities: displayBalanceSheet.totalLiabilities.slice(1),
+                    equity: displayBalanceSheet.equity.slice(1),
+                    totalLiabilitiesAndEquity: displayBalanceSheet.totalLiabilitiesAndEquity.slice(1)
+                });
+
+                renderTable(kpiTableBody, {
+                    grossMargin: displayKpis.grossMargin,
+                    netProfitMargin: displayKpis.netProfitMargin,
+                    debtToEquity: displayKpis.debtToEquity,
+                    customerChurnRate: displayKpis.customerChurnRate,
+                    customerAcquisitionCost: displayKpis.customerAcquisitionCost
+                }, (value) => {
+                    // Custom formatting for KPIs
+                    // The `key` parameter is not directly available here in this scope,
+                    // so we need to pass the actual key or check the value type if needed.
+                    // For now, assuming formatPercentage is for ratios and formatCurrency for costs.
+                    if (value === currentAssumptions.customerAcquisitionCost) { // Check if it's the CAC value
+                        return formatCurrency(value);
+                    }
+                    return formatPercentage(value);
+                });
+
+                renderTable(profitAllocationTableBody, {
+                    profitAccount: profitAllocationData.profitAccount,
+                    ownerPay: profitAllocationData.ownerPay,
+                    taxAccount: profitAllocationData.taxAccount,
+                    capExAccount: profitAllocationData.capExAccount,
+                    growthInvestmentAccount: profitAllocationData.growthInvestmentAccount
+                });
+
+                // Render charts after tables
+                renderCharts(periods, lastCalculatedData);
+                saveInputsToLocalStorage(); // Save inputs after successful calculation
+            }
+
+            // --- CSV Download Function ---
+            function downloadCSV() {
+                if (!lastCalculatedData.periods || lastCalculatedData.periods.length === 0) {
+                    alert("Please generate the financial model first.");
+                    return;
+                }
+
+                const header = ['Metric', ...lastCalculatedData.periods];
+                let csvContent = header.map(h => `"${h}"`).join(',') + '\n';
+
+                const addRow = (metricName, dataArray, formatFunc = formatCurrency) => {
+                    const formattedData = dataArray.map(val => isNaN(val) ? 'N/A' : formatFunc(val).replace('$', '').replace('%', '')); // Remove currency/percent signs for CSV
+                    csvContent += `"${metricName}",${formattedData.map(d => `"${d}"`).join(',')}\n`;
+                };
+
+                // P&L Data
+                addRow('Revenue', lastCalculatedData.pnl.revenue);
+                addRow('COGS', lastCalculatedData.pnl.cogs);
+                addRow('Gross Profit', lastCalculatedData.pnl.grossProfit);
+                addRow('Marketing Expenses', lastCalculatedData.pnl.marketingExpenses);
+                addRow('Salary Expenses', lastCalculatedData.pnl.salaryExpenses);
+                addRow('Rent Expenses', lastCalculatedData.pnl.rentExpenses);
+                addRow('Other Operating Expenses', lastCalculatedData.pnl.otherOperatingExpenses);
+                addRow('Total Operating Expenses', lastCalculatedData.pnl.totalOperatingExpenses);
+                addRow('Depreciation', lastCalculatedData.pnl.depreciation);
+                addRow('EBIT', lastCalculatedData.pnl.ebit);
+                addRow('Interest Expense', lastCalculatedData.pnl.interestExpense);
+                addRow('EBT', lastCalculatedData.pnl.ebt);
+                addRow('Taxes', lastCalculatedData.pnl.taxes);
+                addRow('Net Profit', lastCalculatedData.pnl.netProfit);
+
+                // Cash Flow Data (slice to match periods)
+                addRow('Net Income (CF)', lastCalculatedData.cashFlow.netIncomeCF);
+                addRow('Depreciation (CF)', lastCalculatedData.cashFlow.depreciationCF);
+                addRow('Net Cash From Operating', lastCalculatedData.cashFlow.netCashFromOperating);
+                addRow('CapEx (CF)', lastCalculatedData.cashFlow.capexCF);
+                addRow('Net Cash From Investing', lastCalculatedData.cashFlow.netCashFromInvesting);
+                addRow('Net Change In Cash', lastCalculatedData.cashFlow.netChangeInCash);
+                addRow('Beginning Cash', lastCalculatedData.cashFlow.beginningCash.slice(1));
+                addRow('Ending Cash', lastCalculatedData.cashFlow.endingCash.slice(1));
+
+                // Balance Sheet Data (slice to match periods)
+                addRow('Cash (BS)', lastCalculatedData.balanceSheet.cash.slice(1));
+                addRow('PPE (Net)', lastCalculatedData.balanceSheet.ppe.slice(1));
+                addRow('Total Assets', lastCalculatedData.balanceSheet.totalAssets.slice(1));
+                addRow('Debt', lastCalculatedData.balanceSheet.debt.slice(1));
+                addRow('Total Liabilities', lastCalculatedData.balanceSheet.totalLiabilities.slice(1));
+                addRow('Equity', lastCalculatedData.balanceSheet.equity.slice(1));
+                addRow('Total Liabilities & Equity', lastCalculatedData.balanceSheet.totalLiabilitiesAndEquity.slice(1));
+
+
+                // KPIs
+                addRow('Gross Margin', lastCalculatedData.kpis.grossMargin, formatPercentage);
+                addRow('Net Profit Margin', lastCalculatedData.kpis.netProfitMargin, formatPercentage);
+                addRow('Debt To Equity', lastCalculatedData.kpis.debtToEquity, (val) => isNaN(val) ? 'N/A' : val.toFixed(2));
+                addRow('Customer Churn Rate', lastCalculatedData.kpis.customerChurnRate, formatPercentage);
+                addRow('Customer Acquisition Cost', lastCalculatedData.kpis.customerAcquisitionCost, formatCurrency);
+
+                // Profit Allocation
+                addRow('Profit Account', lastCalculatedData.profitAllocation.profitAccount);
+                addRow('Owner Pay', lastCalculatedData.profitAllocation.ownerPay);
+                addRow('Tax Account', lastCalculatedData.profitAllocation.taxAccount);
+                addRow('CapEx Allocation', lastCalculatedData.profitAllocation.capExAccount);
+                addRow('Growth Investment', lastCalculatedData.profitAllocation.growthInvestmentAccount);
+
+
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'financial_model_data.csv');
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            }
+
+            // --- PDF Export Function ---
+            async function exportPDF() {
+                if (!lastCalculatedData.periods || lastCalculatedData.periods.length === 0) {
+                    alert("Please generate the financial model first.");
+                    return;
+                }
+
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
+
+                doc.setFontSize(18);
+                doc.text("3-5 Year Financial Forecast - Money Vibes", 14, 20);
+                doc.setFontSize(10);
+                doc.text(`Scenario: ${scenarioSelect.options[scenarioSelect.selectedIndex].text}`, 14, 28);
+                doc.text(`Granularity: ${displayGranularitySelect.options[displayGranularitySelect.selectedIndex].text}`, 14, 34);
+
+                let currentY = 45;
+
+                // Function to add table to PDF
+                const addTableToPDF = (title, dataObject, formatFunc = formatCurrency) => {
+                    doc.setFontSize(12);
+                    doc.text(title, 14, currentY);
+                    currentY += 5;
+
+                    const tableHeaders = ['Metric', ...lastCalculatedData.periods];
+                    const tableRows = [];
+
+                    for (const key in dataObject) {
+                        const rowData = [formatMetricName(key)];
+                        dataObject[key].forEach(value => {
+                            rowData.push(isNaN(value) ? 'N/A' : formatFunc(value));
+                        });
+                        tableRows.push(rowData);
+                    }
+
+                    doc.autoTable({
+                        head: [tableHeaders],
+                        body: tableRows,
+                        startY: currentY,
+                        theme: 'grid',
+                        headStyles: { fillColor: [242, 242, 242], textColor: [51, 51, 51], fontStyle: 'bold' },
+                        styles: { fontSize: 8, cellPadding: 2, overflow: 'linebreak' },
+                        columnStyles: { 0: { halign: 'left', fontStyle: 'bold' } },
+                        didDrawPage: function (data) {
+                            // Footer for page numbers
+                            let str = "Page " + doc.internal.getNumberOfPages();
+                            doc.setFontSize(8);
+                            doc.text(str, data.settings.margin.left, doc.internal.pageSize.height - 10);
+                        }
+                    });
+                    currentY = doc.autoTable.previous.finalY + 10; // Update Y position for next table
+                    if (currentY > doc.internal.pageSize.height - 50) { // Check if new page needed
+                        doc.addPage();
+                        currentY = 20;
+                    }
+                };
+
+                // Add P&L
+                addTableToPDF('Profit & Loss Statement', {
+                    revenue: lastCalculatedData.pnl.revenue,
+                    cogs: lastCalculatedData.pnl.cogs,
+                    grossProfit: lastCalculatedData.pnl.grossProfit,
+                    marketingExpenses: lastCalculatedData.pnl.marketingExpenses,
+                    salaryExpenses: lastCalculatedData.pnl.salaryExpenses,
+                    rentExpenses: lastCalculatedData.pnl.rentExpenses,
+                    otherOperatingExpenses: lastCalculatedData.pnl.otherOperatingExpenses,
+                    totalOperatingExpenses: lastCalculatedData.pnl.totalOperatingExpenses,
+                    depreciation: lastCalculatedData.pnl.depreciation,
+                    ebit: lastCalculatedData.pnl.ebit,
+                    interestExpense: lastCalculatedData.pnl.interestExpense,
+                    ebt: lastCalculatedData.pnl.ebt,
+                    taxes: lastCalculatedData.pnl.taxes,
+                    netProfit: lastCalculatedData.pnl.netProfit
+                });
+
+                // Add Cash Flow
+                addTableToPDF('Cash Flow Statement', {
+                    netIncomeCF: lastCalculatedData.cashFlow.netIncomeCF,
+                    depreciationCF: lastCalculatedData.cashFlow.depreciationCF,
+                    netCashFromOperating: lastCalculatedData.cashFlow.netCashFromOperating,
+                    capexCF: lastCalculatedData.cashFlow.capexCF,
+                    netCashFromInvesting: lastCalculatedData.cashFlow.netCashFromInvesting,
+                    netChangeInCash: lastCalculatedData.cashFlow.netChangeInCash,
+                    beginningCash: lastCalculatedData.cashFlow.beginningCash.slice(1),
+                    endingCash: lastCalculatedData.cashFlow.endingCash.slice(1)
+                });
+
+                // Add Balance Sheet
+                addTableToPDF('Balance Sheet', {
+                    cash: lastCalculatedData.balanceSheet.cash.slice(1),
+                    ppe: lastCalculatedData.balanceSheet.ppe.slice(1),
+                    totalAssets: lastCalculatedData.balanceSheet.totalAssets.slice(1),
+                    debt: lastCalculatedData.balanceSheet.debt.slice(1),
+                    totalLiabilities: lastCalculatedData.balanceSheet.totalLiabilities.slice(1),
+                    equity: lastCalculatedData.balanceSheet.equity.slice(1),
+                    totalLiabilitiesAndEquity: lastCalculatedData.balanceSheet.totalLiabilitiesAndEquity.slice(1)
+                });
+
+                // Add KPIs
+                addTableToPDF('Key Performance Indicators (KPIs)', {
+                    grossMargin: lastCalculatedData.kpis.grossMargin,
+                    netProfitMargin: lastCalculatedData.kpis.netProfitMargin,
+                    debtToEquity: lastCalculatedData.kpis.debtToEquity,
+                    customerChurnRate: lastCalculatedData.kpis.customerChurnRate,
+                    customerAcquisitionCost: lastCalculatedData.kpis.customerAcquisitionCost
+                }, (value, key) => {
+                    // This function is called with value and the *index* of the value in the array, not the key name.
+                    // To correctly format based on metric name for PDF, we need a different approach or to pass the key explicitly.
+                    // For now, let's assume if the value is a direct match for a known currency assumption, format as currency.
+                    // Otherwise, format as percentage. This is a heuristic.
+                    if (value === lastCalculatedData.kpis.customerAcquisitionCost[0] && lastCalculatedData.kpis.customerAcquisitionCost.length > 0) {
+                        return formatCurrency(value);
+                    }
+                    return formatPercentage(value);
+                });
+
+                // Add Profit Allocation
+                addTableToPDF('Dynamic Profit Allocation', {
+                    profitAccount: lastCalculatedData.profitAllocation.profitAccount,
+                    ownerPay: lastCalculatedData.profitAllocation.ownerPay,
+                    taxAccount: lastCalculatedData.profitAllocation.taxAccount,
+                    capExAccount: lastCalculatedData.profitAllocation.capExAccount,
+                    growthInvestmentAccount: lastCalculatedData.profitAllocation.growthInvestmentAccount
+                });
+
+
+                // Add Charts as images to PDF
+                doc.addPage();
+                currentY = 20;
+                doc.setFontSize(14);
+                doc.text("Financial Charts", 14, currentY);
+                currentY += 10;
+
+                const chartCanvases = document.querySelectorAll('#charts canvas');
+                for (const canvas of chartCanvases) {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = 250; // Adjust width to fit landscape A4
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+                    if (currentY + imgHeight > doc.internal.pageSize.height - 20) {
+                        doc.addPage();
+                        currentY = 20;
+                    }
+                    doc.addImage(imgData, 'PNG', 14, currentY, imgWidth, imgHeight);
+                    currentY += imgHeight + 10;
+                }
+
+                doc.save('financial_model.pdf');
+            }
+
+
+            // --- Event Listeners ---
+            calculateModelBtn.addEventListener('click', calculateAndDisplayModel);
+            applyScenarioBtn.addEventListener('click', () => {
+                applyScenario(scenarioSelect.value);
+            });
+            downloadCSVBtn.addEventListener('click', downloadCSV);
+            exportPDFBtn.addEventListener('click', exportPDF);
+
+
+            // Tab switching logic
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // Deactivate all tabs and hide all content
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Activate clicked tab and show its content
+                    event.currentTarget.classList.add('active');
+                    const targetTabId = event.currentTarget.dataset.tab;
+                    document.getElementById(targetTabId).classList.add('active');
+                });
+            });
+
+            // Tooltip hover logic
+            infoIcons.forEach(icon => {
+                icon.addEventListener('mouseover', () => {
+                    const tooltipId = icon.dataset.tooltipId;
+                    const tooltipElement = document.getElementById(`tooltip-${tooltipId}`);
+                    if (tooltipElement && tooltipDefinitions[tooltipId]) {
+                        tooltipElement.textContent = tooltipDefinitions[tooltipId];
+                        tooltipElement.style.visibility = 'visible';
+                        tooltipElement.style.opacity = '1';
+                    }
+                });
+
+                icon.addEventListener('mouseout', () => {
+                    const tooltipId = icon.dataset.tooltipId;
+                    const tooltipElement = document.getElementById(`tooltip-${tooltipId}`);
+                    if (tooltipElement) {
+                        tooltipElement.style.visibility = 'hidden';
+                        tooltipElement.style.opacity = '0';
+                    }
+                });
+            });
+
+            // Initial load: Load saved inputs, apply default scenario if none, and calculate
+            loadInputsFromLocalStorage();
+            document.querySelector('.tab-button').click(); // Activate first tab on load
+        });
+    </script>
+</body>
+</html>

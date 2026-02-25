@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>700 Credit Club – Details & Join</title>
+</head>
+<body>
+
+<h1>Welcome to the 700 Credit Club</h1>
+<p>Fix, Build, Own – Your Path from Credit Repair to Crypto Wealth</p>
+
+<h2>What the 700 Credit Club Offers</h2>
+<p>The 700 Credit Club is your all-in-one community for transforming your credit score into real wealth. We focus on repairing bad credit, building to elite levels, and unlocking Bitcoin-backed loans and investments. Join thousands who've gone from 500s to 800+ FICO and passive income streams.</p>
+<ul>
+  <li>AI-Powered Credit Repair</li>
+  <li>Credit Building Tools & Strategies</li>
+  <li>BTC Loans at Prime Rates</li>
+  <li>Wealth Club for Legacy Building</li>
+  <li>Community Support & Live Coaching</li>
+</ul>
+
+<h2>Our Services</h2>
+<p>From done-for-you disputes to crypto consulting, we handle it all:</p>
+<table border="1">
+  <tr>
+    <th>Service</th>
+    <th>Description</th>
+    <th>Price</th>
+  </tr>
+  <tr>
+    <td>Credit Sweep</td>
+    <td>3-Round AI Disputes</td>
+    <td>$499</td>
+  </tr>
+  <tr>
+    <td>Installment Builder</td>
+    <td>Build Payment History</td>
+    <td>$99/mo</td>
+  </tr>
+  <tr>
+    <td>BTC Loan Setup</td>
+    <td>Prime Rate Access</td>
+    <td>Free</td>
+  </tr>
+  <tr>
+    <td>Wealth Club</td>
+    <td>Monthly Masterminds</td>
+    <td>$197/mo</td>
+  </tr>
+</table>
+
+<h2>The 4 Phases</h2>
+<p>Our step-by-step journey:</p>
+
+<details>
+  <summary>Phase 1: Credit Repair</summary>
+  <p>Remove 80% negatives in 30–60 days with AI disputes. Average +100 points.</p>
+</details>
+
+<details>
+  <summary>Phase 2: Credit Building</summary>
+  <p>Boost to 800 FICO with secured loans and cards. +85 points in 6–12 months.</p>
+</details>
+
+<details>
+  <summary>Phase 3: 700 Crypto</summary>
+  <p>Unlock BTC-backed loans at 4.5%. Borrow without selling your stack.</p>
+</details>
+
+<details>
+  <summary>Phase 4: 800 Wealth Club</summary>
+  <p>Passive income, prime investments, legacy planning. Exclusive for 800+ FICO.</p>
+</details>
+
+<h2>More Details</h2>
+<p>Join for access to resources, live Q&A, and community wins. 4,200+ members, average +126 point gains in 2025.</p>
+
+<h2>Subscribe for Updates & Join</h2>
+<form action="https://formspree.io/f/your-formspree-id" method="POST">
+  <input type="email" name="email" placeholder="Your Email" required>
+  <button type="submit">Subscribe & Join</button>
+</form>
+
+</body>
+</html>

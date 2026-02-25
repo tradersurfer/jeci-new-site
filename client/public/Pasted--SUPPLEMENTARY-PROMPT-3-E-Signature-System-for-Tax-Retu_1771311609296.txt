@@ -1,0 +1,961 @@
+# SUPPLEMENTARY PROMPT #3: E-Signature System for Tax Returns
+
+## Overview
+
+Build a legally compliant electronic signature system that allows clients to review and sign their tax returns digitally, with full audit trails and compliance with IRS e-signature requirements and ESIGN Act.
+
+-----
+
+## Legal Requirements & Compliance
+
+### IRS E-Signature Requirements
+
+- Must capture client’s intent to sign
+- Must authenticate signer identity
+- Must create tamper-evident audit trail
+- Must preserve signature for IRS retention period (3+ years)
+- Must include timestamp and IP address
+- Must obtain explicit consent to sign electronically
+
+### ESIGN Act Compliance
+
+```javascript
+const ESIGN_REQUIREMENTS = {
+  consent: 'Must obtain electronic consent before first signature',
+  disclosure: 'Must disclose hardware/software requirements',
+  withdrawal: 'User can withdraw consent at any time',
+  record: 'Must provide copy of signed document',
+  integrity: 'Document must not be alterable after signing'
+}
+```
+
+-----
+
+## Signature Capture Interface
+
+### Canvas-Based Signature Pad
+
+```jsx
+import SignatureCanvas from 'react-signature-canvas'
+
+function SignaturePad() {
+  const sigCanvas = useRef(null)
+  const [signatureData, setSignatureData] = useState(null)
+  const [isSigned, setIsSigned] = useState(false)
+  
+  const clearSignature = () => {
+    sigCanvas.current.clear()
+    setSignatureData(null)
+    setIsSigned(false)
+  }
+  
+  const saveSignature = () => {
+    if (sigCanvas.current.isEmpty()) {
+      alert('Please provide a signature first')
+      return
+    }
+    
+    const dataURL = sigCanvas.current.toDataURL('image/png')
+    setSignatureData(dataURL)
+    setIsSigned(true)
+  }
+  
+  return (
+    <SignatureContainer>
+      <SignatureInstructions>
+        <h3>Sign Below</h3>
+        <p>Use your finger or mouse to sign in the box below</p>
+      </SignatureInstructions>
+      
+      <SignatureCanvasWrapper>
+        <SignatureCanvas
+          ref={sigCanvas}
+          penColor="black"
+          canvasProps={{
+            width: 500,
+            height: 200,
+            className: 'signature-canvas'
+          }}
+        />
+      </SignatureCanvasWrapper>
+      
+      <ButtonGroup>
+        <Button onClick={clearSignature} variant="secondary">
+          Clear
+        </Button>
+        <Button onClick={saveSignature} variant="primary">
+          Save Signature
+        </Button>
+      </ButtonGroup>
+      
+      {isSigned && (
+        <SignaturePreview>
+          <h4>Your Signature:</h4>
+          <img src={signatureData} alt="Signature preview" />
+        </SignaturePreview>
+      )}
+    </SignatureContainer>
+  )
+}
+```
+
+### Mobile-Optimized Touch Support
+
+```javascript
+// Ensure smooth drawing on mobile devices
+const SignaturePadConfig = {
+  minWidth: 0.5,
+  maxWidth: 2.5,
+  throttle: 16, // 60fps
+  velocityFilterWeight: 0.7,
+  backgroundColor: 'rgb(255, 255, 255)',
+  penColor: 'rgb(0, 0, 0)'
+}
+
+// Prevent scrolling while signing on mobile
+useEffect(() => {
+  const preventScroll = (e) => {
+    if (isSigningMode) {
+      e.preventDefault()
+    }
+  }
+  
+  document.addEventListener('touchmove', preventScroll, { passive: false })
+  return () => document.removeEventListener('touchmove', preventScroll)
+}, [isSigningMode])
+```
+
+-----
+
+## Electronic Consent Flow
+
+### Consent Agreement Modal
+
+```jsx
+function ElectronicConsentModal({ onAccept, onDecline }) {
+  return (
+    <Modal isOpen={true}>
+      <ModalHeader>
+        <h2>Electronic Signature Consent</h2>
+      </ModalHeader>
+      
+      <ModalBody>
+        <ConsentText>
+          <h3>Agreement to Conduct Business Electronically</h3>
+          
+          <section>
+            <h4>1. Scope of Consent</h4>
+            <p>
+              By clicking "I Agree," you consent to electronically sign your tax return 
+              and related documents. This consent applies to all communications and 
+              signatures for the current tax year.
+            </p>
+          </section>
+          
+          <section>
+            <h4>2. Hardware and Software Requirements</h4>
+            <ul>
+              <li>A device with internet access (computer, tablet, or smartphone)</li>
+              <li>A modern web browser (Chrome, Firefox, Safari, Edge)</li>
+              <li>PDF reader to view signed documents</li>
+              <li>Valid email address to receive documents</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h4>3. Your Rights</h4>
+            <p>
+              You have the right to:
+            </p>
+            <ul>
+              <li>Withdraw consent at any time before signing</li>
+              <li>Request paper copies of documents</li>
+              <li>Receive signed documents electronically</li>
+            </ul>
+          </section>
+          
+          <section>
+            <h4>4. Legal Effect</h4>
+            <p>
+              Your electronic signature will have the same legal effect as a 
+              handwritten signature under the Electronic Signatures in Global 
+              and National Commerce Act (ESIGN Act).
+            </p>
+          </section>
+          
+          <Checkbox>
+            <input 
+              type="checkbox" 
+              id="consent-read"
+              required
+            />
+            <label htmlFor="consent-read">
+              I have read and understand this agreement
+            </label>
+          </Checkbox>
+        </ConsentText>
+      </ModalBody>
+      
+      <ModalFooter>
+        <Button onClick={onDecline} variant="secondary">
+          Decline
+        </Button>
+        <Button onClick={onAccept} variant="primary">
+          I Agree
+        </Button>
+      </ModalFooter>
+    </Modal>
+  )
+}
+```
+
+-----
+
+## Tax Return Review & Sign Workflow
+
+### Step 1: Return Ready Notification
+
+```javascript
+// Send email when return is uploaded by admin
+async function notifyClientReturnReady(clientId, returnId) {
+  const client = await db.users.findUnique({ where: { id: clientId } })
+  const taxReturn = await db.taxReturns.findUnique({ where: { id: returnId } })
+  
+  await sendEmail({
+    to: client.email,
+    subject: 'Your Tax Return is Ready for Review',
+    template: 'return-ready',
+    data: {
+      clientName: client.fullName,
+      taxYear: taxReturn.taxYear,
+      loginLink: `${process.env.APP_URL}/login`,
+      reviewLink: `${process.env.APP_URL}/sign/${returnId}`
+    }
+  })
+  
+  // Create in-app notification
+  await db.notifications.create({
+    userId: clientId,
+    type: 'return_ready',
+    title: 'Your tax return is ready',
+    message: 'Please review and sign your tax return',
+    link: `/sign/${returnId}`,
+    isRead: false
+  })
+}
+```
+
+### Step 2: Return Review Interface
+
+```jsx
+function TaxReturnReviewPage({ returnId }) {
+  const [taxReturn, setTaxReturn] = useState(null)
+  const [hasConsented, setHasConsented] = useState(false)
+  const [showConsentModal, setShowConsentModal] = useState(false)
+  const [currentPage, setCurrentPage] = useState(1)
+  
+  useEffect(() => {
+    loadTaxReturn()
+    checkElectronicConsent()
+  }, [])
+  
+  const loadTaxReturn = async () => {
+    const response = await fetch(`/api/returns/${returnId}`)
+    const data = await response.json()
+    setTaxReturn(data)
+  }
+  
+  const checkElectronicConsent = async () => {
+    const response = await fetch('/api/signatures/consent-status')
+    const { hasConsented } = await response.json()
+    setHasConsented(hasConsented)
+  }
+  
+  const initiateSigningFlow = () => {
+    if (!hasConsented) {
+      setShowConsentModal(true)
+    } else {
+      proceedToSignature()
+    }
+  }
+  
+  return (
+    <ReturnReviewContainer>
+      {showConsentModal && (
+        <ElectronicConsentModal
+          onAccept={() => {
+            recordConsent()
+            setHasConsented(true)
+            setShowConsentModal(false)
+            proceedToSignature()
+          }}
+          onDecline={() => {
+            setShowConsentModal(false)
+            alert('You must consent to electronic signatures to proceed')
+          }}
+        />
+      )}
+      
+      <ReturnHeader>
+        <h1>Your {taxReturn?.taxYear} Tax Return</h1>
+        <StatusBadge status={taxReturn?.status}>
+          {taxReturn?.status}
+        </StatusBadge>
+      </ReturnHeader>
+      
+      <ReturnSummary>
+        <SummaryCard>
+          <h3>Return Summary</h3>
+          <SummaryRow>
+            <span>Filing Status:</span>
+            <strong>{taxReturn?.filingStatus}</strong>
+          </SummaryRow>
+          <SummaryRow>
+            <span>Total Income:</span>
+            <strong>${taxReturn?.totalIncome?.toLocaleString()}</strong>
+          </SummaryRow>
+          <SummaryRow>
+            <span>Total Deductions:</span>
+            <strong>${taxReturn?.totalDeductions?.toLocaleString()}</strong>
+          </SummaryRow>
+          <SummaryRow>
+            <span>Tax Liability:</span>
+            <strong>${taxReturn?.taxLiability?.toLocaleString()}</strong>
+          </SummaryRow>
+          <Divider />
+          <SummaryRow highlight>
+            <span>Refund/Amount Due:</span>
+            <strong className={taxReturn?.refundAmount > 0 ? 'refund' : 'due'}>
+              ${Math.abs(taxReturn?.refundAmount).toLocaleString()}
+              {taxReturn?.refundAmount > 0 ? ' Refund' : ' Due'}
+            </strong>
+          </SummaryRow>
+        </SummaryCard>
+        
+        {taxReturn?.adminNotes && (
+          <NotesCard>
+            <h3>Notes from Your Tax Professional</h3>
+            <p>{taxReturn.adminNotes}</p>
+          </NotesCard>
+        )}
+      </ReturnSummary>
+      
+      <PDFViewerSection>
+        <h2>Review Your Complete Tax Return</h2>
+        <p>Please review all pages carefully before signing</p>
+        
+        <PDFViewer
+          file={taxReturn?.filePath}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      </PDFViewerSection>
+      
+      <ChecklistSection>
+        <h3>Before You Sign, Please Confirm:</h3>
+        <ChecklistItem>
+          <input type="checkbox" id="check1" required />
+          <label htmlFor="check1">
+            I have reviewed all pages of my tax return
+          </label>
+        </ChecklistItem>
+        <ChecklistItem>
+          <input type="checkbox" id="check2" required />
+          <label htmlFor="check2">
+            All information is accurate to the best of my knowledge
+          </label>
+        </ChecklistItem>
+        <ChecklistItem>
+          <input type="checkbox" id="check3" required />
+          <label htmlFor="check3">
+            I understand this is a legally binding signature
+          </label>
+        </ChecklistItem>
+      </ChecklistSection>
+      
+      <ActionButtons>
+        <Button 
+          onClick={downloadReturn}
+          variant="secondary"
+        >
+          Download PDF
+        </Button>
+        <Button 
+          onClick={initiateSigningFlow}
+          variant="primary"
+          size="large"
+        >
+          Sign Tax Return
+        </Button>
+      </ActionButtons>
+    </ReturnReviewContainer>
+  )
+}
+```
+
+### Step 3: Signature Collection
+
+```jsx
+function SignatureCollectionPage({ returnId }) {
+  const [signature, setSignature] = useState(null)
+  const [taxpayerName, setTaxpayerName] = useState('')
+  const [spouseSignature, setSpouseSignature] = useState(null)
+  const [spouseName, setSpouseName] = useState('')
+  const [isJointReturn, setIsJointReturn] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  
+  const handleSubmitSignature = async () => {
+    if (!signature) {
+      alert('Please provide your signature')
+      return
+    }
+    
+    if (!taxpayerName.trim()) {
+      alert('Please type your full name')
+      return
+    }
+    
+    if (isJointReturn && (!spouseSignature || !spouseName.trim())) {
+      alert('Spouse signature required for joint return')
+      return
+    }
+    
+    setIsSubmitting(true)
+    
+    try {
+      const signatureData = {
+        returnId,
+        taxpayerSignature: signature,
+        taxpayerName: taxpayerName.trim(),
+        spouseSignature: isJointReturn ? spouseSignature : null,
+        spouseName: isJointReturn ? spouseName.trim() : null,
+        signedAt: new Date().toISOString(),
+        ipAddress: await getClientIP(),
+        userAgent: navigator.userAgent,
+        deviceType: getMobileOperatingSystem()
+      }
+      
+      const response = await fetch('/api/signatures/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(signatureData)
+      })
+      
+      if (response.ok) {
+        // Show success message
+        showSuccessMessage()
+        // Redirect to confirmation page
+        router.push(`/signature-complete/${returnId}`)
+      } else {
+        throw new Error('Signature submission failed')
+      }
+    } catch (error) {
+      alert('Error submitting signature. Please try again.')
+      console.error(error)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+  
+  return (
+    <SignaturePageContainer>
+      <SignatureHeader>
+        <h1>Sign Your Tax Return</h1>
+        <p>Your signature confirms that you have reviewed and approve your tax return</p>
+      </SignatureHeader>
+      
+      <SignatureSection>
+        <h2>Taxpayer Signature</h2>
+        
+        <FormField>
+          <label>Type Your Full Legal Name</label>
+          <input 
+            type="text"
+            value={taxpayerName}
+            onChange={(e) => setTaxpayerName(e.target.value)}
+            placeholder="John Doe"
+            required
+          />
+        </FormField>
+        
+        <SignaturePad 
+          onSave={(sig) => setSignature(sig)}
+        />
+        
+        <DateTimeStamp>
+          Date: {new Date().toLocaleDateString()}
+        </DateTimeStamp>
+      </SignatureSection>
+      
+      {isJointReturn && (
+        <SignatureSection>
+          <h2>Spouse Signature</h2>
+          
+          <FormField>
+            <label>Spouse's Full Legal Name</label>
+            <input 
+              type="text"
+              value={spouseName}
+              onChange={(e) => setSpouseName(e.target.value)}
+              placeholder="Jane Doe"
+              required
+            />
+          </FormField>
+          
+          <SignaturePad 
+            onSave={(sig) => setSpouseSignature(sig)}
+          />
+          
+          <DateTimeStamp>
+            Date: {new Date().toLocaleDateString()}
+          </DateTimeStamp>
+        </SignatureSection>
+      )}
+      
+      <LegalDisclaimer>
+        <p>
+          Under penalties of perjury, I declare that I have examined this return 
+          and accompanying schedules and statements, and to the best of my knowledge 
+          and belief, they are true, correct, and complete.
+        </p>
+      </LegalDisclaimer>
+      
+      <SubmitButton
+        onClick={handleSubmitSignature}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? 'Submitting...' : 'Submit Signature'}
+      </SubmitButton>
+    </SignaturePageContainer>
+  )
+}
+```
+
+-----
+
+## Backend Signature Processing
+
+### Store Signature Data
+
+```javascript
+router.post('/api/signatures/submit', authenticateUser, async (req, res) => {
+  try {
+    const {
+      returnId,
+      taxpayerSignature,
+      taxpayerName,
+      spouseSignature,
+      spouseName,
+      signedAt,
+      ipAddress,
+      userAgent,
+      deviceType
+    } = req.body
+    
+    const userId = req.user.id
+    
+    // Validate return belongs to user
+    const taxReturn = await db.taxReturns.findFirst({
+      where: { id: returnId, userId }
+    })
+    
+    if (!taxReturn) {
+      return res.status(404).json({ error: 'Tax return not found' })
+    }
+    
+    // Create signature record
+    const signature = await db.signatures.create({
+      data: {
+        returnId,
+        userId,
+        taxpayerSignature,
+        taxpayerName,
+        spouseSignature,
+        spouseName,
+        signedAt: new Date(signedAt),
+        ipAddress,
+        userAgent,
+        deviceType,
+        signatureHash: generateSignatureHash(taxpayerSignature)
+      }
+    })
+    
+    // Update return status
+    await db.taxReturns.update({
+      where: { id: returnId },
+      data: { 
+        status: 'signed',
+        signedAt: new Date()
+      }
+    })
+    
+    // Generate signed PDF with signatures embedded
+    await embedSignaturesInPDF(taxReturn.filePath, signature)
+    
+    // Send confirmation email
+    await sendSignatureConfirmationEmail(userId, returnId)
+    
+    // Notify admin
+    await notifyAdminOfSignedReturn(userId, returnId)
+    
+    res.json({ success: true, signatureId: signature.id })
+  } catch (error) {
+    console.error('Signature submission error:', error)
+    res.status(500).json({ error: 'Failed to process signature' })
+  }
+})
+```
+
+### Embed Signatures in PDF
+
+```javascript
+const { PDFDocument, rgb } = require('pdf-lib')
+const fs = require('fs').promises
+
+async function embedSignaturesInPDF(pdfPath, signatureData) {
+  // Load the PDF
+  const existingPdfBytes = await fs.readFile(pdfPath)
+  const pdfDoc = await PDFDocument.load(existingPdfBytes)
+  
+  // Get signature page (usually last page)
+  const pages = pdfDoc.getPages()
+  const signaturePage = pages[pages.length - 1]
+  
+  // Convert base64 signature to image
+  const taxpayerSigImage = await pdfDoc.embedPng(
+    Buffer.from(signatureData.taxpayerSignature.split(',')[1], 'base64')
+  )
+  
+  // Add taxpayer signature
+  signaturePage.drawImage(taxpayerSigImage, {
+    x: 100,
+    y: 150,
+    width: 200,
+    height: 50
+  })
+  
+  // Add taxpayer name
+  signaturePage.drawText(signatureData.taxpayerName, {
+    x: 100,
+    y: 140,
+    size: 10,
+    color: rgb(0, 0, 0)
+  })
+  
+  // Add date
+  signaturePage.drawText(new Date(signatureData.signedAt).toLocaleDateString(), {
+    x: 310,
+    y: 150,
+    size: 10,
+    color: rgb(0, 0, 0)
+  })
+  
+  // If joint return, add spouse signature
+  if (signatureData.spouseSignature) {
+    const spouseSigImage = await pdfDoc.embedPng(
+      Buffer.from(signatureData.spouseSignature.split(',')[1], 'base64')
+    )
+    
+    signaturePage.drawImage(spouseSigImage, {
+      x: 100,
+      y: 80,
+      width: 200,
+      height: 50
+    })
+    
+    signaturePage.drawText(signatureData.spouseName, {
+      x: 100,
+      y: 70,
+      size: 10,
+      color: rgb(0, 0, 0)
+    })
+    
+    signaturePage.drawText(new Date(signatureData.signedAt).toLocaleDateString(), {
+      x: 310,
+      y: 80,
+      size: 10,
+      color: rgb(0, 0, 0)
+    })
+  }
+  
+  // Add metadata
+  pdfDoc.setTitle(`Signed Tax Return - ${signatureData.taxpayerName}`)
+  pdfDoc.setAuthor('Tax Portal')
+  pdfDoc.setSubject('Electronically Signed Tax Return')
+  pdfDoc.setCreationDate(new Date(signatureData.signedAt))
+  
+  // Save signed PDF
+  const signedPdfBytes = await pdfDoc.save()
+  const signedPdfPath = pdfPath.replace('.pdf', '-signed.pdf')
+  await fs.writeFile(signedPdfPath, signedPdfBytes)
+  
+  // Update database with signed PDF path
+  await db.taxReturns.update({
+    where: { id: signatureData.returnId },
+    data: { signedFilePath: signedPdfPath }
+  })
+  
+  return signedPdfPath
+}
+```
+
+-----
+
+## Audit Trail & Compliance
+
+### Complete Audit Log
+
+```javascript
+const AUDIT_EVENTS = {
+  CONSENT_GIVEN: 'electronic_consent_given',
+  RETURN_VIEWED: 'return_viewed',
+  RETURN_DOWNLOADED: 'return_downloaded',
+  SIGNATURE_STARTED: 'signature_process_started',
+  SIGNATURE_COMPLETED: 'signature_completed',
+  SIGNATURE_FAILED: 'signature_failed',
+  SIGNED_PDF_DOWNLOADED: 'signed_pdf_downloaded'
+}
+
+async function logAuditEvent(eventType, userId, returnId, metadata = {}) {
+  await db.auditLogs.create({
+    data: {
+      eventType,
+      userId,
+      returnId,
+      timestamp: new Date(),
+      ipAddress: metadata.ipAddress,
+      userAgent: metadata.userAgent,
+      sessionId: metadata.sessionId,
+      additionalData: JSON.stringify(metadata)
+    }
+  })
+}
+
+// Example usage
+await logAuditEvent(
+  AUDIT_EVENTS.SIGNATURE_COMPLETED,
+  userId,
+  returnId,
+  {
+    ipAddress: req.ip,
+    userAgent: req.headers['user-agent'],
+    deviceType: 'mobile',
+    signatureMethod: 'canvas',
+    taxpayerName: 'John Doe',
+    isJointReturn: false
+  }
+)
+```
+
+### Tamper Detection
+
+```javascript
+const crypto = require('crypto')
+
+function generateSignatureHash(signatureDataURL) {
+  return crypto
+    .createHash('sha256')
+    .update(signatureDataURL)
+    .digest('hex')
+}
+
+async function verifySignatureIntegrity(signatureId) {
+  const signature = await db.signatures.findUnique({
+    where: { id: signatureId }
+  })
+  
+  const currentHash = generateSignatureHash(signature.taxpayerSignature)
+  
+  if (currentHash !== signature.signatureHash) {
+    // Signature has been tampered with!
+    await db.securityAlerts.create({
+      data: {
+        alertType: 'SIGNATURE_TAMPERING',
+        signatureId,
+        detectedAt: new Date(),
+        severity: 'CRITICAL'
+      }
+    })
+    
+    return false
+  }
+  
+  return true
+}
+```
+
+-----
+
+## Certificate of Completion
+
+### Generate Certificate
+
+```jsx
+function SignatureCompletionPage({ returnId }) {
+  const [certificate, setCertificate] = useState(null)
+  
+  useEffect(() => {
+    generateCertificate()
+  }, [])
+  
+  const generateCertificate = async () => {
+    const response = await fetch(`/api/signatures/${returnId}/certificate`)
+    const data = await response.json()
+    setCertificate(data)
+  }
+  
+  return (
+    <CompletionContainer>
+      <SuccessIcon>✓</SuccessIcon>
+      
+      <h1>Tax Return Signed Successfully!</h1>
+      
+      <ConfirmationMessage>
+        <p>
+          Your {certificate?.taxYear} tax return has been electronically signed 
+          and is ready for filing.
+        </p>
+      </ConfirmationMessage>
+      
+      <CertificateCard>
+        <h2>Electronic Signature Certificate</h2>
+        
+        <CertificateDetails>
+          <DetailRow>
+            <label>Taxpayer Name:</label>
+            <value>{certificate?.taxpayerName}</value>
+          </DetailRow>
+          
+          {certificate?.spouseName && (
+            <DetailRow>
+              <label>Spouse Name:</label>
+              <value>{certificate?.spouseName}</value>
+            </DetailRow>
+          )}
+          
+          <DetailRow>
+            <label>Signed On:</label>
+            <value>{formatDateTime(certificate?.signedAt)}</value>
+          </DetailRow>
+          
+          <DetailRow>
+            <label>IP Address:</label>
+            <value>{certificate?.ipAddress}</value>
+          </DetailRow>
+          
+          <DetailRow>
+            <label>Certificate ID:</label>
+            <value>{certificate?.certificateId}</value>
+          </DetailRow>
+          
+          <DetailRow>
+            <label>Verification Hash:</label>
+            <value className="hash">{certificate?.verificationHash}</value>
+          </DetailRow>
+        </CertificateDetails>
+      </CertificateCard>
+      
+      <NextSteps>
+        <h3>What Happens Next?</h3>
+        <ol>
+          <li>Your tax professional will review your signed return</li>
+          <li>Your return will be electronically filed with the IRS</li>
+          <li>You will receive confirmation once filing is accepted</li>
+          <li>If you're due a refund, expect it in 21 days</li>
+        </ol>
+      </NextSteps>
+      
+      <ActionButtons>
+        <Button onClick={downloadSignedReturn}>
+          Download Signed Return
+        </Button>
+        <Button onClick={downloadCertificate}>
+          Download Certificate
+        </Button>
+        <Button onClick={returnToDashboard} variant="primary">
+          Return to Dashboard
+        </Button>
+      </ActionButtons>
+    </CompletionContainer>
+  )
+}
+```
+
+-----
+
+## Admin Signature Management
+
+### Admin View of Signed Returns
+
+```jsx
+function AdminSignedReturnsView() {
+  const [signedReturns, setSignedReturns] = useState([])
+  
+  return (
+    <AdminTable>
+      <thead>
+        <tr>
+          <th>Client Name</th>
+          <th>Tax Year</th>
+          <th>Signed Date</th>
+          <th>Filing Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {signedReturns.map(ret => (
+          <tr key={ret.id}>
+            <td>{ret.client.name}</td>
+            <td>{ret.taxYear}</td>
+            <td>{formatDate(ret.signedAt)}</td>
+            <td>
+              <StatusBadge status={ret.filingStatus}>
+                {ret.filingStatus}
+              </StatusBadge>
+            </td>
+            <td>
+              <Button onClick={() => viewSignature(ret.id)}>
+                View Signature
+              </Button>
+              <Button onClick={() => downloadSignedPDF(ret.id)}>
+                Download
+              </Button>
+              <Button onClick={() => viewAuditTrail(ret.id)}>
+                Audit Trail
+              </Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </AdminTable>
+  )
+}
+```
+
+-----
+
+## Testing & Quality Assurance
+
+### Test Cases
+
+- [ ] Electronic consent flow
+- [ ] Signature capture on desktop
+- [ ] Signature capture on mobile/tablet
+- [ ] Clear and redo signature
+- [ ] Submit without signature (should fail)
+- [ ] Submit without name (should fail)
+- [ ] Joint return with both signatures
+- [ ] PDF signature embedding
+- [ ] Signature hash generation
+- [ ] Audit trail completeness
+- [ ] Certificate generation
+- [ ] Email notifications
+- [ ] Download signed PDF
+- [ ] Tamper detection
+
+-----
+
+**This creates a legally compliant, user-friendly e-signature system! ✍️📋**

@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JECI Crypto Tax Health Checklist 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+```
+    :root {
+        --primary: #00d9ff;
+        --primary-dark: #00b8d4;
+        --secondary: #7c3aed;
+        --accent: #10b981;
+        --dark: #0f172a;
+        --dark-card: #1e293b;
+        --text: #f8fafc;
+        --text-muted: #94a3b8;
+        --border: #334155;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        color: var(--text);
+        padding: 40px 20px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background: var(--dark-card);
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 1px solid var(--border);
+    }
+
+    /* Header Section */
+    .header {
+        background: linear-gradient(135deg, #00d9ff 0%, #7c3aed 100%);
+        padding: 50px 40px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(124,58,237,0.3) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .header-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .brand-icon {
+        width: 48px;
+        height: 48px;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .brand-text {
+        font-family: 'Sora', sans-serif;
+        font-weight: 800;
+        font-size: 24px;
+        color: white;
+        letter-spacing: -0.5px;
+    }
+
+    .title {
+        font-family: 'Sora', sans-serif;
+        font-size: 42px;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 12px;
+        letter-spacing: -1px;
+        line-height: 1.1;
+    }
+
+    .subtitle {
+        font-size: 18px;
+        color: rgba(255,255,255,0.9);
+        font-weight: 500;
+        line-height: 1.6;
+    }
+
+    .year-badge {
+        display: inline-block;
+        background: rgba(255,255,255,0.2);
+        backdrop-filter: blur(10px);
+        padding: 8px 20px;
+        border-radius: 100px;
+        font-size: 14px;
+        font-weight: 700;
+        color: white;
+        margin-top: 20px;
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Progress Bar */
+    .progress-section {
+        padding: 30px 40px;
+        background: rgba(0, 217, 255, 0.05);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .progress-label {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+    }
+
+    .progress-text {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .progress-count {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+    }
+
+    .progress-bar-bg {
+        height: 12px;
+        background: rgba(0, 217, 255, 0.1);
+        border-radius: 100px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+
+    .progress-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+        border-radius: 100px;
+        transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        width: 0%;
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+    }
+
+    /* Content Section */
+    .content {
+        padding: 40px;
+    }
+
+    /* Category Section */
+    .category {
+        margin-bottom: 40px;
+        animation: fadeInUp 0.6s ease-out;
+        animation-fill-mode: both;
+    }
+
+    .category:nth-child(1) { animation-delay: 0.1s; }
+    .category:nth-child(2) { animation-delay: 0.2s; }
+    .category:nth-child(3) { animation-delay: 0.3s; }
+    .category:nth-child(4) { animation-delay: 0.4s; }
+    .category:nth-child(5) { animation-delay: 0.5s; }
+    .category:nth-child(6) { animation-delay: 0.6s; }
+    .category:nth-child(7) { animation-delay: 0.7s; }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .category-icon {
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+        box-shadow: 0 8px 16px rgba(0, 217, 255, 0.3);
+    }
+
+    .category-title {
+        font-family: 'Sora', sans-serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text);
+        letter-spacing: -0.5px;
+    }
+
+    .category-number {
+        font-size: 14px;
+        color: var(--text-muted);
+        font-weight: 600;
+        margin-left: auto;
+        background: rgba(0, 217, 255, 0.1);
+        padding: 6px 14px;
+        border-radius: 100px;
+        border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+
+    /* Checklist Items */
+    .checklist {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .checklist-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 18px;
+        background: rgba(0, 217, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .checklist-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .checklist-item:hover {
+        background: rgba(0, 217, 255, 0.05);
+        border-color: rgba(0, 217, 255, 0.3);
+        transform: translateX(4px);
+    }
+
+    .checklist-item:hover::before {
+        opacity: 1;
+    }
+
+    .checklist-item.checked {
+        background: rgba(16, 185, 129, 0.05);
+        border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .checklist-item.checked::before {
+        background: var(--accent);
+        opacity: 1;
+    }
+
+    .checkbox-wrapper {
+        position: relative;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .checkbox {
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border: 2px solid var(--border);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        background: rgba(0, 217, 255, 0.05);
+    }
+
+    .checkbox:hover {
+        border-color: var(--primary);
+        background: rgba(0, 217, 255, 0.1);
+    }
+
+    .checkbox:checked {
+        background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+        border-color: var(--accent);
+    }
+
+    .checkbox:checked::after {
+        content: '✓';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        animation: checkPop 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    @keyframes checkPop {
+        0% {
+            transform: translate(-50%, -50%) scale(0);
+        }
+        100% {
+            transform: translate(-50%, -50%) scale(1);
+        }
+    }
+
+    .checklist-text {
+        flex: 1;
+        font-size: 16px;
+        line-height: 1.6;
+        color: var(--text);
+        font-weight: 500;
+    }
+
+    .checklist-item.checked .checklist-text {
+        color: var(--text-muted);
+        text-decoration: line-through;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 40px;
+        background: rgba(0, 217, 255, 0.03);
+        border-top: 1px solid var(--border);
+        text-align: center;
+    }
+
+    .footer-logo {
+        font-family: 'Sora', sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 12px;
+    }
+
+    .footer-text {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.8;
+    }
+
+    .footer-contact {
+        margin-top: 20px;
+        padding-top: 20px;
+        border-top: 1px solid var(--border);
+    }
+
+    .contact-info {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 24px;
+        font-size: 14px;
+        color: var(--text-muted);
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .contact-icon {
+        color: var(--primary);
+    }
+
+    /* Print Styles */
+    @media print {
+        body {
+            background: white;
+            padding: 0;
+        }
+        
+        .container {
+            box-shadow: none;
+            border: none;
+        }
+        
+        .checklist-item {
+            page-break-inside: avoid;
+        }
+        
+        .progress-section {
+            display: none;
+        }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .header {
+            padding: 40px 24px;
+        }
+
+        .title {
+            font-size: 32px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+        }
+
+        .content {
+            padding: 24px;
+        }
+
+        .category-title {
+            font-size: 20px;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            font-size: 24px;
+        }
+
+        .footer {
+            padding: 24px;
+        }
+
+        .contact-info {
+            flex-direction: column;
+            gap: 12px;
+        }
+    }
+</style>
+```
+
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-content">
+                <div class="brand">
+                    <div class="brand-icon">🪙</div>
+                    <div class="brand-text">JECI GROUP</div>
+                </div>
+                <h1 class="title">Crypto Tax Health Checklist</h1>
+                <p class="subtitle">Complete this checklist before tax season to ensure all your crypto transactions are properly documented and reported.</p>
+                <div class="year-badge">TAX YEAR 2025 • FILING 2026</div>
+            </div>
+        </div>
+
+```
+    <!-- Progress Bar -->
+    <div class="progress-section">
+        <div class="progress-label">
+            <span class="progress-text">Completion Progress</span>
+            <span class="progress-count"><span id="checkedCount">0</span> / <span id="totalCount">0</span></span>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Category 1 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">📊</div>
+                <h2 class="category-title">Exchange & Platform Activity</h2>
+                <span class="category-number">Category 1</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Provide full transaction history (CSV preferred) from all exchanges used</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Include buys, sells, swaps, transfers, staking, and rewards</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Upload any 1099 forms received (1099-B, 1099-MISC, 1099-NEC)</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 2 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">👛</div>
+                <h2 class="category-title">Wallet Activity</h2>
+                <span class="category-number">Category 2</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Provide wallet addresses and export files if available</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Include DeFi transactions and NFT activity</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Confirm internal transfers between your own wallets</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 3 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">💰</div>
+                <h2 class="category-title">Crypto Income</h2>
+                <span class="category-number">Category 3</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Staking rewards</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Mining income</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Airdrops</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Referral bonuses</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Payments received for services</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 4 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">🔗</div>
+                <h2 class="category-title">DeFi & Advanced Transactions</h2>
+                <span class="category-number">Category 4</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Liquidity pool deposits/withdrawals</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Yield farming activity</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Wrapped tokens</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Bridging between chains</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Token migrations</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 5 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">🎨</div>
+                <h2 class="category-title">NFT Transactions</h2>
+                <span class="category-number">Category 5</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">NFT purchases and sales records</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Minting costs</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Royalties received</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 6 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">🔄</div>
+                <h2 class="category-title">Stablecoins & Transfers</h2>
+                <span class="category-number">Category 6</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">List all stablecoin conversions (USDT, USDC, etc.)</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Confirm which transfers were non-taxable wallet transfers</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Category 7 -->
+        <div class="category">
+            <div class="category-header">
+                <div class="category-icon">📅</div>
+                <h2 class="category-title">Prior Year Information</h2>
+                <span class="category-number">Category 7</span>
+            </div>
+            <div class="checklist">
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Prior year crypto losses</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Unused capital loss carryforward</span>
+                </label>
+                <label class="checklist-item">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" class="checkbox">
+                    </div>
+                    <span class="checklist-text">Prior crypto tax reports (if applicable)</span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="footer-logo">JECI GROUP</div>
+        <p class="footer-text">
+            Professional tax preparation and consulting services<br>
+            Prepared by Adrian Jordan, CMA
+        </p>
+        <div class="footer-contact">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span>(202) 430-5058</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">✉️</span>
+                    <span>info@jecigroup.com</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <span>www.jecigroup.com</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Interactive checkbox functionality
+    const checkboxes = document.querySelectorAll('.checkbox');
+    const progressBar = document.getElementById('progressBar');
+    const checkedCount = document.getElementById('checkedCount');
+    const totalCount = document.getElementById('totalCount');
+
+    // Set total count
+    totalCount.textContent = checkboxes.length;
+
+    // Update progress
+    function updateProgress() {
+        const checked = document.querySelectorAll('.checkbox:checked').length;
+        const percentage = (checked / checkboxes.length) * 100;
+        
+        progressBar.style.width = percentage + '%';
+        checkedCount.textContent = checked;
+
+        // Update parent item styling
+        checkboxes.forEach(checkbox => {
+            const item = checkbox.closest('.checklist-item');
+            if (checkbox.checked) {
+                item.classList.add('checked');
+            } else {
+                item.classList.remove('checked');
+            }
+        });
+
+        // Save to localStorage
+        const checkedItems = Array.from(checkboxes).map(cb => cb.checked);
+        localStorage.setItem('cryptoTaxChecklist', JSON.stringify(checkedItems));
+    }
+
+    // Load saved state
+    const savedState = localStorage.getItem('cryptoTaxChecklist');
+    if (savedState) {
+        const checkedItems = JSON.parse(savedState);
+        checkboxes.forEach((checkbox, index) => {
+            if (checkedItems[index]) {
+                checkbox.checked = true;
+            }
+        });
+    }
+
+    // Add event listeners
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', updateProgress);
+    });
+
+    // Initial progress update
+    updateProgress();
+
+    // Add click handler to entire item
+    document.querySelectorAll('.checklist-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            if (e.target.type !== 'checkbox') {
+                const checkbox = item.querySelector('.checkbox');
+                checkbox.checked = !checkbox.checked;
+                updateProgress();
+            }
+        });
+    });
+</script>
+```
+
+</body>
+</html>

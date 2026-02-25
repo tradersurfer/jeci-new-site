@@ -1,0 +1,81 @@
+
+I need to add the JECI Edge Weekly newsletter to my website. Please complete these tasks:
+
+## 1. Create Newsletter Page
+Create a new file called `newsletter-issue-1.html` (or in `/newsletter/issue-1.html` if you prefer folder structure) using the HTML I'll provide separately. The page should include:
+- Complete newsletter content with all sections
+- Proper meta tags for SEO
+- Mobile-responsive design
+- A "Back to Home" link at the top
+
+## 2. Create Newsletter Archive Page
+Create `newsletter.html` (or `/newsletter/index.html`) that serves as the newsletter archive. This page should:
+- Display "JECI Edge Weekly" as the title
+- Include the tagline "Innovate. Optimize. Grow."
+- Have a prominent "Subscribe on Substack" button linking to https://adrianjordanio.substack.com
+- Show a grid/list of newsletter issues with:
+  - Issue number badge
+  - Publication date
+  - Title/headline
+  - Brief excerpt
+  - "Read Full Issue" link
+- Currently only Issue #1 (February 14, 2026 - "Tax Season Alert: 2025 Returns Due April 15")
+- Use card-based design with hover effects
+
+## 3. Update Site Navigation
+Add a "Newsletter" link to the main navigation menu that points to the newsletter archive page.
+
+## 4. Add Newsletter CTA to Homepage
+Add a section to the homepage promoting the newsletter with:
+- Gradient background (purple/blue theme)
+- Heading: "📬 JECI Edge Weekly"
+- Description: "Get weekly tips on tax optimization, bookkeeping best practices, and business growth strategies."
+- Two buttons: "Subscribe Free" (primary) and "Read Archive" (secondary)
+
+## 5. Update Newsletter CTA Links
+In the newsletter page, update these placeholder links:
+- "Book Your Tax Strategy Call" → point to contact page or booking system
+- "Get Your Free Profit Leak Detector Worksheet" → point to resources page
+- "Schedule a Free Coffee Chat Consult" → point to contact page
+- "Access Free Resources Hub" → point to resources page
+
+## 6. Style Consistency
+Ensure all new pages match the existing site's design system:
+- Use consistent fonts, colors, spacing
+- Maintain responsive design for mobile
+- Keep the same header/footer as other pages (if applicable)
+- Use smooth transitions and hover effects
+
+## 7. SEO & Meta Tags
+Add proper meta tags to newsletter pages:
+- Page title
+- Description
+- Keywords
+- Open Graph tags for social sharing
+
+Please let me know if you need any clarification or if there are any issues with the site structure!
+
+---
+
+## ADDITIONAL CONTEXT
+
+**Newsletter Brand Colors:**
+- Primary blue: #0066cc
+- Purple gradient: #667eea to #764ba2
+- Accent red (deadline): #ff6b6b
+- Success green: #10b981
+
+**Key Newsletter Features:**
+- 3 main service sections (Tax Prep, Bookkeeping, Business Consulting)
+- Visual icons for each section
+- Stat boxes showing business pain points
+- Tip boxes with quick wins
+- Resource download section
+- Professional signature with contact info
+
+**Website Integration Goals:**
+- Drive Substack subscriptions
+- Generate leads through CTAs
+- Showcase expertise and value
+- Easy navigation between newsletter and main site
+- Mobile-first responsive design

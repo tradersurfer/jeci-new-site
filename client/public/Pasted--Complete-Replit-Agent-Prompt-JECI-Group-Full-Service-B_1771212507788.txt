@@ -1,0 +1,739 @@
+# Complete Replit Agent Prompt - JECI Group Full Service Booking System (UPDATED PRICING)
+
+Copy and paste this into your Replit agent:
+
+---
+
+## PROJECT: JECI Group Comprehensive Service Booking System
+
+Build a professional multi-service booking and payment system for jecigroup.com with all JECI Group services organized by category.
+
+---
+
+### PART 1: Service Categories & Landing Pages
+
+Create the following service category pages with individual service listings:
+
+---
+
+## **CATEGORY 1: TAX SERVICES** (/tax-services)
+
+**Individual Tax Services:**
+
+1. **Individual Tax Preparation** - $399 (1 hour)
+   - Comprehensive tax return preparation for individuals
+   - Maximize deductions and credits
+   - Federal and state filing included
+
+2. **Real Estate Tax Planning** - $149 (30 min consultation) or $399 (1 hour full planning)
+   - Rental property tax strategies
+   - 1031 exchanges, cost segregation
+   - Depreciation optimization
+   - DMV-specific real estate tax guidance
+
+3. **Crypto Tax Consultation** - $149 (1 hour)
+   - Navigate IRS crypto reporting requirements
+   - Deduct mining, staking, transaction expenses
+   - Report NFT sales and DeFi income
+   - Reduce tax liability on crypto gains
+
+**Business Tax Services:**
+
+4. **Schedule C Filing (Sole Proprietorship & Single-Member LLC)** - $749 (1 hour)
+   - For sole proprietorships and single-member LLCs
+   - Schedule C preparation and filing
+   - Business deduction optimization
+
+5. **Partnership Tax Return (Form 1065)** - $999 (8-15 hours)
+   - Complete partnership return preparation
+   - K-1 preparation for all partners
+   - Multi-state filing if needed
+
+6. **S-Corporation Tax Return (Form 1120S)** - $1,299 (2 hours)
+   - S-Corp tax return preparation
+   - Shareholder K-1s
+   - Payroll reconciliation
+
+7. **Real Estate & Crypto Tax Optimization (Combined)** - $399 (1 hour)
+   - Specialized for clients with both real estate and crypto investments
+   - Comprehensive tax strategy across both asset classes
+
+---
+
+## **CATEGORY 2: ACCOUNTING & BOOKKEEPING** (/accounting-services)
+
+8. **QuickBooks Initial Setup** - $349 one-time + $149/month ongoing support
+   - Complete QuickBooks account configuration
+   - Data migration and cleanup
+   - Chart of accounts setup
+   - Bank/credit card integration
+   - Automation rules setup
+   - Training session (1-2 hours)
+   - **Ongoing Support Includes:**
+     - Weekly cash flow reports
+     - Monthly P&L and balance sheets
+     - Quarterly strategic reports
+     - Reconciliation assistance
+
+9. **Monthly Bookkeeping** - $149/month (included with QuickBooks setup)
+   - Transaction categorization
+   - Bank reconciliation
+   - Weekly/monthly financial reports
+   - Ongoing QuickBooks support
+
+---
+
+## **CATEGORY 3: BUSINESS FORMATION & CONSULTING** (/business-services)
+
+10. **FREE Business Consultation** - FREE (30 min) - Valued at $150
+    - Personalized financial analysis
+    - Strategic tax guidance
+    - Business growth insights
+    - Goal-oriented planning
+    - Q&A with expert
+
+11. **Single Member LLC Entity Formation** - $599 (30 min consultation) - Full package $599
+    - Business Communication Setup (email & phone)
+    - Articles of Organization (drafted & filed)
+    - Operating Agreement (customized)
+    - Structure Guidance
+    - Cash Flow Budget
+    - Home Office Setup guidance
+    - Licenses and Permits identification
+    - Federal EIN filing
+
+12. **Business Strategy Session** - $149 (30 min)
+    - Quick strategic consultation
+    - Operations review
+    - Growth recommendations
+
+13. **Strategic Business Consultation** - $299 (2.5 hours)
+    - In-depth business analysis
+    - Financial strategy development
+    - Operations optimization
+    - Growth planning
+
+14. **Financial Analysis & Planning** - $349 (2 hours)
+    - Comprehensive financial review
+    - Cash flow analysis
+    - Budget development
+    - Financial forecasting
+
+---
+
+## **CATEGORY 4: BUSINESS DEVELOPMENT PACKAGES** (/business-development)
+
+**Starter Pack (Bronze Tier)** - $799/month
+- Simple financial snapshot (income/expense tracking)
+- Basic target customer blueprint
+- Bi-weekly 30-min check-ins
+- Time tracking and process audit
+- Basic checklists for recurring tasks
+- Free/low-cost tool recommendations
+- Basic brand session (logo, colors, fonts)
+- Simple elevator pitch framework
+- 1-2 page brand cheat sheet
+
+**Growth Pack (Silver Tier)** - $1,499/month
+- Enhanced financial tracking
+- Detailed customer blueprint
+- Weekly check-ins
+- Process optimization recommendations
+- Advanced brand development
+- 2-3 page brand cheat sheet
+- Social media templates
+
+**Scale Pack (Gold Tier)** - $2,499/month
+- Comprehensive process audit
+- Detailed workflow mapping
+- Automation recommendations
+- Vendor comparisons and ROI analysis
+- In-depth brand audit
+- Comprehensive visual identity system
+- 3-4 page brand cheat sheet
+
+**Enterprise Edge Pack (Diamond Tier)** - $4,999/month
+- Detailed financial analysis (CAC, margins, funnels)
+- Comprehensive action plan with KPIs
+- Weekly/bi-weekly check-ins with monthly reports
+- Optimized process design
+- Full brand strategy
+- Detailed brand narrative and guidelines
+
+---
+
+## **CATEGORY 5: PREMIUM & SPECIALIZED SERVICES**
+
+15. **Advanced Tax Strategy Session** - $599 (30 min)
+    - High-net-worth tax planning
+    - Multi-entity structuring
+    - Advanced tax strategies
+
+16. **Comprehensive Business Package** - $599 (4 hours)
+    - Full business assessment
+    - Financial + operational review
+    - Strategic implementation plan
+
+17. **Business Restructuring Consultation** - $699 (2 hours)
+    - Entity structure optimization
+    - Tax-efficient restructuring
+    - Compliance review
+
+18. **CFO Advisory Session** - $899 (2 hours)
+    - Strategic financial guidance
+    - Financial forecasting
+    - Growth capital planning
+    - KPI development
+
+19. **Comprehensive Tax & Business Audit** - $999 (6.5 hours)
+    - Full financial audit
+    - Tax compliance review
+    - Business operations assessment
+    - Detailed recommendations report
+
+20. **Strategic Business Transformation** - $1,199 (6 hours)
+    - Complete business overhaul planning
+    - Financial restructuring
+    - Operations optimization
+    - Growth strategy development
+
+21. **Enterprise Business Development** - $1,799 (10 hours)
+    - Comprehensive business analysis
+    - Multi-year strategic plan
+    - Financial modeling
+    - Implementation roadmap
+    - Ongoing advisory included
+
+---
+
+### PART 2: Build the Booking System
+
+**Create a multi-step booking flow:**
+
+**Step 1: Service Category Selection**
+Show cards or tabs for:
+- Tax Services
+- Accounting & Bookkeeping
+- Business Formation & Consulting
+- Business Development Packages
+- Premium & Specialized Services
+- FREE Consultation
+
+**Step 2: Select Specific Service**
+Based on category, show all services with:
+- Service name
+- Duration
+- Price (display prominently)
+- Brief description (2-3 bullets)
+- "Select This Service" button
+
+**Step 3: Add-Ons & Upsells** (if applicable)
+
+*For Crypto Tax Consultation, offer:*
+- [ ] Crypto Tax Tracker Setup - Add $99
+- [ ] Quarterly Crypto Tax Review - Add $349
+
+*For Real Estate Tax Planning, offer:*
+- [ ] Rental Property Deduction Report - Add $149
+- [ ] 1031 Exchange Planning Session - Add $249
+
+*For QuickBooks Setup, offer:*
+- [ ] Additional training hour - Add $149
+- [ ] First 3 months support bundle - Save $150 (total $399 instead of $447)
+
+*For Individual Tax Preparation, offer:*
+- [ ] Prior Year Amendment - Add $249
+- [ ] Multi-State Tax Filing - Add $199
+
+*For Business Strategy Session, offer:*
+- [ ] Follow-up strategy call (30 min) - Add $99
+- [ ] Written strategic plan document - Add $199
+
+Display **updated total price dynamically**
+
+**Step 4: Date & Time Selection**
+- Calendar picker (exclude weekends)
+- Available slots: 9am-5pm EST, based on service duration
+- Check Google Sheet "JECI Bookings" and "Blocked Times" for availability
+- Gray out booked/blocked slots
+- Show timezone (EST)
+
+**Step 5: Contact Information**
+Required fields:
+- Full Name
+- Email
+- Phone
+- Business Name (optional)
+- Business Type (dropdown: Individual, Sole Proprietor, LLC, S-Corp, C-Corp, Partnership, Other)
+- Brief description of needs (text area, 250 char max)
+- How did you hear about us? (dropdown: Google Search, Referral, Social Media, LinkedIn, Other)
+
+**Step 6: Stripe Payment**
+- Redirect to Stripe Checkout
+- Pass total amount (base + upsells)
+- Use Stripe keys: [you'll provide]
+- Process payment before confirming booking
+- Show itemized breakdown before payment
+
+**Step 7: Confirmation**
+
+After successful payment:
+
+1. **Save to Google Sheets "JECI Bookings":**
+   - Timestamp
+   - Name
+   - Email
+   - Phone
+   - Business Name
+   - Business Type
+   - Service Category
+   - Service Name
+   - Add-Ons (if any)
+   - Date
+   - Time
+   - Duration
+   - Base Price
+   - Add-Ons Price
+   - Total Amount Paid
+   - Payment Status
+   - Stripe Transaction ID
+   - Referral Source
+
+2. **Send confirmation email to client:**
+   - Subject: "Your JECI Group Appointment is Confirmed ✓"
+   - Service details, date, time, amount paid
+   - Itemized pricing breakdown
+   - "We'll send a Zoom link 24 hours before"
+   - What to prepare/bring
+   - Contact info
+
+3. **Send notification to you:**
+   - To: [your email]
+   - Subject: "New Booking: [Service Name] - [Date] - $[Amount]"
+   - All client details
+   - Client's description of needs
+   - Referral source
+
+4. **Show confirmation page:**
+   - "✓ Booking Confirmed!"
+   - Booking details with itemized pricing
+   - "Check your email for confirmation"
+   - "Add to Calendar" buttons (Google/Apple/Outlook)
+   - "What to expect next" section
+   - Button: "Back to Home" or "Book Another Service"
+
+---
+
+### PART 3: Create Service Landing Pages
+
+Create individual pages for top services:
+
+**/crypto-tax-consultation**
+**/real-estate-tax-planning**
+**/llc-formation**
+**/quickbooks-setup**
+**/free-consultation**
+**/individual-tax-preparation**
+**/business-strategy-session**
+
+Each page includes:
+- Compelling headline
+- Subheadline (value proposition)
+- Prominent pricing display
+- Service benefits (5-7 bullets)
+- "What's included" section
+- Process/what to expect (timeline)
+- FAQ section (4-5 questions)
+- Multiple "Book Now" CTA buttons (top, middle, bottom)
+- Client testimonial placeholder (3 testimonials)
+- Trust badges (Licensed CPA, IRS Registered, etc.)
+- SEO optimization (meta title, description, H1, schema markup)
+
+---
+
+### PART 4: Add Comprehensive FAQ Sections
+
+Add FAQs to relevant service pages (use collapsible sections).
+
+**Crypto Tax FAQs:**
+- What crypto transactions are taxable?
+- Can I deduct crypto losses?
+- How do I report staking rewards?
+- What documentation do I need?
+- Do you handle DeFi transactions?
+
+**Real Estate Tax FAQs:**
+- What rental expenses are deductible?
+- How does depreciation work?
+- What is a 1031 exchange?
+- Can I deduct home office for property management?
+- How do you handle short-term rentals (Airbnb)?
+
+**LLC Formation FAQs:**
+- Why choose LLC over sole proprietorship?
+- How long does formation take?
+- What's included in the operating agreement?
+- Do I need a separate business bank account?
+- What ongoing compliance is required?
+
+**QuickBooks FAQs:**
+- Which QuickBooks version is best?
+- Can you migrate from Excel/other software?
+- What's included in monthly support?
+- How long does setup take?
+- Do you provide training?
+
+**Tax Preparation FAQs:**
+- What documents do I need?
+- How long does the process take?
+- Do you handle state returns?
+- What if I need an extension?
+- Can you amend previous returns?
+
+---
+
+### PART 5: Blog Section & Content
+
+Create **/blog** with two initial posts:
+
+**Post 1: "5 Crypto Tax Mistakes DMV Businesses Make (And How to Avoid Them)"**
+- 1,000-1,200 words
+- SEO keywords: crypto tax mistakes DC, crypto tax consultant DMV, Bitcoin tax errors
+- Internal links to /crypto-tax-consultation and /individual-tax-preparation
+- CTA: "Avoid these mistakes. Book a crypto tax consultation for $149 →"
+
+**Post 2: "Maximizing Real Estate Tax Deductions in DC: A Landlord's Guide"**
+- 1,000-1,200 words
+- SEO keywords: real estate tax deductions DC, landlord tax tips Washington DC, rental property taxes
+- Internal links to /real-estate-tax-planning
+- CTA: "Get expert guidance. Book a real estate tax planning session →"
+
+**Add blog post structure:**
+- Featured image
+- Author bio
+- Publish date
+- Estimated reading time
+- Social share buttons
+- Related posts section
+- Comments section (optional)
+
+---
+
+### PART 6: Admin Panel
+
+Create **/admin/dashboard** (password protected):
+
+**Dashboard Features:**
+- **Overview widgets:**
+  - Today's bookings
+  - This week's revenue
+  - Pending consultations
+  - Most popular service
+- **Booking management:**
+  - View all bookings (calendar view + table view)
+  - Filter by: service category, date range, payment status, referral source
+  - Search by: client name, email, phone
+  - Export to CSV
+  - Bulk actions (reschedule, cancel, refund)
+- **Client management:**
+  - View client history
+  - Add notes to bookings
+  - Tag clients (VIP, repeat, etc.)
+
+**Availability Management:**
+- Calendar interface to block dates/times
+- Reason for blocking (dropdown: Vacation, Holiday, Conference, Personal, Other)
+- Bulk blocking options:
+  - Block specific days of week
+  - Block date range
+  - Block specific times across multiple days
+- Save to Google Sheet "Blocked Times"
+- Option to "unblock" times
+
+**Analytics Dashboard:**
+- **Revenue metrics:**
+  - Total revenue (month, quarter, year)
+  - Revenue by service category (pie chart)
+  - Revenue trend (line chart)
+  - Average transaction value
+- **Booking metrics:**
+  - Total bookings by period
+  - Most popular services (bar chart)
+  - Conversion rate (page views to bookings)
+  - Booking source breakdown
+- **Client metrics:**
+  - New vs returning clients
+  - Client by business type
+  - Referral sources
+
+---
+
+### PART 7: Web Chat Integration
+
+Add **Tawk.to** widget (or custom):
+- Position: Bottom right corner
+- Custom greeting: "Hi! Need help choosing a service? Start with a FREE 30-minute consultation!"
+- Pre-chat form: 
+  - Name (required)
+  - Email (required)
+  - Phone (optional)
+  - Question/How can we help? (required)
+- Business hours indicator
+- Away message (after hours): "Thanks for reaching out! We're currently away. Book a consultation here: [booking link] or leave a message and we'll respond within 24 hours."
+- Mobile responsive
+- Sound notification for new messages
+- Quick replies:
+  - "I want to book a consultation"
+  - "What services do you offer?"
+  - "What are your prices?"
+  - "Do you work with [crypto/real estate] businesses?"
+
+---
+
+### PART 8: Technical Requirements
+
+**Prevent Double Bookings:**
+- Query both "JECI Bookings" and "Blocked Times" sheets before showing availability
+- Consider service duration when blocking times (e.g., 2-hour service blocks multiple slots)
+- Real-time availability updates
+- Lock time slot during checkout (15-minute hold)
+
+**Mobile Responsive:**
+- All pages fully optimized for mobile
+- Touch-friendly calendar and form inputs
+- Easy navigation between service categories
+- Mobile payment optimization
+- Click-to-call phone numbers
+
+**SEO Optimization:**
+- Schema markup for:
+  - LocalBusiness
+  - Service (for each service type)
+  - Review/Rating (when testimonials added)
+  - FAQPage
+- XML sitemap
+- Robots.txt
+- Google Analytics 4 tracking
+- Google Search Console integration
+- Meta tags for all pages
+- Open Graph tags for social sharing
+
+**Analytics Events:**
+- Page views: service_page_viewed, category_viewed
+- User actions: booking_started, service_selected, upsell_added, payment_initiated, booking_completed
+- Revenue tracking: purchase event with transaction details
+- Form interactions: form_started, form_abandoned
+- Click tracking: cta_clicked, chat_opened, phone_clicked
+
+**Performance:**
+- Page load under 3 seconds
+- Optimized images (WebP format, lazy loading)
+- Minified CSS/JS
+- CDN for static assets
+- Caching strategy
+
+**Brand Design:**
+- **Primary colors:**
+  - Navy Blue: #1B365D (headers, buttons, key text)
+  - Gold: #D4AF37 (accents, CTAs, highlights)
+  - White: #FFFFFF (backgrounds, contrast)
+- **Secondary colors:**
+  - Light Gray: #F5F5F5 (section backgrounds)
+  - Dark Gray: #333333 (body text)
+- **Typography:**
+  - Headings: Professional sans-serif (e.g., Montserrat, Poppins)
+  - Body: Clean sans-serif (e.g., Open Sans, Inter)
+- **Button styles:**
+  - Primary CTA: Gold background, white text, hover effect
+  - Secondary: Navy outline, navy text
+- **Spacing:** Clean, professional layout with generous whitespace
+
+**Security:**
+- SSL certificate (HTTPS)
+- Secure Stripe integration (PCI compliant)
+- Password-protected admin panel
+- GDPR-compliant data collection
+- Privacy policy page
+- Terms of service page
+
+---
+
+### PART 9: Email Templates
+
+**Client Confirmation Email:**
+```
+Subject: Your JECI Group Appointment is Confirmed ✓
+
+Hi [Name],
+
+Thank you for booking with JECI Group! Your appointment is confirmed.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BOOKING DETAILS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Service: [Service Name]
+Date: [Day, Month Date, Year]
+Time: [Time] EST
+Duration: [Duration]
+
+[If add-ons:]
+Add-ons:
+• [Add-on 1] - $[Price]
+• [Add-on 2] - $[Price]
+
+Total Paid: $[Amount]
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+WHAT TO EXPECT:
+• We'll send you a Zoom link 24 hours before your appointment
+• Please have [relevant documents/info] ready
+• Feel free to prepare any questions in advance
+
+NEED TO RESCHEDULE?
+Reply to this email or call us at (202) 430-5058 at least 24 hours in advance.
+
+We're excited to work with you!
+
+Best regards,
+The JECI Group Team
+
+📍 80 M St SE, Washington, DC 20003
+📞 (202) 430-5058
+🌐 jecigroup.com
+```
+
+**Reminder Email (24 hours before):**
+```
+Subject: Reminder: Your JECI Group Appointment Tomorrow
+
+Hi [Name],
+
+This is a friendly reminder about your upcoming appointment with JECI Group.
+
+TOMORROW - [Day, Month Date]
+Time: [Time] EST
+Service: [Service Name]
+
+🔗 Zoom Link: [Zoom URL]
+Meeting ID: [ID]
+Password: [Password]
+
+WHAT TO HAVE READY:
+[Checklist of documents/info based on service type]
+
+See you tomorrow!
+
+Best regards,
+The JECI Group Team
+```
+
+**Thank You Follow-Up (After appointment):**
+```
+Subject: Thank you for choosing JECI Group!
+
+Hi [Name],
+
+Thank you for your consultation with JECI Group! We hope you found it valuable.
+
+NEXT STEPS:
+[Personalized next steps based on service - you can manually edit this]
+
+We'd love your feedback! If you have a moment, please leave us a review:
+[Review link]
+
+NEED ADDITIONAL SUPPORT?
+We offer ongoing services that might help:
+• [Relevant upsell service 1]
+• [Relevant upsell service 2]
+
+Book another session: [Booking link]
+
+Best regards,
+The JECI Group Team
+```
+
+---
+
+### PART 10: Homepage Updates
+
+Update homepage (/) to feature services:
+
+**Hero Section:**
+- Headline: "Expert Tax, Accounting & Business Solutions for DMV Entrepreneurs"
+- Subheadline: "Maximize deductions, optimize cash flow, and grow your business with JECI Group"
+- CTA: "Book Free Consultation" + "View Services"
+
+**Featured Services Section:**
+Show top 6 services as cards:
+- Crypto Tax Consultation - Starting at $149
+- Real Estate Tax Planning - Starting at $149
+- LLC Formation - $599
+- QuickBooks Setup - $349
+- Individual Tax Prep - $399
+- Free Consultation - FREE
+
+**Social Proof:**
+- Client testimonials
+- Trust badges (Licensed, Insured, IRS Registered)
+- "Serving DMV businesses since [year]"
+
+**Service Categories:**
+Quick links to all 5 categories
+
+**Recent Blog Posts:**
+Show 2 most recent posts
+
+---
+
+### What You'll Need to Provide:
+
+1. **Stripe credentials:**
+   - Publishable key
+   - Secret key
+2. **Google Sheets:**
+   - Sheet ID for "JECI Bookings"
+   - Sheet ID for "Blocked Times" (or same sheet, different tabs)
+   - Google Service Account credentials for API access
+3. **Email service:**
+   - SendGrid, Resend, or Mailgun API key
+   - "From" email address (e.g., hello@jecigroup.com)
+4. **Contact info:**
+   - Your notification email
+   - Business phone: (202) 430-5058
+   - Business address: 80 M St SE, Washington, DC 20003
+5. **Analytics:**
+   - Google Analytics 4 measurement ID
+   - Google Tag Manager ID (optional)
+6. **Chat widget:**
+   - Tawk.to widget code (or specify if building custom)
+7. **Branding assets:**
+   - JECI Group logo (SVG or PNG)
+   - Favicon
+8. **Content:**
+   - Client testimonials (if available)
+   - Team photos (if available)
+   - Any existing blog content
+
+---
+
+**Priority Build Order:**
+
+1. ✅ Homepage with hero + featured services
+2. ✅ Service category pages with all services listed and pricing
+3. ✅ Multi-step booking system with Stripe integration
+4. ✅ Google Sheets data storage
+5. ✅ Email confirmations (booking + reminder)
+6. ✅ Admin dashboard (bookings view + availability management)
+7. ✅ Individual service landing pages (top 7 services)
+8. ✅ FAQ sections on service pages
+9. ✅ Blog section with 2 initial posts
+10. ✅ Chat widget integration
+11. ✅ Analytics setup
+12. ✅ Mobile optimization
+13. ✅ SEO implementation
+
+---
+
+**This is your complete, production-ready booking system with premium pricing!** Ready to paste into Replit?

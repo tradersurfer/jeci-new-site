@@ -1,0 +1,46 @@
+This Product Requirements Document (PRD) serves as the blueprint for upgrading your current Replit draft (jeci-interactive--jegroup66.replit.app) from a standard consulting site into a high-conversion platform for the Founders’ Operations Suite.
+PRD: JECI Group Digital Platform Upgrade
+1. Project Overview
+ * Current State: A functional draft site for "The JECI Group" featuring "Tailored Consulting Solutions" and a contact section.
+ * Target State: A structured, high-authority platform that moves users through a "Value Ladder"—starting with Pillar 1 (Credit/Formation) and leading to the Founders’ Operations Suite ($3,000/mo).
+ * The Narrative Pivot: From "Consultant" to "Sovereignty Architect."
+2. Strategic Site Architecture (The Map)
+A. Homepage: The Sovereignty Narrative
+ * Hero Section Update: Replace generic "Tailored Consulting" with: “Building Your Financial Sovereignty. We provide the legal structure, financial hygiene, and digital growth needed to move from Founder to CEO.”
+ * The Problem/Solution Block: A "Fragmented vs. Integrated" comparison showing how JECI unifies the back-office.
+ * The 3-Pillar Snapshot: Visual icons or cards for Foundation (Restoration), Engine (Operations), and Growth (Marketing).
+B. Service Pages: The Three Pillars
+Instead of a flat service list, the site will be organized into three distinct "Vaults":
+ * Pillar 1 (The Foundation): Focus on the 700 Credit Club. Include a "Borrowing Power" lead-gen form where users can inquire about credit repair and EIN/Entity setup.
+ * Pillar 2 (The Engine): Detail the Full-Service Bookkeeping. Highlight the "Monthly GL Hygiene" and "Cash Flow Budgeting" to appeal to established businesses.
+ * Pillar 3 (The Growth): Tiered marketing packages ($850, $1,200, $2,000). Integrate the Bitcoin Ecosystem Advisory as a "Tech-Forward" differentiator.
+C. The Flagship Pivot: "Founders’ Operations Suite"
+ * New Page/Section: A dedicated, premium sales page for the $3,000/mo retainer.
+ * Value Proposition: "The Fractional CFO + COO + CMO for the Modern Founder."
+ * The Pivot Hook: "Don't buy a service. Buy your time back."
+3. Functional Requirements
+| Feature | Requirement |
+|---|---|
+| Pillar Navigation | A tabbed or card-based UI that allows users to explore the three stages of the JECI framework. |
+| "Hill-Ready" Gated Content | A section for the Bitcoin Ecosystem Advisory where users can download a sample briefing packet in exchange for an email address. |
+| Interactive Pricing | A pricing table that highlights the Operations Suite as the "Most Popular" and highest-value choice. |
+| Dynamic Contact Form | Upgrade the existing #contact section to include a dropdown: "Which Pillar are you in?" (Foundation, Engine, or Growth). |
+| Stripe Integration | A secure "Start Your Retainer" button for the $3,000/mo Suite to automate billing. |
+4. Technical Specifications (Replit Implementation)
+ * UI Framework: Continue using the existing CSS/HTML structure but implement Tailwind CSS for the new "Pillar Cards" to ensure a modern, professional look.
+ * Lead Capture: Connect the contact form to a backend (like Formspree or a simple Node.js mailer) to ensure inquiries are tracked.
+ * Responsiveness: The "3 Pillars" must stack vertically on mobile and horizontally on desktop to maintain authority.
+ * Visual Assets: Professional, high-contrast imagery (Navy, Slate, and Gold accents) to reflect the "Institutional Readiness" theme.
+5. User Journey (The Funnel)
+ * Entry: User arrives seeking Credit Repair (Pillar 1).
+ * Education: The site shows them that Credit is just the Foundation—they also need an Engine (Bookkeeping) and a Sword (SEO).
+ * Conversion: User realizes managing all three is overwhelming and opts for the Founders’ Operations Suite to have JECI handle it all.
+6. Immediate "Replit Agent" Instructions
+If you use a Replit Agent to build this, use the following prompt:
+> "Update the current landing page to reflect a 3-Pillar business model. Pillar 1: Foundation (Credit & Entity), Pillar 2: Engine (Bookkeeping & Operations), Pillar 3: Growth (Digital Marketing & Bitcoin Advisory). Add a premium section for the '$3,000/mo Founders' Operations Suite' that bundles these services. Ensure the design is authoritative, using a professional navy and slate color palette."
+> 
+Next Steps:
+ * Update Hero Text: Align with the "Financial Sovereignty" message.
+ * Restructure Services: Group current services into the 3 Pillars.
+ * Create the Suite Section: Position the $3k retainer as the ultimate destination.
+Would you like me to provide the specific HTML/Tailwind code for the "3-Pillar" section so you can paste it directly into your Replit index.html?

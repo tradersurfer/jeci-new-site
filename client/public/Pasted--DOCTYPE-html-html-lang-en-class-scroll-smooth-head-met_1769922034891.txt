@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Vibes - Build Wealth, Not Just Income</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #111827; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        .text-secondary { color: #6B7280; }
+        .btn-gradient { background-image: linear-gradient(to right, #4ADE80, #2563EB); transition: all 0.3s ease; }
+        .btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); }
+        .card-hover:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
+        .blog-card:hover .blog-title { color: #2563EB; }
+        .filter-btn-active { background-image: linear-gradient(to right, #4ADE80, #2563EB); color: white; border-color: transparent; }
+        .resource-card { transition: opacity 0.5s ease-in-out, transform 0.3s ease; }
+        .resource-card.hidden { opacity: 0; transform: scale(0.95); height: 0; padding: 0; margin: 0; overflow: hidden; border: none; }
+        .ticker-wrap { width: 100%; overflow: hidden; background-color: #111827; padding: 0.75rem 0; border-top: 1px solid #374151; border-bottom: 1px solid #374151; }
+        .ticker { display: inline-block; white-space: nowrap; animation: ticker-scroll 40s linear infinite; }
+        .ticker-item { display: inline-block; padding: 0 1.5rem; color: white; font-size: 0.875rem; }
+        @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+         @keyframes slideInUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .animate-slide-in-up { animation: slideInUp 0.5s ease-out forwards; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="hidden md:flex justify-between items-center p-6 bg-white/80 backdrop-blur-sm sticky top-0 z-40">
+        <h1 class="text-2xl font-bold text-gray-800">Money Vibes</h1>
+        <nav class="flex items-center space-x-6">
+            <a href="#home" class="text-gray-600 hover:text-blue-600">Home</a>
+            <a href="#markets" class="text-gray-600 hover:text-blue-600">Markets</a>
+            <a href="#learn" class="text-gray-600 hover:text-blue-600">Learn</a>
+            <a href="#tools" class="text-gray-600 hover:text-blue-600">Tools</a>
+            <a href="#store" class="text-gray-600 hover:text-blue-600">Store</a>
+            <a href="#blog" class="text-gray-600 hover:text-blue-600">Blog</a>
+            <a href="#resources" class="text-gray-600 hover:text-blue-600">Resources</a>
+            <a href="#join" class="px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Join the Tribe</a>
+        </nav>
+    </header>
+
+    <main id="home">
+        <section class="min-h-screen flex flex-col justify-center items-center text-center p-6 bg-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://placehold.co/1200x800/f0f9ff/e0f2fe?text=.')] bg-cover bg-center opacity-30"></div>
+            <div class="relative z-10">
+                <h1 class="text-4xl md:text-7xl font-bold text-gray-900 leading-tight mb-4 animate-slide-in-up" style="animation-delay: 0.1s;">Build Wealth, Not Just Income.</h1>
+                <p class="text-lg md:text-2xl text-gray-600 mb-8 animate-slide-in-up" style="animation-delay: 0.2s;">Start Now.</p>
+                <div class="max-w-2xl mx-auto space-y-8">
+                    <div class="bg-white/60 backdrop-blur-sm p-6 rounded-xl shadow-md animate-slide-in-up" style="animation-delay: 0.3s;">
+                        <p id="quote-text" class="font-playfair-italic text-xl text-gray-700">"The best time to plant a tree was 20 years ago. The second best time is now."</p>
+                        <p class="text-sm text-gray-500 mt-2">- Chinese Proverb</p>
+                    </div>
+                    <div class="bg-white/60 backdrop-blur-sm p-6 rounded-xl shadow-md animate-slide-in-up" style="animation-delay: 0.4s;">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-4">What's your biggest money challenge?</h3>
+                        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                            <a href="saving-guide.html" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition">Saving Consistently</a>
+                            <a href="debt-guide.html" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition">Paying Off Debt</a>
+                            <a href="investing-guide.html" class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition">Investing Wisely</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="markets" class="py-10 bg-gray-800 text-white">
+            <div class="ticker-wrap">
+                <div class="ticker" id="stock-ticker-content"></div>
+            </div>
+            <div class="container mx-auto px-6 mt-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div id="sp500-data"><h3 class="text-sm uppercase text-gray-400">S&P 500</h3><p class="text-2xl font-bold">--</p><p>--</p></div>
+                    <div id="nasdaq-data"><h3 class="text-sm uppercase text-gray-400">NASDAQ</h3><p class="text-2xl font-bold">--</p><p>--</p></div>
+                    <div id="btc-data"><h3 class="text-sm uppercase text-gray-400">BITCOIN</h3><p class="text-2xl font-bold">--</p><p>--</p></div>
+                    <div id="eth-data"><h3 class="text-sm uppercase text-gray-400">ETHEREUM</h3><p class="text-2xl font-bold">--</p><p>--</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="learn" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12"><h2 class="text-4xl font-bold text-gray-900">Learn About Money</h2><p class="text-lg text-gray-600 mt-2">Your roadmap to financial freedom.</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/2563eb/ffffff?text=Investing+101" alt="Investing" class="w-full h-48 object-cover"><div class="p-6"><h3 class="text-xl font-bold my-2">The Beginner's Guide to Stock Market Investing</h3><p class="text-gray-600 text-sm">Learn the fundamentals of stocks, ETFs, and how to build a portfolio that grows over time.</p></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/4ade80/111827?text=Crypto+Deep+Dive" alt="Crypto" class="w-full h-48 object-cover"><div class="p-6"><h3 class="text-xl font-bold my-2">Is Crypto Right For You? A Risk-Taker's Guide</h3><p class="text-gray-600 text-sm">Understand the risks and potential rewards of investing in digital currencies.</p></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/f59e0b/ffffff?text=Side+Hustles" alt="Side Hustles" class="w-full h-48 object-cover"><div class="p-6"><h3 class="text-xl font-bold my-2">5 High-Income Skills You Can Learn This Month</h3><p class="text-gray-600 text-sm">Discover profitable side hustles you can start with minimal investment.</p></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tools" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-bold text-gray-900">Interactive Tools</h2>
+                    <p class="text-lg text-gray-600 mt-2">Crunch the numbers and plan your financial future.</p>
+                </div>
+                
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col card-hover ring-2 ring-blue-500">
+                        <h3 class="text-xl font-bold mb-3">Quantum Alpha Investing</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">An AI-powered dashboard to track, analyze, and simulate your investment portfolio.</p>
+                        <a href="quantum-alpha-tool.html" class="mt-auto w-full text-center px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Access Tool</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col card-hover">
+                        <h3 class="text-xl font-bold mb-3">Weekly Finance Tracker</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Monitor your income and expenses on a weekly basis.</p>
+                        <a href="weekly-finance-tracker.html" class="mt-auto w-full text-center px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Access Tool</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col card-hover">
+                        <h3 class="text-xl font-bold mb-3">Self-Employed Tax Tracker</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Track your income and expenses for tax purposes and estimate your quarterly payments.</p>
+                        <a href="self-employed-tax-tracker.html" class="mt-auto w-full text-center px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Access Tool</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col card-hover">
+                        <h3 class="text-xl font-bold mb-3">Retirement Plan Comparison</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Visually compare SEP IRAs, Solo 401(k)s, and Defined Benefit Plans to find the optimal fit for you.</p>
+                        <a href="retirement-plan-comparison.html" class="mt-auto w-full text-center px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Access Tool</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-lg flex flex-col card-hover">
+                        <h3 class="text-xl font-bold mb-3">Wealth Diversification Planner</h3>
+                        <p class="text-gray-600 mb-4 flex-grow">Map your entire portfolio—business equity, real estate, retirement, and alternative assets—in one dashboard.</p>
+                        <a href="wealth-diversification-planner.html" class="mt-auto w-full text-center px-4 py-2 text-white font-semibold rounded-lg btn-gradient">Access Tool</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="store" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12"><h2 class="text-4xl font-bold text-gray-900">Digital Store</h2><p class="text-lg text-gray-600 mt-2">Tools and templates to accelerate your wealth-building journey.</p></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/e0f2fe/0c4a6e?text=Budget+Planner" class="w-full h-48 object-cover"><div class="p-6"><h4 class="text-xl font-bold">The Ultimate Budget Planner</h4><p class="text-gray-600 text-sm my-2">A comprehensive template to track income, expenses, and savings goals.</p><div class="flex justify-between items-center mt-4"><span class="text-2xl font-bold text-blue-600">$19.99</span><a href="#" class="px-4 py-2 text-sm font-semibold text-white rounded-lg btn-gradient">Buy Now</a></div></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/dcfce7/14532d?text=Side+Hustle+Kit" class="w-full h-48 object-cover"><div class="p-6"><h4 class="text-xl font-bold">Side Hustle Starter Kit</h4><p class="text-gray-600 text-sm my-2">Launch your freelance career with proposal templates, invoice formats, and client trackers.</p><div class="flex justify-between items-center mt-4"><span class="text-2xl font-bold text-green-600">$24.99</span><a href="#" class="px-4 py-2 text-sm font-semibold text-white rounded-lg btn-gradient">Buy Now</a></div></div></div>
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden card-hover"><img src="https://placehold.co/600x400/eef2ff/4338ca?text=Investing+Tracker" class="w-full h-48 object-cover"><div class="p-6"><h4 class="text-xl font-bold">Wealth-Builder's Investment Tracker</h4><p class="text-gray-600 text-sm my-2">Monitor your stocks, crypto, and real estate investments in one powerful dashboard.</p><div class="flex justify-between items-center mt-4"><span class="text-2xl font-bold text-indigo-600">$29.99</span><a href="#" class="px-4 py-2 text-sm font-semibold text-white rounded-lg btn-gradient">Buy Now</a></div></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12"><h2 class="text-4xl font-bold text-gray-900">From the Blog</h2><p class="text-lg text-gray-600 mt-2">Insights on wealth, business, and the creator economy.</p></div>
+                <div class="max-w-4xl mx-auto space-y-12">
+                    <article class="group blog-card md:flex items-center gap-8"><a href="https://moneyvibes.medium.com/how-i-built-a-50k-monthly-cash-flow-empire-with-airbnb-properties-and-you-can-too-a215b09d2a41" class="md:w-1/3 mb-4 md:mb-0 block"><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*bQ4uUn_RRSGKek3BEdU2hQ.png" class="rounded-lg shadow-md w-full h-full object-cover"></a><div class="md:w-2/3"><h3 class="text-2xl font-bold text-gray-800 transition duration-300 blog-title"><a href="https://moneyvibes.medium.com/how-i-built-a-50k-monthly-cash-flow-empire-with-airbnb-properties-and-you-can-too-a215b09d2a41">How I Built a $50k/Monthly Cash Flow Empire with Airbnb</a></h3><p class="text-gray-600 mt-2">A deep dive into the strategies, challenges, and rewards of building a short-term rental portfolio.</p></div></article>
+                    <article class="group blog-card md:flex items-center gap-8"><a href="https://moneyvibes.medium.com/top-3-side-hustles-dominating-2025-a-market-analysis-21f92f9a4443" class="md:w-1/3 mb-4 md:mb-0 block"><img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*2enbC2aG5Nl7H8aa1c_xEw.png" class="rounded-lg shadow-md w-full h-full object-cover"></a><div class="md:w-2/3"><h3 class="text-2xl font-bold text-gray-800 transition duration-300 blog-title"><a href="https://moneyvibes.medium.com/top-3-side-hustles-dominating-2025-a-market-analysis-21f92f9a4443">Top 3 Side Hustles Dominating 2025: A Market Analysis</a></h3><p class="text-gray-600 mt-2">We analyze the trends to uncover the most profitable side hustles for the coming year.</p></div></article>
+                </div>
+            </div>
+        </section>
+        
+        <section id="resources" class="py-20 bg-white">
+            <div class="container mx-auto p-4 md:p-8">
+                <header class="text-center mb-8 md:mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold mb-2">Resources Hub</h2>
+                    <p class="text-lg text-secondary max-w-2xl mx-auto">Your one-stop shop for downloadable guides, checklists, and worksheets.</p>
+                </header>
+                <div class="flex flex-wrap justify-center gap-2 mb-8 md:mb-12">
+                    <button class="filter-btn filter-btn-active px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="new">What's New</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="entrepreneurship">Entrepreneurship</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="taxes">Taxes</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="funding">Funding</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="investing">Investing</button>
+                    <button class="filter-btn px-4 py-2 text-sm font-semibold border border-gray-300 rounded-full" data-filter="mindset">Mindset</button>
+                </div>
+                <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            </div>
+        </section>
+
+        <section id="join" class="py-20 bg-gray-900 text-white">
+             <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Join The Tribe</h2>
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto mb-12">Connect with like-minded hustlers, share your journey, and get exclusive content.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-2xl text-left"><h3 class="text-2xl font-bold mb-3">Weekly Wealth Wisdom</h3><p class="text-gray-400 mb-6">Get actionable tips, market insights, and new resources delivered to your inbox.</p><form action="#" method="POST" class="flex flex-col sm:flex-row gap-3"><input type="email" name="email" placeholder="Enter your email" required class="flex-grow w-full px-4 py-3 rounded-md bg-gray-700 border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white"><button type="submit" class="px-6 py-3 font-bold text-white rounded-md btn-gradient">Subscribe</button></form></div>
+                    <div class="bg-gray-800 p-8 rounded-xl shadow-2xl text-left"><h3 class="text-2xl font-bold mb-3">Community Hubs</h3><p class="text-gray-400 mb-6">Join the conversation, ask questions, and network with peers.</p><div class="flex flex-col sm:flex-row gap-4"><a href="#" class="flex-1 flex items-center justify-center gap-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-4 rounded-lg"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.28,3.43a2.08,2.08,0,0,0-2.2-.14L5.8,9.45a2.1,2.1,0,0,0-.93,3.75l2.58,1.29a.53.53,0,0,1,.29.29l1.29,2.58a2.1,2.1,0,0,0,3.75-.93l6.16-12.28A2.08,2.08,0,0,0,20.28,3.43ZM9,14.6a.53.53,0,0,1-.29-.29L7.42,11.73l9.45-4.72-4.72,9.45Z"/></svg><span>Join Telegram</span></a><a href="#" class="flex-1 flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20.3,3.7a23.4,23.4,0,0,0-16.6,0A2,2,0,0,0,2.5,5.9l.9,8.7a2,2,0,0,0,2,1.8H8.1a.6.6,0,0,1,.6.6,8.3,8.3,0,0,0,6.6,0,.6.6,0,0,1,.6-.6h2.7a2,2,0,0,0,2-1.8l.9-8.7A2,2,0,0,0,20.3,3.7ZM9.1,14.3a1.5,1.5,0,1,1,1.5-1.5A1.5,1.5,0,0,1,9.1,14.3Zm5.8,0a1.5,1.5,0,1,1,1.5-1.5A1.5,1.5,0,0,1,14.9,14.3Z"/></svg><span>Join Discord</span></a></div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 flex justify-around p-2 z-50">
+        <a href="#home" class="flex flex-col items-center text-gray-600 hover:text-blue-600 w-1/6 text-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1V9a1 1 0 011-1h2a1 1 0 011 1v10a1 1 0 001 1h3m-6 0V9"/></svg><span class="text-xs">Home</span></a>
+        <a href="#markets" class="flex flex-col items-center text-gray-600 hover:text-blue-600 w-1/6 text-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg><span class="text-xs">Markets</span></a>
+        <a href="#tools" class="flex flex-col items-center text-gray-600 hover:text-blue-600 w-1/6 text-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg><span class="text-xs">Tools</span></a>
+        <a href="#news" class="flex flex-col items-center text-gray-600 hover:text-blue-600 w-1/6 text-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg><span class="text-xs">News</span></a>
+        <a href="#join" class="flex flex-col items-center text-gray-600 hover:text-blue-600 w-1/6 text-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.124-1.28-.35-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.124-1.28.35-1.857m0 0a5.002 5.002 0 019.292 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg><span class="text-xs">Join</span></a>
+    </nav>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const FMP_API_KEY = 'YOUR_FINANCIAL_MODELING_PREP_API_KEY'; 
+            const MARKETAUX_API_KEY = 'YOUR_MARKETAUX_API_KEY';
+
+            async function fetchMarketData() {
+                const tickerContainer = document.getElementById('stock-ticker-content');
+                const sp500Container = document.getElementById('sp500-data');
+                const nasdaqContainer = document.getElementById('nasdaq-data');
+                const btcContainer = document.getElementById('btc-data');
+                const ethContainer = document.getElementById('eth-data');
+
+                if (FMP_API_KEY === 'YOUR_FINANCIAL_MODELING_PREP_API_KEY') {
+                    console.warn("FMP API Key is a placeholder. Market data will not be fetched.");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`https://financialmodelingprep.com/api/v3/quote/%5EGSPC,%5EIXIC,BTCUSD,ETHUSD?apikey=${FMP_API_KEY}`);
+                    const data = await response.json();
+                    
+                    if (Array.isArray(data)) {
+                        data.forEach(item => {
+                            const changeClass = item.changesPercentage >= 0 ? 'text-green-400' : 'text-red-400';
+                            const html = `<div><h3 class="text-sm uppercase text-gray-400">${item.name}</h3><p class="text-2xl font-bold">${item.price.toFixed(2)}</p><p class="${changeClass}">${item.change.toFixed(2)} (${item.changesPercentage.toFixed(2)}%)</p></div>`;
+                            if (item.symbol === '^GSPC') sp500Container.innerHTML = html;
+                            if (item.symbol === '^IXIC') nasdaqContainer.innerHTML = html;
+                            if (item.symbol === 'BTCUSD') btcContainer.innerHTML = html;
+                            if (item.symbol === 'ETHUSD') ethContainer.innerHTML = html;
+                        });
+                    }
+
+                    const tickerResponse = await fetch(`https://financialmodelingprep.com/api/v3/quote/AAPL,MSFT,GOOGL,AMZN,TSLA,NVDA?apikey=${FMP_API_KEY}`);
+                    const tickerData = await tickerResponse.json();
+                    
+                    if (Array.isArray(tickerData)) {
+                        let tickerHtml = '';
+                        tickerData.forEach(stock => {
+                            const changeClass = stock.changesPercentage >= 0 ? 'text-green-400' : 'text-red-400';
+                            tickerHtml += `<div class="ticker-item"><span class="font-bold">${stock.symbol}</span><span class="ml-2">${stock.price.toFixed(2)}</span><span class="ml-2 ${changeClass}">${stock.changesPercentage.toFixed(2)}%</span></div>`;
+                        });
+                        tickerContainer.innerHTML = tickerHtml + tickerHtml;
+                    }
+
+                } catch (error) {
+                    console.error('Error fetching market data:', error);
+                    if(tickerContainer) tickerContainer.innerHTML = '<div class="ticker-item">Market data currently unavailable.</div>';
+                }
+            }
+
+            async function fetchFinancialNews() {
+                const newsContainer = document.getElementById('news-container');
+                if (MARKETAUX_API_KEY === 'YOUR_MARKETAUX_API_KEY') {
+                    console.warn("MarketAux API Key is a placeholder. News will not be fetched.");
+                    if(newsContainer) newsContainer.innerHTML = '<p>News feed is not configured. Please add an API key.</p>';
+                    return;
+                }
+                try {
+                    const response = await fetch(`https://api.marketaux.com/v1/news/all?symbols=TSLA,AMZN,MSFT&filter_entities=true&language=en&api_token=${MARKETAUX_API_KEY}`);
+                    const newsData = await response.json();
+                    
+                    if (newsData && Array.isArray(newsData.data)) {
+                        let newsHtml = '';
+                        newsData.data.slice(0, 5).forEach(article => {
+                            newsHtml += `<div class="p-4 border rounded-lg hover:shadow-md transition-shadow"><a href="${article.url}" target="_blank" rel="noopener noreferrer"><h3 class="text-xl font-bold mb-2">${article.title}</h3><p class="text-gray-600 text-sm mb-2">${article.snippet}</p><p class="text-xs text-gray-400">Source: ${article.source}</p></a></div>`;
+                        });
+                        newsContainer.innerHTML = newsHtml;
+                    } else {
+                        console.error('News data response is not in the expected format:', newsData);
+                        newsContainer.innerHTML = '<p>Could not load financial news. Check API key or response format.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error fetching financial news:', error);
+                    if(newsContainer) newsContainer.innerHTML = '<p>Could not load financial news at this time.</p>';
+                }
+            }
+
+            const resources = [
+                { file: 'advanced-operating-agreement-checklist.md', title: 'Advanced Operating Agreement Checklist', desc: 'Ensure your LLC is protected with this comprehensive checklist for your operating agreement.', category: 'entrepreneurship new' },
+                { file: 'legal-compliance-audit-template.md', title: 'Legal & Compliance Audit Template', desc: 'A template to conduct a legal and compliance audit of your business operations.', category: 'entrepreneurship' },
+                { file: 'liquidity-management-checklist.md', title: 'Liquidity Management Checklist', desc: 'A checklist to help you manage your company\'s cash flow and liquidity effectively.', category: 'funding' },
+                { file: 'ar-ap-optimization-worksheet.md', title: 'A/R & A/P Optimization Worksheet', desc: 'Optimize your accounts receivable and payable processes to improve cash flow.', category: 'entrepreneurship' },
+                { file: 'alternative-investment-opportunities-guide.md', title: 'Alternative Investment Opportunities Guide', desc: 'Explore investment opportunities beyond traditional stocks and bonds.', category: 'investing new' },
+                { file: 'business-exit-strategy-framework.md', title: 'Business Exit Strategy Framework', desc: 'A framework to help you plan your eventual exit from your business.', category: 'entrepreneurship' },
+                { file: 'irs-audit-preparedness-guide.md', title: 'IRS Audit Preparedness Guide', desc: 'Be prepared for a potential IRS audit with this detailed guide.', category: 'taxes' },
+                { file: 'financial-team-org-chart-template.md', title: 'Financial Team Org Chart Template', desc: 'Organize your financial team with this easy-to-use organizational chart template.', category: 'entrepreneurship' },
+                { file: 'm-a-readiness-checklist.md', title: 'M&A Readiness Checklist', desc: 'Prepare your business for a potential merger or acquisition with this readiness checklist.', category: 'funding' },
+                { file: 'succession-planning-worksheet.md', title: 'Succession Planning Worksheet', desc: 'A worksheet to help you plan for the future leadership of your business.', category: 'entrepreneurship' },
+                { file: 'philanthropic-planning-guide.md', title: 'Philanthropic Planning Guide', desc: 'A guide to help you incorporate charitable giving into your financial plan.', category: 'mindset' },
+                { file: 'impact-investing-resources-list.md', title: 'Impact Investing Resources List', desc: 'A curated list of resources for those interested in impact investing.', category: 'investing mindset' },
+            ];
+
+            const resourcesGrid = document.getElementById('resources-grid');
+            const filterButtons = document.querySelectorAll('#resources .filter-btn');
+
+            const renderResources = (filter = 'all') => {
+                resourcesGrid.innerHTML = '';
+                const filteredResources = resources.filter(r => filter === 'all' || r.category.includes(filter));
+
+                filteredResources.forEach(res => {
+                    const card = document.createElement('div');
+                    card.className = 'resource-card bg-white rounded-xl shadow-lg overflow-hidden flex flex-col card-hover';
+                    card.dataset.category = res.category;
+                    card.innerHTML = `
+                        <div class="p-6 flex-grow">
+                            <h3 class="text-xl font-bold mb-2">${res.title}</h3>
+                            <p class="text-secondary text-sm">${res.desc}</p>
+                        </div>
+                        <div class="p-6 bg-gray-50 mt-auto">
+                            <a href="${res.file}" class="w-full text-center block px-4 py-2 text-white font-bold rounded-lg btn-gradient" download>Download Now</a>
+                        </div>
+                    `;
+                    resourcesGrid.appendChild(card);
+                });
+            };
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    filterButtons.forEach(btn => btn.classList.remove('filter-btn-active'));
+                    button.classList.add('filter-btn-active');
+                    renderResources(button.dataset.filter);
+                });
+            });
+
+            renderResources();
+            fetchMarketData();
+            fetchFinancialNews();
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+/* Newsletter Archive Page Styles */
+
+.newsletter-archive {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.newsletter-archive h1 {
+    font-size: 48px;
+    font-weight: 700;
+    color: #0066cc;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.newsletter-archive .tagline {
+    font-size: 20px;
+    color: #666;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.newsletter-archive > p {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Subscribe CTA */
+.subscribe-cta {
+    text-align: center;
+    margin: 40px 0 60px 0;
+}
+
+.subscribe-cta .button {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.subscribe-cta .button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Archive Section */
+.newsletter-archive h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 60px 0 30px 0;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #0066cc;
+}
+
+/* Issue Cards */
+.issue-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.issue-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 30px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.issue-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    border-color: #0066cc;
+}
+
+.issue-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.issue-date {
+    float: right;
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.issue-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 20px 0 15px 0;
+    line-height: 1.4;
+}
+
+.issue-card p {
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.read-more {
+    display: inline-block;
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.2s;
+}
+
+.read-more:hover {
+    color: #0052a3;
+    text-decoration: underline;
+}
+
+/* Homepage Newsletter Section */
+.newsletter-section {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 20px;
+    text-align: center;
+    color: white;
+}
+
+.newsletter-section h2 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: white;
+}
+
+.newsletter-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    opacity: 0.95;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.button-primary {
+    display: inline-block;
+    background: white;
+    color: #667eea;
+    padding: 16px 40px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.button-secondary {
+    display: inline-block;
+    background: transparent;
+    color: white;
+    padding: 16px 40px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 2px solid white;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.button-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .newsletter-archive h1 {
+        font-size: 36px;
+    }
+    
+    .newsletter-archive h2 {
+        font-size: 28px;
+    }
+    
+    .issue-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .issue-date {
+        float: none;
+        display: block;
+        margin-top: 5px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .button-primary,
+    .button-secondary {
+        width: 100%;
+        max-width: 300px;
+    }
+}

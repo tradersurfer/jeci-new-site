@@ -1,0 +1,249 @@
+# Integration Code Snippets for Crypto Tax Checklist
+
+## 1. Newsletter CTA Link Update
+
+In your `newsletter-issue-1.html`, find this section and update:
+
+### BEFORE:
+
+```html
+<p style="margin: 10px 0 0 0;">Review your 2025 crypto trades NOW. Common mistake? Forgetting to report even small disposals. Use our free "Crypto Tax Health Checklist" (link below) to spot leaks before filing.</p>
+```
+
+### AFTER:
+
+```html
+<p style="margin: 10px 0 0 0;">Review your 2025 crypto trades NOW. Common mistake? Forgetting to report even small disposals. Use our free <a href="/crypto-tax-checklist.html" style="color: #667eea; font-weight: 600; text-decoration: underline;">Crypto Tax Health Checklist</a> to spot leaks before filing.</p>
+```
+
+## 2. Resources Hub Button Update
+
+In the “Final Edge” section of the newsletter, update:
+
+### BEFORE:
+
+```html
+<a href="/resources" class="cta-button" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: #1a1a1a;">Access Free Resources Hub →</a>
+```
+
+### AFTER (if creating dedicated resources page):
+
+```html
+<a href="/resources.html" class="cta-button" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: #1a1a1a;">Access Free Resources Hub →</a>
+```
+
+### OR (if linking directly to checklist):
+
+```html
+<a href="/crypto-tax-checklist.html" class="cta-button" style="background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%); color: #1a1a1a;">Get Free Crypto Tax Checklist →</a>
+```
+
+## 3. Add to Main Site Navigation
+
+Add this link to your main navigation menu:
+
+```html
+<nav>
+  <a href="/">Home</a>
+  <a href="/services.html">Services</a>
+  <a href="/resources.html">Free Resources</a> <!-- NEW -->
+  <a href="/newsletter.html">Newsletter</a>
+  <a href="/contact.html">Contact</a>
+</nav>
+```
+
+## 4. Resources Landing Page (Optional)
+
+Create `/resources.html` with this structure:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Resources | JECI Group</title>
+    <!-- Your site's CSS -->
+</head>
+<body>
+    <!-- Your site's header -->
+    
+    <main class="resources-page">
+        <h1>Free Tax & Business Resources</h1>
+        <p>Professional tools and guides to help you stay organized and tax-ready.</p>
+        
+        <div class="resource-grid">
+            <!-- FEATURED RESOURCE -->
+            <div class="resource-card featured">
+                <div class="resource-icon">🪙</div>
+                <h3>Interactive Crypto Tax Checklist</h3>
+                <p>Track your crypto tax documentation with our interactive checklist. Auto-saves your progress and covers all 7 key categories.</p>
+                <div class="resource-features">
+                    <span class="badge">Interactive</span>
+                    <span class="badge">24 Checklist Items</span>
+                    <span class="badge">Auto-Save</span>
+                </div>
+                <a href="/crypto-tax-checklist.html" class="btn-primary">Access Checklist →</a>
+            </div>
+            
+            <!-- PLACEHOLDER FOR FUTURE RESOURCES -->
+            <div class="resource-card">
+                <div class="resource-icon">💰</div>
+                <h3>Profit Leak Detector</h3>
+                <p>Identify hidden profit leaks in your bookkeeping with our simple worksheet.</p>
+                <a href="#" class="btn-secondary">Coming Soon</a>
+            </div>
+            
+            <div class="resource-card">
+                <div class="resource-icon">⚙️</div>
+                <h3>Operations Quick Audit</h3>
+                <p>10 questions to audit your business operations and find efficiency gains.</p>
+                <a href="#" class="btn-secondary">Coming Soon</a>
+            </div>
+        </div>
+        
+        <div class="newsletter-cta">
+            <h2>Get Weekly Tips & Resources</h2>
+            <p>Subscribe to JECI Edge Weekly for tax strategies, bookkeeping tips, and business growth insights.</p>
+            <a href="https://adrianjordanio.substack.com" class="btn-primary">Subscribe Free →</a>
+        </div>
+    </main>
+    
+    <!-- Your site's footer -->
+</body>
+</html>
+```
+
+## 5. Homepage CTA Section
+
+Add this section to your homepage to promote the checklist:
+
+```html
+<section class="crypto-checklist-promo">
+    <div class="container">
+        <div class="promo-content">
+            <div class="promo-icon">🪙</div>
+            <h2>Free Crypto Tax Checklist</h2>
+            <p>Interactive tool to organize your crypto tax documentation. Covers exchanges, wallets, DeFi, NFTs, and more.</p>
+            <div class="promo-features">
+                <div class="feature">
+                    <span class="check-icon">✓</span>
+                    <span>24 Essential Items</span>
+                </div>
+                <div class="feature">
+                    <span class="check-icon">✓</span>
+                    <span>Auto-Save Progress</span>
+                </div>
+                <div class="feature">
+                    <span class="check-icon">✓</span>
+                    <span>Tax Year 2025</span>
+                </div>
+            </div>
+            <a href="/crypto-tax-checklist.html" class="btn-gradient">Access Free Checklist →</a>
+        </div>
+    </div>
+</section>
+```
+
+## 6. Add “Back to Resources” Link to Checklist
+
+At the top of the checklist HTML, add navigation:
+
+```html
+<body>
+    <nav class="checklist-nav">
+        <a href="/resources.html" class="back-link">← Back to Resources</a>
+        <a href="/" class="home-link">Home</a>
+    </nav>
+    
+    <div class="container">
+        <!-- Rest of checklist content -->
+```
+
+With this CSS:
+
+```css
+.checklist-nav {
+    max-width: 900px;
+    margin: 0 auto 20px auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-link, .home-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: opacity 0.2s;
+}
+
+.back-link:hover, .home-link:hover {
+    opacity: 0.8;
+}
+```
+
+## 7. Social Sharing Buttons (Optional)
+
+Add below the checklist header:
+
+```html
+<div class="social-share">
+    <p>Found this helpful? Share it:</p>
+    <div class="share-buttons">
+        <a href="https://twitter.com/intent/tweet?text=Free%20interactive%20crypto%20tax%20checklist%20from%20@adrianjordan_io%20%F0%9F%AA%99&url=YOUR_SITE_URL/crypto-tax-checklist.html" 
+           target="_blank" 
+           class="share-btn twitter">
+            Share on X
+        </a>
+        <a href="https://www.linkedin.com/sharing/share-offsite/?url=YOUR_SITE_URL/crypto-tax-checklist.html" 
+           target="_blank" 
+           class="share-btn linkedin">
+            Share on LinkedIn
+        </a>
+    </div>
+</div>
+```
+
+## 8. Analytics Tracking (Optional)
+
+Add Google Analytics event tracking for engagement:
+
+```javascript
+// Add to the updateProgress() function in the checklist
+function updateProgress() {
+    const checked = document.querySelectorAll('.checkbox:checked').length;
+    const percentage = (checked / checkboxes.length) * 100;
+    
+    // ... existing code ...
+    
+    // Track completion milestones
+    if (percentage === 25 || percentage === 50 || percentage === 75 || percentage === 100) {
+        // Google Analytics 4
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'checklist_progress', {
+                'event_category': 'Crypto Tax Checklist',
+                'event_label': percentage + '% Complete',
+                'value': percentage
+            });
+        }
+    }
+}
+```
+
+## Quick Reference: All Links to Update
+
+1. **Newsletter Page** (`newsletter-issue-1.html`):
+- “Crypto Tax Health Checklist” text → `/crypto-tax-checklist.html`
+- “Access Free Resources Hub” button → `/resources.html` or `/crypto-tax-checklist.html`
+1. **Main Navigation**:
+- Add “Free Resources” → `/resources.html`
+1. **Resources Page** (`resources.html`):
+- Featured card button → `/crypto-tax-checklist.html`
+1. **Homepage** (optional):
+- Promo section button → `/crypto-tax-checklist.html`
+1. **Checklist Page** (`crypto-tax-checklist.html`):
+- “Back to Resources” → `/resources.html`
+- “Home” → `/`

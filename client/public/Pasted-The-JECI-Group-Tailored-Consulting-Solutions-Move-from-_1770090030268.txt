@@ -1,0 +1,69 @@
+The JECI Group: Tailored Consulting Solutions
+Move from Founder-Operator to Sovereign CEO.
+The Founders’ Operations Suite
+The all-in-one back-office, growth engine, and policy advisory designed for the modern entrepreneur.
+
+Stop managing multiple vendors who don’t speak the same language. At JECI Interactive, we bundle your legal foundation, financial hygiene, and digital growth into a single, high-leverage monthly retainer.
+
+[Apply for the Suite] [View Our Pillars]
+
+Why The JECI Group?
+Most businesses fail not because of a bad product, but because of The Fragmented Back-Office. * Your credit limits your capital.
+
+Your messy books limit your decisions.
+
+Your lack of SEO limits your visibility.
+
+We don’t just offer services; we offer "Institutional Readiness." We bridge the gap between where you are and where the banks and the markets need you to be.
+
+Our Proven Framework: The 3 Pillars
+Pillar 1: The Foundation (Restoration & Formation)
+Your Legal and Financial Passport.
+
+700 Credit Club: Our signature interactive, DIY program to remove negative items and restore your borrowing power in 90–120 days.
+
+New Entity Formation: We don't just "file papers." We evaluate tax advantages (LLC vs. S-Corp), handle federal EINs, and draft a Methodical Action Plan to clarify your financial goals.
+
+Pillar 2: The Engine (Accounting & Operations)
+Back-Office Complexity, Managed.
+
+Full-Service Bookkeeping: Monthly bank reconciliations and P&L generation to detect errors and prevent "emotional spending."
+
+General Ledger Hygiene: We scrub your accounts for double billings and unrecorded payments, ensuring your data is "Bank-Ready."
+
+Cash Flow Budgeting: Strategic oversight to project requirements and control costs effectively.
+
+Pillar 3: The Growth (Digital Marketing & Innovation)
+Visibility Meets Future-Proof Strategy.
+
+Managed Digital Presence: From SEO audits to keyword-driven content strategies that turn searchers into customers.
+
+Bitcoin Ecosystem Advisory: For tech-forward founders. We provide "Hill-ready" briefing packets on policy research, stablecoin regulations, and the shifting financial landscape.
+
+The Ultimate Pivot: The Founders’ Operations Suite
+$3,000/mo Retainer for Total Financial Sovereignty.
+Instead of buying a "tax return" or a "social media post," you are investing in a dedicated operations team. This bundle is designed to take the stress off the founder so they can focus on high-level strategy.
+
+What’s Included:
+
+✅ Monthly Full-Service Bookkeeping (Bank Recs, P&L, Balance Sheets)
+
+✅ Managed Social Platform (1 Primary Platform Strategy & Execution)
+
+✅ Monthly Policy Research Briefing (Bitcoin & Tech Regulation updates)
+
+✅ Unlimited Expert Consultations (Ongoing support for strategic decisions)
+
+Are You Ready to Build Something Legitimate?
+JECI Interactive is for the ambitious. Whether you are starting with the 700 Credit Club to rebuild your foundation or ready to pivot into the Founders' Operations Suite, we provide the tailored solutions you need to scale.
+
+[Schedule Your Strategy Session Today] A limited number of Suite spots are available to ensure bespoke service for every JECI partner.
+
+How to use this on Replit:
+Header: Use "The JECI Group" in your <h1>.
+
+The Pillars: Use a 3-column "Card" layout to make Pillar 1, 2, and 3 pop visually.
+
+Pricing: Use a highlighted "Pricing Table" for the $3,000 Suite to distinguish it from individual services.
+
+Tagline: Keep "Tailored Consulting Solutions" in your footer or as a sub-header throughout the site.
