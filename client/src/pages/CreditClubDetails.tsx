@@ -286,7 +286,7 @@ export default function CreditClubDetails() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             <div className="bg-slate-50 border border-slate-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <img src="/ahmed-results-after-3-months.png"/" alt="Client Ahmed - Credit Score Improvement" className="w-full" />
+              <img src="/ahmed-results-after-3-months.png" alt="Client Ahmed - Credit Score Improvement" className="w-full" />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <BadgeCheck className="w-5 h-5 text-green-500" />
