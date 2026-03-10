@@ -190,7 +190,7 @@ export default function CreditClubDetails() {
                 </a>
               </div>
               <div className="text-center">
-                <img src="/client card approval-celebrate your wins.jpg" alt="700 Club Wins" className="rounded-lg shadow-2xl" />
+                <img src="/700-increase-your-score-graphic.jpg" alt="700 Club Wins" className="rounded-lg shadow-2xl" />
               </div>
             </div>
           </div>
