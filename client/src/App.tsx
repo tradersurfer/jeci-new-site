@@ -103,6 +103,7 @@ function Router() {
         <Route path="/newsletter/issue-1" component={NewsletterIssue1} />
         
         <Route path="/tax-services" component={TaxServices} />
+        <Route path="/tax-specialties" component={TaxSpecialties} />
         <Route path="/accounting-services" component={AccountingServices} />
         <Route path="/credit-funding" component={CreditFundingServices} />
         <Route path="/digital-marketing" component={DigitalMarketingServices} />
