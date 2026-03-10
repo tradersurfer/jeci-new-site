@@ -30,7 +30,7 @@ export default function Home() {
       <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/hero-corporate.png" 
+            src="/hero-corporate.png" 
             alt="Corporate Strategy" 
             className="w-full h-full object-cover"
           />

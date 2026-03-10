@@ -322,7 +322,7 @@ export default function CreditClubDetails() {
             </div>
 
             <div className="bg-slate-50 border border-slate-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <img src="/images/credit-club/score-increase.jpg" alt="Client Credit Score Increase" className="w-full" />
+              <img src="/score-increase.jpg" alt="Client Credit Score Increase" className="w-full" />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <BadgeCheck className="w-5 h-5 text-green-500" />
