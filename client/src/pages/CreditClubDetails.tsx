@@ -69,13 +69,13 @@ export default function CreditClubDetails() {
       {/* Hero */}
       <section className="pt-40 pb-20 bg-primary text-white relative overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/images/credit-club/vault-graphic.jpg" alt="" className="w-full h-full object-cover opacity-20" />
+          <img src="/vault-graphic.jpg" alt="" className="w-full h-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/90 to-primary" />
         </div>
         <div className="container px-4 md:px-6 relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="flex justify-center mb-6">
-              <img src="/images/credit-club/logo.jpg" alt="700 Credit Club Experts" className="w-24 h-24 rounded-xl shadow-2xl" />
+              <img src="/logo.jpg" alt="700 Credit Club Experts" className="w-24 h-24 rounded-xl shadow-2xl" />
             </div>
             <div className="inline-block px-4 py-1.5 mb-6 bg-secondary text-primary rounded-full text-xs font-black uppercase tracking-[0.2em]">
               Elite Financial Circle
@@ -190,7 +190,7 @@ export default function CreditClubDetails() {
                 </a>
               </div>
               <div className="text-center">
-                <img src="/images/credit-club/club-wins.jpg" alt="700 Club Wins" className="rounded-lg shadow-2xl" />
+                <img src="/client card approval-celebrate your wins.jpg" alt="700 Club Wins" className="rounded-lg shadow-2xl" />
               </div>
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function CreditClubDetails() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             <div className="bg-slate-50 border border-slate-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <img src="/images/credit-club/ahmed-scores.png" alt="Client Ahmed - Credit Score Improvement" className="w-full" />
+              <img src="/ahmed-results-after-3-months.png"/" alt="Client Ahmed - Credit Score Improvement" className="w-full" />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <BadgeCheck className="w-5 h-5 text-green-500" />
@@ -304,7 +304,7 @@ export default function CreditClubDetails() {
             </div>
 
             <div className="bg-slate-50 border border-slate-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <img src="/images/credit-club/client-results.jpg" alt="Client Credit Scores - Very Good" className="w-full" />
+              <img src="/credit_client_results.jpg" alt="Client Credit Scores - Very Good" className="w-full" />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <BadgeCheck className="w-5 h-5 text-green-500" />
@@ -342,7 +342,7 @@ export default function CreditClubDetails() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <div className="bg-slate-50 border border-slate-100 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow">
-              <img src="/images/credit-club/card-approval.jpg" alt="Client Approved for Navy Federal Credit Card" className="w-full" />
+              <img src="/card-approval.jpg" alt="Client Approved for Navy Federal Credit Card" className="w-full" />
               <div className="p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <CreditCard className="w-5 h-5 text-secondary" />
