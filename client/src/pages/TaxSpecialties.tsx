@@ -1,5 +1,5 @@
 import React from 'react';
-import { export default function TaxSpecialties({ params }: { params: { id?: string } }) } from "wouter";
+import { useParams () } from "wouter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SubpageNav from "@/components/SubpageNav";
