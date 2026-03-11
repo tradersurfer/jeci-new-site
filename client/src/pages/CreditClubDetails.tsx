@@ -50,7 +50,7 @@ export default function CreditClubDetails() {
       <Navbar />
 
       {/* Sub-nav */}
-      <div className="fixed top-20 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 hidden md:block">
+      <div className="fixed top-20 left-0 right-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-200 overflow-x-auto flex gap-4">
         <div className="container px-4 md:px-6 py-3 flex justify-center gap-8">
           {subNavItems.map((item) => (
             <button 
