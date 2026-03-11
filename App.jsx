@@ -1959,7 +1959,7 @@ const ProgramsPricingPage = ({ onJoin, onBack }) => {
               <Briefcase className="w-16 h-16 text-yellow-500 mx-auto mb-6" />
               <h3 className="text-3xl font-black italic uppercase tracking-tighter mb-4">Business Credit Division</h3>
               <p className="text-slate-400 max-w-md mx-auto mb-8">Our full 3-tier business credit system — entity formation through institutional funding — is detailed on the dedicated Business Credit page.</p>
-              <button onClick={onBack} className="px-10 py-4 bg-yellow-500 text-slate-950 font-black uppercase tracking-widest rounded-xl hover:bg-yellow-400 transition-all">
+              <button onClick={ () => setView('business-credit') } className="px-10 py-4 bg-yellow-500 text-slate-950 font-black uppercase tracking-widest rounded-xl hover:bg-yellow-400 transition-all">
                 View Business Credit Division
               </button>
             </div>
