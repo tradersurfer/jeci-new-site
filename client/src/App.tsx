@@ -20,6 +20,7 @@ import CryptoTaxChecklist from "./pages/tools/CryptoTaxChecklist";
 import ToolsAndResources from "./pages/Resources";
 import AccountingServiceDetail from "./pages/AccountingServiceDetail";
 import CreditClubDetails from "./pages/CreditClubDetails";
+import DigitalPlans from "./pages/DigitalPlans";
 import Blog from "./pages/Blog";
 
 import BookingPage from "./pages/booking/BookingPage";
@@ -110,6 +111,7 @@ function Router() {
         <Route path="/business-services" component={BusinessServices} />
         <Route path="/business-development" component={BusinessDevelopment} />
         <Route path="/premium-services" component={PremiumServices} />
+        <Route path="/digital-plans" component={JeciDigitalPlans} />
 
         <Route path="/services/:id">
           {(params) => <ServiceDetailPage id={params.id} />}
