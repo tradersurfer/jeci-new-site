@@ -1,4 +1,5 @@
 import { useState } from "react";
+import SubpageNav from "@/components/SubpageNav";
 
 // ─── SVG Icons ──────────────────────────────────────────────────────────────
 
@@ -141,6 +142,8 @@ export default function JeciWebPresencePlans() {
       className="min-h-screen bg-black text-white antialiased pb-24"
       style={{ fontFamily: "'Inter', sans-serif" }}
     >
+      <SubpageNav />
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
 
@@ -169,19 +172,8 @@ export default function JeciWebPresencePlans() {
         }
       `}</style>
 
-      {/* ── Header ──────────────────────────────────────────────────────────── */}
-      <header className="pt-14 pb-10 px-6 text-center">
-        <div className="flex justify-center mb-6">
-          <div className="flex items-center gap-2">
-            <div className="w-10 h-10 gold-bg rounded-full flex items-center justify-center">
-              <span className="text-black font-black text-xl">J</span>
-            </div>
-            <span className="text-2xl font-bold tracking-tighter text-yellow-400 uppercase">
-              JECI Consulting
-            </span>
-          </div>
-        </div>
-
+      {/* ── Header — pt-24 clears the fixed SubpageNav ──────────────────────── */}
+      <header className="pt-24 pb-10 px-6 text-center">
         <h1 className="text-4xl md:text-6xl font-black mb-3 uppercase tracking-tight leading-tight">
           RANK HIGHER.{" "}
           <span className="gold-gradient">GET FOUND.</span>
