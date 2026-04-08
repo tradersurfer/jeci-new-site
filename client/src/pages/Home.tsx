@@ -7,7 +7,8 @@ import { Button } from "@/components/ui/button";
 import { 
   Check, ArrowRight, TrendingUp, Target, BarChart3, 
   Calculator, Rocket, Shield, 
-  ChevronRight, BarChart, Wrench
+  ChevronRight, BarChart, Wrench,
+  Globe, Wifi
 } from "lucide-react";
 
 const fadeIn = {
@@ -109,6 +110,7 @@ export default function Home() {
         </div>
       </motion.div>
 
+      {/* ── Popular Services ──────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-b border-slate-100">
         <div className="container px-4">
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -116,20 +118,98 @@ export default function Home() {
             <p className="text-slate-500">Expert solutions tailored for DMV entrepreneurs and investors.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Bookkeeping & Financial Reporting", price: "From $349/mo", desc: "Monthly bookkeeping, reconciliation, and clean financial statements.", link: "/accounting-services" },
-              { title: "Tax Services", price: "From $399", desc: "Individual, business, and specialty tax preparation and planning.", link: "/tax-services" },
-              { title: "Entity Formation (LLC)", price: "$599", desc: "Full entity setup with operating agreement and EIN registration.", link: "/services/llc-formation" },
-              { title: "QuickBooks Setup", price: "$349", desc: "Bank-ready chart of accounts, integrations, and training.", link: "/services/quickbooks-setup" },
-              { title: "Real Estate Tax Planning", price: "$399", desc: "Cost segregation, 1031 exchanges, and investor tax strategy.", link: "/services/real-estate-tax-planning" },
-              { title: "Free Business Consultation", price: "Free", desc: "30-minute session to discuss your business challenges and goals.", link: "/services/business-strategy-session" }
+              {
+                title: "Bookkeeping & Financial Reporting",
+                price: "From $349/mo",
+                desc: "Monthly bookkeeping, reconciliation, and clean financial statements.",
+                link: "/accounting-services",
+                icon: null
+              },
+              {
+                title: "Tax Services",
+                price: "From $399",
+                desc: "Individual, business, and specialty tax preparation and planning.",
+                link: "/tax-services",
+                icon: null
+              },
+              {
+                title: "Entity Formation (LLC)",
+                price: "$599",
+                desc: "Full entity setup with operating agreement and EIN registration.",
+                link: "/services/llc-formation",
+                icon: null
+              },
+              {
+                title: "QuickBooks Setup",
+                price: "$349",
+                desc: "Bank-ready chart of accounts, integrations, and training.",
+                link: "/services/quickbooks-setup",
+                icon: null
+              },
+              {
+                title: "Real Estate Tax Planning",
+                price: "$399",
+                desc: "Cost segregation, 1031 exchanges, and investor tax strategy.",
+                link: "/services/real-estate-tax-planning",
+                icon: null
+              },
+              {
+                title: "Free Business Consultation",
+                price: "Free",
+                desc: "30-minute session to discuss your business challenges and goals.",
+                link: "/services/business-strategy-session",
+                icon: null
+              },
+              // ── JECI Digital ────────────────────────────────────────────
+              {
+                title: "Website & AI Plans",
+                price: "From $999",
+                desc: "Custom websites, e-commerce builds, hosting & maintenance. Essential to Enterprise.",
+                link: "/digital-plans",
+                icon: "globe",
+                highlight: true
+              },
+              // ── Web Presence ────────────────────────────────────────────
+              {
+                title: "Web Presence & Local SEO",
+                price: "From $600/mo",
+                desc: "Google Business, Apple Maps, Yelp, Bing, niche directories & 30 blog posts/mo.",
+                link: "/web-presence",
+                icon: "wifi",
+                highlight: true
+              },
             ].map((service, i) => (
-              <div key={i} className="bg-slate-50 p-8 rounded-xl border border-slate-100 hover:shadow-lg transition-all text-center group cursor-pointer" onClick={() => setLocation(service.link)}>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">{service.title}</h3>
+              <div
+                key={i}
+                className={`p-8 rounded-xl border transition-all text-center group cursor-pointer hover:shadow-lg ${
+                  service.highlight
+                    ? "bg-primary text-white border-primary hover:bg-slate-800"
+                    : "bg-slate-50 text-slate-900 border-slate-100"
+                }`}
+                onClick={() => setLocation(service.link)}
+              >
+                {service.icon === "globe" && (
+                  <div className="flex justify-center mb-3">
+                    <Globe size={28} className="text-secondary" />
+                  </div>
+                )}
+                {service.icon === "wifi" && (
+                  <div className="flex justify-center mb-3">
+                    <Wifi size={28} className="text-secondary" />
+                  </div>
+                )}
+                <h3 className={`font-bold text-lg mb-2 ${service.highlight ? "text-white" : "text-slate-900"}`}>
+                  {service.title}
+                </h3>
                 <p className="text-secondary font-bold text-xl mb-4">{service.price}</p>
-                <p className="text-sm text-slate-500 mb-6">{service.desc}</p>
-                <span className="text-xs font-bold text-primary uppercase tracking-widest group-hover:text-secondary transition-colors">Learn More →</span>
+                <p className={`text-sm mb-6 ${service.highlight ? "text-white/70" : "text-slate-500"}`}>
+                  {service.desc}
+                </p>
+                <span className={`text-xs font-bold uppercase tracking-widest group-hover:text-secondary transition-colors ${service.highlight ? "text-white/60" : "text-primary"}`}>
+                  Learn More →
+                </span>
               </div>
             ))}
           </div>
@@ -143,6 +223,46 @@ export default function Home() {
       </section>
 
       <SpecialtyGrid />
+
+      {/* ── Digital Services Promo Banner ─────────────────────────────────── */}
+      <section className="py-16 bg-black border-y border-yellow-400/20">
+        <div className="container px-4 md:px-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-10">
+            <div className="text-center md:text-left">
+              <p className="text-yellow-400 text-xs font-black uppercase tracking-widest mb-2">
+                JECI Consulting — Digital Services
+              </p>
+              <h2 className="text-white font-black text-3xl md:text-4xl uppercase tracking-tight leading-tight">
+                Rank Higher. Get Found. <br className="hidden md:block" />
+                <span className="text-yellow-400">Grow Faster.</span>
+              </h2>
+              <p className="text-white/60 text-sm mt-3 max-w-md">
+                From custom website builds to local SEO dominance — JECI's digital services are built for businesses serious about growth in the DC metro market and beyond.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
+              <Button
+                size="lg"
+                className="bg-yellow-400 text-black hover:bg-yellow-300 font-black h-14 px-8 uppercase tracking-wide rounded-full"
+                onClick={() => setLocation('/digital-plans')}
+              >
+                <Globe size={18} className="mr-2" />
+                Website Plans
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-yellow-400 text-yellow-400 hover:bg-yellow-400 hover:text-black font-black h-14 px-8 uppercase tracking-wide rounded-full"
+                onClick={() => setLocation('/web-presence')}
+              >
+                <Wifi size={18} className="mr-2" />
+                SEO & Presence
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ─────────────────────────────────────────────────────────────────── */}
 
       <section id="pillars" className="py-24 bg-white">
         <div className="container px-4 md:px-6">

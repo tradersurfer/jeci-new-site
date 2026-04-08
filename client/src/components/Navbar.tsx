@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X, Phone, Mail, MapPin, ChevronDown, ChevronRight, ExternalLink } from "lucide-react";
+import { Menu, X, Phone, Mail, MapPin, ChevronDown, ChevronRight, ExternalLink, Globe, Wifi } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,8 @@ interface DropdownItem {
   name: string;
   href: string;
   external?: boolean;
+  highlight?: boolean;
+  icon?: "globe" | "wifi";
 }
 
 interface NavDropdown {
@@ -26,6 +28,10 @@ const dropdowns: NavDropdown[] = [
       { name: "Real Estate Tax Planning", href: "/services/real-estate-tax-planning" },
       { name: "Free Business Consultation", href: "/services/business-strategy-session" },
       { name: "All Services", href: "/explore" },
+      // ── JECI Digital Services ──────────────────────────────────────────
+      { name: "Website & AI Plans", href: "/digital-plans", highlight: true, icon: "globe" },
+      { name: "Web Presence & Local SEO", href: "/web-presence", highlight: true, icon: "wifi" },
+      // ──────────────────────────────────────────────────────────────────
     ]
   },
   {
@@ -87,21 +93,43 @@ function DesktopDropdown({ dropdown, scrolled }: { dropdown: NavDropdown; scroll
 
       {open && (
         <div className="absolute top-full left-0 pt-2 z-50" onMouseEnter={handleEnter} onMouseLeave={handleLeave}>
-          <div className="bg-white rounded-lg shadow-xl border border-slate-100 py-2 min-w-[260px]">
-            {dropdown.items.map((item) => (
-              item.external ? (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors"
-                  onClick={() => setOpen(false)}
-                >
-                  {item.name}
-                  <ExternalLink size={12} className="text-slate-400" />
-                </a>
-              ) : (
+          <div className="bg-white rounded-lg shadow-xl border border-slate-100 py-2 min-w-[280px]">
+            {dropdown.items.map((item) => {
+              // ── Highlighted digital service items ──────────────────────
+              if (item.highlight) {
+                return (
+                  <button
+                    key={item.name}
+                    className="w-full text-left flex items-center justify-between px-4 py-2.5 text-sm font-bold text-primary bg-yellow-50 hover:bg-yellow-100 transition-colors border-t border-yellow-100 first-of-type:border-t-slate-100"
+                    onClick={() => { setLocation(item.href); setOpen(false); }}
+                  >
+                    <span className="flex items-center gap-2">
+                      {item.icon === "globe" && <Globe size={13} className="text-yellow-500 shrink-0" />}
+                      {item.icon === "wifi"  && <Wifi  size={13} className="text-yellow-500 shrink-0" />}
+                      {item.name}
+                    </span>
+                    <ChevronRight size={12} className="text-yellow-500" />
+                  </button>
+                );
+              }
+              // ── External links ─────────────────────────────────────────
+              if (item.external) {
+                return (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors"
+                    onClick={() => setOpen(false)}
+                  >
+                    {item.name}
+                    <ExternalLink size={12} className="text-slate-400" />
+                  </a>
+                );
+              }
+              // ── Standard items ─────────────────────────────────────────
+              return (
                 <button
                   key={item.name}
                   className="w-full text-left flex items-center justify-between px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-primary transition-colors"
@@ -110,8 +138,8 @@ function DesktopDropdown({ dropdown, scrolled }: { dropdown: NavDropdown; scroll
                   {item.name}
                   <ChevronRight size={12} className="text-slate-400" />
                 </button>
-              )
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -135,20 +163,39 @@ function MobileAccordion({ dropdown, onNavigate }: { dropdown: NavDropdown; onNa
 
       {open && (
         <div className="pb-3 pl-4 space-y-1">
-          {dropdown.items.map((item) => (
-            item.external ? (
-              <a
-                key={item.name}
-                href={item.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-primary transition-colors"
-                onClick={onNavigate}
-              >
-                {item.name}
-                <ExternalLink size={11} className="text-slate-400" />
-              </a>
-            ) : (
+          {dropdown.items.map((item) => {
+            // ── Highlighted digital service items ────────────────────────
+            if (item.highlight) {
+              return (
+                <button
+                  key={item.name}
+                  className="w-full text-left flex items-center gap-2 py-2 text-sm font-bold text-primary hover:text-secondary transition-colors"
+                  onClick={() => { setLocation(item.href); onNavigate(); }}
+                >
+                  {item.icon === "globe" && <Globe size={13} className="text-yellow-500 shrink-0" />}
+                  {item.icon === "wifi"  && <Wifi  size={13} className="text-yellow-500 shrink-0" />}
+                  {item.name}
+                </button>
+              );
+            }
+            // ── External links ───────────────────────────────────────────
+            if (item.external) {
+              return (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 py-2 text-sm text-slate-600 hover:text-primary transition-colors"
+                  onClick={onNavigate}
+                >
+                  {item.name}
+                  <ExternalLink size={11} className="text-slate-400" />
+                </a>
+              );
+            }
+            // ── Standard items ───────────────────────────────────────────
+            return (
               <button
                 key={item.name}
                 className="w-full text-left py-2 text-sm text-slate-600 hover:text-primary transition-colors"
@@ -156,8 +203,8 @@ function MobileAccordion({ dropdown, onNavigate }: { dropdown: NavDropdown; onNa
               >
                 {item.name}
               </button>
-            )
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
