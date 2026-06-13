@@ -22,7 +22,7 @@ interface ResourceCard {
 const financialTools: ResourceCard[] = [
   {
     icon: <Calculator className="text-yellow-500" size={28} />,
-    title: "JECI Financial Command",
+    title: "The Financial Statements Dashboard",
     description: "Assumptions-driven 12/24-month P&L, cash flow, and KPI dashboard. Built on your actual revenue streams — change one input, every number recalculates. Includes AI-powered CFO analysis.",
     cta: "Open Dashboard →",
     href: "/tools/financial-model"
