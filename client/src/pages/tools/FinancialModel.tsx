@@ -15,14 +15,12 @@ import {
   Tooltip, Legend, ResponsiveContainer,
 } from 'recharts'
 
-// ── Constants ──────────────────────────────────────────────────────────────────
 const NAVY = '#1B365D'
 const GOLD = '#D4AF37'
 const STREAM_COLORS = ['#D4AF37', '#5BB8D6', '#46C08F', '#9D85D6', '#E0A458', '#D66A8A', '#7FD0C4', '#C7CF6B']
 const SEASONAL_MONTHS = [1, 2, 3, 4]
 const MONTH_ABBR = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-// ── Types ─────────────────────────────────────────────────────────────────────
 interface Stream {
   name: string
   start: number
@@ -31,18 +29,8 @@ interface Stream {
   seasonal: boolean
   seasonalMult: number
 }
-
-interface OpexItem {
-  name: string
-  monthly: number
-}
-
-interface ModelMeta {
-  businessName: string
-  startMonth: string
-  startingCash: number
-}
-
+interface OpexItem { name: string; monthly: number }
+interface ModelMeta { businessName: string; startMonth: string; startingCash: number }
 interface Model {
   meta: ModelMeta
   streams: Stream[]
@@ -50,59 +38,25 @@ interface Model {
   ownerDraw: number
   taxReservePct: number
 }
-
 interface MonthRow {
-  label: string
-  ym: string
-  cal: number
-  streamRev: number[]
-  streamCogs: number[]
-  income: number
-  cogs: number
-  gross: number
-  opexItems: number[]
-  opex: number
-  noi: number
-  tax: number
-  draw: number
-  retained: number
-  beginCash: number
-  endCash: number
+  label: string; ym: string; cal: number
+  streamRev: number[]; streamCogs: number[]
+  income: number; cogs: number; gross: number
+  opexItems: number[]; opex: number
+  noi: number; tax: number; draw: number; retained: number
+  beginCash: number; endCash: number
 }
-
 interface FY {
-  income: number
-  cogs: number
-  gross: number
-  opex: number
-  noi: number
-  tax: number
-  draw: number
-  retained: number
-  streamRev: number[]
-  streamCogs: number[]
-  opexItems: number[]
-  grossMargin: number
-  opMargin: number
+  income: number; cogs: number; gross: number; opex: number
+  noi: number; tax: number; draw: number; retained: number
+  streamRev: number[]; streamCogs: number[]; opexItems: number[]
+  grossMargin: number; opMargin: number
 }
-
 interface KPIs {
-  income: number
-  gross: number
-  gm: number
-  om: number
-  noi: number
-  retained: number
-  exitRunRate: number
-  endCash: number
+  income: number; gross: number; gm: number; om: number
+  noi: number; retained: number; exitRunRate: number; endCash: number
 }
-
-interface Computed {
-  months: MonthRow[]
-  fy: FY
-  kpis: KPIs
-  lowCash: MonthRow
-}
+interface Computed { months: MonthRow[]; fy: FY; kpis: KPIs; lowCash: MonthRow }
 
 type ScenarioKey = 'conservative' | 'base' | 'aggressive'
 type TabKey = 'dashboard' | 'assumptions' | 'pnl' | 'cash' | 'ai'
@@ -113,68 +67,65 @@ const SCENARIOS: Record<ScenarioKey, { label: string; growthX: number; startX: n
   aggressive:   { label: 'Aggressive',   growthX: 1.4, startX: 1.08 },
 }
 
-// ── Default model ─────────────────────────────────────────────────────────────
 function defaultModel(): Model {
   return {
-    meta: { businessName: 'JECI Group', startMonth: '2026-07', startingCash: 12000 },
+    meta: { businessName: 'Meridian Growth Co.', startMonth: '2026-01', startingCash: 18500 },
     streams: [
-      { name: 'AI Agents & SaaS',           start: 1500, growth: 8, cogs: 20, seasonal: false, seasonalMult: 1   },
-      { name: 'Credit Services',            start: 3000, growth: 5, cogs: 15, seasonal: false, seasonalMult: 1   },
-      { name: 'Tax Prep',                   start: 1200, growth: 3, cogs: 10, seasonal: true,  seasonalMult: 3.5 },
-      { name: 'Dispensary Client Services', start: 1500, growth: 4, cogs: 12, seasonal: false, seasonalMult: 1   },
-      { name: 'Consulting',                 start: 2000, growth: 3, cogs: 5,  seasonal: false, seasonalMult: 1   },
+      { name: 'E-commerce Store',      start: 4200, growth: 6,   cogs: 35, seasonal: false, seasonalMult: 1   },
+      { name: 'Online Courses',        start: 1800, growth: 9,   cogs: 8,  seasonal: false, seasonalMult: 1   },
+      { name: 'Freelance Design',      start: 2500, growth: 4,   cogs: 5,  seasonal: false, seasonalMult: 1   },
+      { name: 'Holiday Pop-up Sales',  start: 800,  growth: 2,   cogs: 40, seasonal: true,  seasonalMult: 4.2 },
+      { name: 'Affiliate Marketing',   start: 950,  growth: 7,   cogs: 2,  seasonal: false, seasonalMult: 1   },
     ],
     opex: [
-      { name: 'Software & tools',      monthly: 450 },
-      { name: 'Marketing & ads',       monthly: 600 },
-      { name: 'Professional services', monthly: 250 },
-      { name: 'Merchant & bank fees',  monthly: 150 },
-      { name: 'Insurance',             monthly: 120 },
-      { name: 'Office & misc',         monthly: 200 },
+      { name: 'Hosting & SaaS',        monthly: 320 },
+      { name: 'Paid advertising',      monthly: 750 },
+      { name: 'Contractor fees',       monthly: 400 },
+      { name: 'Shipping & fulfillment',monthly: 280 },
+      { name: 'Accounting',            monthly: 175 },
+      { name: 'Utilities & misc',      monthly: 140 },
     ],
-    ownerDraw: 2000,
-    taxReservePct: 25,
+    ownerDraw: 3500,
+    taxReservePct: 28,
   }
 }
 
-// ── Financial engine ──────────────────────────────────────────────────────────
 function compute(model: Model, scenario: ScenarioKey, horizon: number): Computed {
   const sc = SCENARIOS[scenario]
   const parts = model.meta.startMonth.split('-').map(Number)
-  const syear = (parts[0] && !isNaN(parts[0])) ? parts[0] : new Date().getFullYear()
+  const syear  = (parts[0] && !isNaN(parts[0])) ? parts[0] : new Date().getFullYear()
   const smonth = (parts[1] && !isNaN(parts[1])) ? parts[1] : 1
 
   const months: MonthRow[] = []
   let prevEndCash = model.meta.startingCash
 
   for (let i = 0; i < horizon; i++) {
-    const d = new Date(syear, smonth - 1 + i, 1)
+    const d   = new Date(syear, smonth - 1 + i, 1)
     const cal = d.getMonth() + 1
     const label = `${MONTH_ABBR[d.getMonth()]} ${String(d.getFullYear()).slice(2)}`
-    const ym = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
+    const ym    = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 
     const streamRev: number[] = model.streams.map(s => {
       let rev = s.start * sc.startX * Math.pow(1 + (s.growth / 100) * sc.growthX, i)
       if (s.seasonal && SEASONAL_MONTHS.includes(cal)) rev *= s.seasonalMult
       return rev
     })
-
     const streamCogs: number[] = model.streams.map((s, si) => streamRev[si] * (s.cogs / 100))
 
     const income = streamRev.reduce((a, b) => a + b, 0)
-    const cogs = streamCogs.reduce((a, b) => a + b, 0)
-    const gross = income - cogs
+    const cogs   = streamCogs.reduce((a, b) => a + b, 0)
+    const gross  = income - cogs
 
     const opexItems: number[] = model.opex.map(o => o.monthly)
     const opex = opexItems.reduce((a, b) => a + b, 0)
 
-    const noi = gross - opex
-    const tax = Math.max(0, noi) * (model.taxReservePct / 100)
-    const draw = model.ownerDraw
+    const noi      = gross - opex
+    const tax      = Math.max(0, noi) * (model.taxReservePct / 100)
+    const draw     = model.ownerDraw
     const retained = noi - tax - draw
 
     const beginCash = prevEndCash
-    const endCash = beginCash + retained
+    const endCash   = beginCash + retained
     prevEndCash = endCash
 
     months.push({ label, ym, cal, streamRev, streamCogs, income, cogs, gross, opexItems, opex, noi, tax, draw, retained, beginCash, endCash })
@@ -195,31 +146,21 @@ function compute(model: Model, scenario: ScenarioKey, horizon: number): Computed
   const fyRetained = months.reduce((s, m) => s + m.retained, 0)
 
   const fy: FY = {
-    income:      fyIncome,
-    cogs:        fyCogs,
-    gross:       fyGross,
-    opex:        fyOpex,
-    noi:         fyNoi,
-    tax:         fyTax,
-    draw:        fyDraw,
-    retained:    fyRetained,
-    streamRev:   sumArr(months.map(m => m.streamRev)),
-    streamCogs:  sumArr(months.map(m => m.streamCogs)),
-    opexItems:   sumArr(months.map(m => m.opexItems)),
+    income: fyIncome, cogs: fyCogs, gross: fyGross, opex: fyOpex,
+    noi: fyNoi, tax: fyTax, draw: fyDraw, retained: fyRetained,
+    streamRev:  sumArr(months.map(m => m.streamRev)),
+    streamCogs: sumArr(months.map(m => m.streamCogs)),
+    opexItems:  sumArr(months.map(m => m.opexItems)),
     grossMargin: fyIncome > 0 ? (fyGross / fyIncome) * 100 : 0,
     opMargin:    fyIncome > 0 ? (fyNoi   / fyIncome) * 100 : 0,
   }
 
   const lastMonth = months[months.length - 1] ?? months[0]
   const kpis: KPIs = {
-    income:      fyIncome,
-    gross:       fyGross,
-    gm:          fy.grossMargin,
-    om:          fy.opMargin,
-    noi:         fyNoi,
-    retained:    fyRetained,
+    income: fyIncome, gross: fyGross, gm: fy.grossMargin, om: fy.opMargin,
+    noi: fyNoi, retained: fyRetained,
     exitRunRate: lastMonth ? lastMonth.income * 12 : 0,
-    endCash:     lastMonth ? lastMonth.endCash : 0,
+    endCash:     lastMonth ? lastMonth.endCash  : 0,
   }
 
   const emptyRow: MonthRow = {
@@ -233,17 +174,14 @@ function compute(model: Model, scenario: ScenarioKey, horizon: number): Computed
   return { months, fy, kpis, lowCash }
 }
 
-// ── Formatters ────────────────────────────────────────────────────────────────
 const usdFmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
-const fmt$ = (v: number) => usdFmt.format(Math.round(v))
-const fmtK = (v: number) => Math.abs(v) >= 1000 ? '$' + (v / 1000).toFixed(Math.abs(v) >= 100000 ? 0 : 1) + 'K' : fmt$(v)
-const fmtP = (v: number) => v.toFixed(1) + '%'
+const fmt$  = (v: number) => usdFmt.format(Math.round(v))
+const fmtK  = (v: number) => Math.abs(v) >= 1000 ? '$' + (v / 1000).toFixed(Math.abs(v) >= 100000 ? 0 : 1) + 'K' : fmt$(v)
+const fmtP  = (v: number) => v.toFixed(1) + '%'
 
-// ── LedgerStrip ───────────────────────────────────────────────────────────────
 function LedgerStrip({ months }: { months: MonthRow[] }) {
   const maxAbs = Math.max(...months.map(m => Math.abs(m.retained)), 1)
   const totalRetained = months.reduce((s, m) => s + m.retained, 0)
-
   return (
     <div className="flex items-end gap-1 bg-slate-900 rounded-xl px-4 pt-3 pb-2 mb-6 overflow-x-auto">
       {months.map(m => {
@@ -266,7 +204,6 @@ function LedgerStrip({ months }: { months: MonthRow[] }) {
   )
 }
 
-// ── KpiCard ───────────────────────────────────────────────────────────────────
 function KpiCard({ label, value, sub, positive }: { label: string; value: string; sub?: string; positive?: boolean }) {
   const color = positive === undefined ? GOLD : positive ? '#059669' : '#ef4444'
   return (
@@ -278,9 +215,8 @@ function KpiCard({ label, value, sub, positive }: { label: string; value: string
   )
 }
 
-// ── JeciTooltip ───────────────────────────────────────────────────────────────
 interface TooltipEntry { name: string; value: number | string; color: string }
-function JeciTooltip({ active, payload, label }: { active?: boolean; payload?: TooltipEntry[]; label?: string }) {
+function FinTooltip({ active, payload, label }: { active?: boolean; payload?: TooltipEntry[]; label?: string }) {
   if (!active || !payload?.length) return null
   return (
     <div className="bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs shadow-xl">
@@ -295,7 +231,6 @@ function JeciTooltip({ active, payload, label }: { active?: boolean; payload?: T
   )
 }
 
-// ── DashboardView ─────────────────────────────────────────────────────────────
 function DashboardView({ computed, model, scenario }: { computed: Computed; model: Model; scenario: ScenarioKey }) {
   const { kpis, months, fy } = computed
 
@@ -314,11 +249,10 @@ function DashboardView({ computed, model, scenario }: { computed: Computed; mode
   }))
 
   const maxStreamRev = Math.max(...(fy.streamRev.length ? fy.streamRev : [0]))
-  const topIdx = fy.streamRev.indexOf(maxStreamRev)
+  const topIdx  = fy.streamRev.indexOf(maxStreamRev)
   const topStream = model.streams[topIdx]
-  const topPct = (topIdx >= 0 && fy.income > 0 && fy.streamRev[topIdx] != null)
-    ? (fy.streamRev[topIdx]! / fy.income * 100).toFixed(1)
-    : '0'
+  const topPct  = (topIdx >= 0 && fy.income > 0 && fy.streamRev[topIdx] != null)
+    ? (fy.streamRev[topIdx]! / fy.income * 100).toFixed(1) : '0'
   const seasonalStream = model.streams.find(s => s.seasonal)
 
   return (
@@ -340,7 +274,7 @@ function DashboardView({ computed, model, scenario }: { computed: Computed; mode
               <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
               <XAxis dataKey="month" tick={{ fontSize: 10, fill: '#94a3b8' }} />
               <YAxis tickFormatter={v => fmtK(Number(v))} tick={{ fontSize: 10, fill: '#94a3b8' }} />
-              <Tooltip content={<JeciTooltip />} />
+              <Tooltip content={<FinTooltip />} />
               <Legend wrapperStyle={{ fontSize: 10 }} />
               {model.streams.map((s, i) => (
                 <Bar key={s.name} dataKey={s.name} stackId="a" fill={STREAM_COLORS[i % STREAM_COLORS.length]} />
@@ -404,7 +338,6 @@ function DashboardView({ computed, model, scenario }: { computed: Computed; mode
   )
 }
 
-// ── AssumptionsView ───────────────────────────────────────────────────────────
 function AssumptionsView({ model, setModel }: { model: Model; setModel: React.Dispatch<React.SetStateAction<Model>> }) {
   const updateMeta = useCallback((key: keyof ModelMeta, value: string | number) => {
     setModel(m => ({ ...m, meta: { ...m.meta, [key]: value } }))
@@ -582,10 +515,9 @@ function AssumptionsView({ model, setModel }: { model: Model; setModel: React.Di
   )
 }
 
-// ── PnLView ───────────────────────────────────────────────────────────────────
 function PnLView({ computed, model }: { computed: Computed; model: Model }) {
   const { months, fy } = computed
-  const cell = 'px-3 py-2 text-right font-mono text-xs whitespace-nowrap'
+  const cell   = 'px-3 py-2 text-right font-mono text-xs whitespace-nowrap'
   const sticky = 'sticky left-0 bg-white z-10 border-r border-slate-100 px-3 py-2 text-xs text-slate-600 min-w-[200px]'
   const pctInc = (v: number) => fy.income > 0 ? fmtP(v / fy.income * 100) : '—'
 
@@ -603,9 +535,7 @@ function PnLView({ computed, model }: { computed: Computed; model: Model }) {
           </thead>
           <tbody>
             <tr className="bg-yellow-50">
-              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-slate-700 uppercase tracking-wide bg-yellow-50')}>
-                INCOME
-              </td>
+              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-slate-700 uppercase tracking-wide bg-yellow-50')}>INCOME</td>
             </tr>
             {model.streams.map((s, i) => (
               <tr key={i} className="hover:bg-slate-50 border-b border-slate-50">
@@ -630,18 +560,14 @@ function PnLView({ computed, model }: { computed: Computed; model: Model }) {
             </tr>
 
             <tr className="bg-red-50">
-              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-red-700 uppercase tracking-wide bg-red-50')}>
-                COGS
-              </td>
+              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-red-700 uppercase tracking-wide bg-red-50')}>COGS</td>
             </tr>
             {model.streams.filter(s => s.cogs > 0).map(s => {
               const i = model.streams.indexOf(s)
               return (
                 <tr key={i} className="hover:bg-slate-50 border-b border-slate-50">
                   <td className={sticky}>COGS — {s.name} ({s.cogs}%)</td>
-                  {months.map(m => (
-                    <td key={m.ym} className={cn(cell, 'text-red-500')}>({fmt$(m.streamCogs[i] ?? 0)})</td>
-                  ))}
+                  {months.map(m => <td key={m.ym} className={cn(cell, 'text-red-500')}>({fmt$(m.streamCogs[i] ?? 0)})</td>)}
                   <td className={cn(cell, 'text-red-500')}>({fmt$(fy.streamCogs[i] ?? 0)})</td>
                   <td className={cell}>{pctInc(fy.streamCogs[i] ?? 0)}</td>
                 </tr>
@@ -665,16 +591,12 @@ function PnLView({ computed, model }: { computed: Computed; model: Model }) {
             </tr>
 
             <tr className="bg-blue-50">
-              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-blue-700 uppercase tracking-wide bg-blue-50')}>
-                OPERATING EXPENSES
-              </td>
+              <td colSpan={months.length + 3} className={cn(sticky, 'font-bold text-blue-700 uppercase tracking-wide bg-blue-50')}>OPERATING EXPENSES</td>
             </tr>
             {model.opex.map((o, i) => (
               <tr key={i} className="hover:bg-slate-50 border-b border-slate-50">
                 <td className={sticky}>{o.name}</td>
-                {months.map(m => (
-                  <td key={m.ym} className={cn(cell, 'text-slate-600')}>({fmt$(m.opexItems[i] ?? 0)})</td>
-                ))}
+                {months.map(m => <td key={m.ym} className={cn(cell, 'text-slate-600')}>({fmt$(m.opexItems[i] ?? 0)})</td>)}
                 <td className={cn(cell, 'text-slate-600')}>({fmt$(fy.opexItems[i] ?? 0)})</td>
                 <td className={cell}>{pctInc(fy.opexItems[i] ?? 0)}</td>
               </tr>
@@ -699,7 +621,6 @@ function PnLView({ computed, model }: { computed: Computed; model: Model }) {
               <td className={cn(cell, 'font-bold')} style={{ color: GOLD }}>{fmt$(fy.noi)}</td>
               <td className={cell} style={{ color: '#94a3b8' }}>{fmtP(fy.opMargin)}</td>
             </tr>
-
             <tr className="text-slate-400">
               <td className={sticky}>Owner Draw</td>
               {months.map(m => <td key={m.ym} className={cell}>({fmt$(m.draw)})</td>)}
@@ -737,7 +658,6 @@ function PnLView({ computed, model }: { computed: Computed; model: Model }) {
   )
 }
 
-// ── CashView ──────────────────────────────────────────────────────────────────
 function CashView({ computed }: { computed: Computed }) {
   const { months, lowCash } = computed
   const negativeCashMonths = months.filter(m => m.endCash < 0).length
@@ -824,9 +744,7 @@ function CashView({ computed }: { computed: Computed }) {
                 </tr>
               ))}
               <tr className="border-t border-slate-200 font-bold bg-slate-50">
-                <td className="sticky left-0 bg-slate-50 z-10 border-r border-slate-100 px-3 py-2 text-slate-800 min-w-[160px]">
-                  Net Change
-                </td>
+                <td className="sticky left-0 bg-slate-50 z-10 border-r border-slate-100 px-3 py-2 text-slate-800 min-w-[160px]">Net Change</td>
                 {months.map(m => (
                   <td key={m.ym} className={cn('px-3 py-2 text-right font-mono font-bold whitespace-nowrap', m.retained < 0 ? 'text-red-500' : 'text-slate-800')}>
                     {fmt$(m.retained)}
@@ -834,9 +752,7 @@ function CashView({ computed }: { computed: Computed }) {
                 ))}
               </tr>
               <tr className="font-bold" style={{ background: NAVY, color: 'white' }}>
-                <td className="sticky left-0 z-10 px-3 py-2 min-w-[160px]" style={{ background: NAVY, color: GOLD }}>
-                  Ending Cash
-                </td>
+                <td className="sticky left-0 z-10 px-3 py-2 min-w-[160px]" style={{ background: NAVY, color: GOLD }}>Ending Cash</td>
                 {months.map(m => (
                   <td key={m.ym} className={cn('px-3 py-2 text-right font-mono font-bold whitespace-nowrap', m.endCash < 0 ? 'text-red-400' : '')}
                     style={{ color: m.endCash >= 0 ? GOLD : undefined }}>
@@ -852,7 +768,6 @@ function CashView({ computed }: { computed: Computed }) {
   )
 }
 
-// ── DataAIView ────────────────────────────────────────────────────────────────
 function DataAIView({ model, setModel, computed, scenario }: {
   model: Model
   setModel: React.Dispatch<React.SetStateAction<Model>>
@@ -860,20 +775,20 @@ function DataAIView({ model, setModel, computed, scenario }: {
   scenario: ScenarioKey
 }) {
   const { kpis, fy, months, lowCash } = computed
-  const [aiText, setAiText] = useState<string | null>(null)
+  const [aiText, setAiText]       = useState<string | null>(null)
   const [aiLoading, setAiLoading] = useState(false)
   const [csvMonths, setCsvMonths] = useState<string[]>([])
   const [csvStream, setCsvStream] = useState(0)
-  const [csvAvg, setCsvAvg] = useState<number | null>(null)
+  const [csvAvg, setCsvAvg]       = useState<number | null>(null)
   const jsonInputRef = useRef<HTMLInputElement>(null)
-  const csvInputRef = useRef<HTMLInputElement>(null)
+  const csvInputRef  = useRef<HTMLInputElement>(null)
 
   const maxStreamRev = Math.max(...(fy.streamRev.length ? fy.streamRev : [0]))
   const topIdx = fy.streamRev.indexOf(maxStreamRev)
 
   const buildFallback = () => {
     const topStream = model.streams[topIdx]
-    const topShare = (topIdx >= 0 && fy.income > 0 && fy.streamRev[topIdx] != null)
+    const topShare  = (topIdx >= 0 && fy.income > 0 && fy.streamRev[topIdx] != null)
       ? fmtP(fy.streamRev[topIdx]! / fy.income * 100) : '—'
     return [
       `${model.meta.businessName} projects ${fmt$(kpis.income)} in total income under the ${SCENARIOS[scenario].label} scenario.`,
@@ -884,8 +799,7 @@ function DataAIView({ model, setModel, computed, scenario }: {
   }
 
   const handleAnalyze = async () => {
-    setAiLoading(true)
-    setAiText(null)
+    setAiLoading(true); setAiText(null)
     const payload = {
       businessName:       model.meta.businessName,
       scenario:           SCENARIOS[scenario].label,
@@ -904,25 +818,18 @@ function DataAIView({ model, setModel, computed, scenario }: {
         ? fmtP(fy.streamRev[topIdx]! / fy.income * 100) : '—',
     }
     try {
-      const res = await fetch('/api/ai-summary', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+      const res  = await fetch('/api/ai-summary', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
       if (!res.ok) throw new Error('API error')
       const data = await res.json() as { summary?: string }
       setAiText(data.summary ?? buildFallback())
-    } catch {
-      setAiText(buildFallback())
-    } finally {
-      setAiLoading(false)
-    }
+    } catch { setAiText(buildFallback()) }
+    finally  { setAiLoading(false) }
   }
 
   const triggerDownload = (content: string, filename: string, type: string) => {
     const blob = new Blob([content], { type })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
+    const url  = URL.createObjectURL(blob)
+    const a    = document.createElement('a')
     a.href = url; a.download = filename; a.click()
     URL.revokeObjectURL(url)
   }
@@ -943,52 +850,39 @@ function DataAIView({ model, setModel, computed, scenario }: {
     triggerDownload(rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n'), 'pnl.csv', 'text/csv')
   }
 
-  const handleModelJson = () => {
-    triggerDownload(JSON.stringify(model, null, 2), 'model.json', 'application/json')
-  }
+  const handleModelJson = () => triggerDownload(JSON.stringify(model, null, 2), 'model.json', 'application/json')
 
   const handleImportJson = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
+    const file = e.target.files?.[0]; if (!file) return
     const reader = new FileReader()
     reader.onload = ev => {
       try {
         const parsed = JSON.parse(ev.target?.result as string) as Partial<Model>
         if (!parsed.streams || !Array.isArray(parsed.streams) || !parsed.meta) throw new Error('Invalid')
         setModel(parsed as Model)
-      } catch {
-        alert('Invalid model JSON file.')
-      }
+      } catch { alert('Invalid model JSON file.') }
     }
-    reader.readAsText(file)
-    e.target.value = ''
+    reader.readAsText(file); e.target.value = ''
   }
 
   const handleImportCsv = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (!file) return
-    const fd = new FormData()
-    fd.append('file', file)
+    const file = e.target.files?.[0]; if (!file) return
+    const fd = new FormData(); fd.append('file', file)
     try {
-      const res = await fetch('/api/upload', { method: 'POST', body: fd })
+      const res  = await fetch('/api/upload', { method: 'POST', body: fd })
       if (!res.ok) throw new Error('Upload failed')
       const data = await res.json() as { months?: string[] }
       setCsvMonths(data.months ?? [])
-    } catch {
-      alert('CSV upload failed. Please try again.')
-    }
+    } catch { alert('CSV upload failed. Please try again.') }
     e.target.value = ''
   }
 
   const handleApplyCsv = () => {
     if (!csvMonths.length) return
     const last3 = csvMonths.slice(-3).map(v => parseFloat(v) || 0)
-    const avg = last3.reduce((s, v) => s + v, 0) / (last3.length || 1)
+    const avg   = last3.reduce((s, v) => s + v, 0) / (last3.length || 1)
     setCsvAvg(avg)
-    setModel(m => ({
-      ...m,
-      streams: m.streams.map((s, i) => i === csvStream ? { ...s, start: Math.round(avg) } : s),
-    }))
+    setModel(m => ({ ...m, streams: m.streams.map((s, i) => i === csvStream ? { ...s, start: Math.round(avg) } : s) }))
   }
 
   return (
@@ -1001,9 +895,7 @@ function DataAIView({ model, setModel, computed, scenario }: {
           {aiLoading ? 'Analyzing…' : 'Analyze this model'}
         </Button>
         {aiText && (
-          <div className="bg-slate-50 rounded-xl p-4 text-xs font-mono whitespace-pre-wrap text-slate-700 leading-relaxed">
-            {aiText}
-          </div>
+          <div className="bg-slate-50 rounded-xl p-4 text-xs font-mono whitespace-pre-wrap text-slate-700 leading-relaxed">{aiText}</div>
         )}
       </div>
 
@@ -1040,21 +932,14 @@ function DataAIView({ model, setModel, computed, scenario }: {
             <p className="text-xs text-slate-500">{csvMonths.length} months loaded.</p>
             <div className="flex items-center gap-3 flex-wrap">
               <label className="text-xs text-slate-600">Apply to stream:</label>
-              <select
-                className="border border-slate-200 rounded-lg px-2 py-1 text-sm"
-                value={csvStream}
-                onChange={e => setCsvStream(parseInt(e.target.value))}
-              >
+              <select className="border border-slate-200 rounded-lg px-2 py-1 text-sm" value={csvStream}
+                onChange={e => setCsvStream(parseInt(e.target.value))}>
                 {model.streams.map((s, i) => <option key={i} value={i}>{s.name}</option>)}
               </select>
-              <Button size="sm" onClick={handleApplyCsv}>
-                Apply avg of last 3 months as start $/mo
-              </Button>
+              <Button size="sm" onClick={handleApplyCsv}>Apply avg of last 3 months as start $/mo</Button>
             </div>
             {csvAvg !== null && (
-              <p className="text-xs text-emerald-600">
-                Applied: {fmt$(csvAvg)} / mo to {model.streams[csvStream]?.name ?? '—'}
-              </p>
+              <p className="text-xs text-emerald-600">Applied: {fmt$(csvAvg)} / mo to {model.streams[csvStream]?.name ?? '—'}</p>
             )}
           </div>
         )}
@@ -1063,7 +948,6 @@ function DataAIView({ model, setModel, computed, scenario }: {
   )
 }
 
-// ── Tabs ──────────────────────────────────────────────────────────────────────
 const TABS = [
   { key: 'dashboard'   as const, label: 'Dashboard',     icon: <LayoutDashboard size={14} /> },
   { key: 'assumptions' as const, label: 'Assumptions',   icon: <SlidersHorizontal size={14} /> },
@@ -1072,12 +956,11 @@ const TABS = [
   { key: 'ai'          as const, label: 'Data & AI',     icon: <Database size={14} /> },
 ]
 
-// ── Main component ────────────────────────────────────────────────────────────
 const FinancialModel = () => {
   const [, setLocation] = useLocation()
-  const [model, setModel] = useState<Model>(defaultModel)
+  const [model, setModel]       = useState<Model>(defaultModel)
   const [scenario, setScenario] = useState<ScenarioKey>('base')
-  const [horizon, setHorizon] = useState<number>(12)
+  const [horizon, setHorizon]   = useState<number>(12)
   const [activeTab, setActiveTab] = useState<TabKey>('dashboard')
   const computed = useMemo(() => compute(model, scenario, horizon), [model, scenario, horizon])
 
@@ -1106,9 +989,9 @@ const FinancialModel = () => {
           <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
             <div>
               <p className="text-xs uppercase tracking-widest mb-2 font-medium" style={{ color: GOLD }}>
-                JECI FINANCIAL COMMAND
+                THE FINANCIAL DASHBOARD
               </p>
-              <h1 className="text-3xl md:text-4xl font-bold mb-3">Full-Stack P&amp;L Dashboard</h1>
+              <h1 className="text-3xl md:text-4xl font-bold mb-3">The Financial Dashboard</h1>
               <p className="text-slate-400 max-w-xl text-sm">
                 Assumptions-driven projections — change one input, every number recalculates.
               </p>
@@ -1118,17 +1001,10 @@ const FinancialModel = () => {
                 <p className="text-[10px] uppercase tracking-widest text-slate-400 mb-1.5">Scenario</p>
                 <div className="flex gap-1">
                   {(Object.keys(SCENARIOS) as ScenarioKey[]).map(k => (
-                    <button
-                      key={k}
-                      onClick={() => setScenario(k)}
-                      className={cn(
-                        'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
-                        scenario === k ? 'text-slate-900' : 'text-slate-400 hover:text-white',
-                      )}
-                      style={scenario === k
-                        ? { background: GOLD }
-                        : { background: 'transparent', border: '1px solid #334155' }}
-                    >
+                    <button key={k} onClick={() => setScenario(k)}
+                      className={cn('px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
+                        scenario === k ? 'text-slate-900' : 'text-slate-400 hover:text-white')}
+                      style={scenario === k ? { background: GOLD } : { background: 'transparent', border: '1px solid #334155' }}>
                       {SCENARIOS[k].label}
                     </button>
                   ))}
@@ -1138,17 +1014,10 @@ const FinancialModel = () => {
                 <p className="text-[10px] uppercase tracking-widest text-slate-400 mb-1.5">Horizon</p>
                 <div className="flex gap-1">
                   {[12, 24].map(h => (
-                    <button
-                      key={h}
-                      onClick={() => setHorizon(h)}
-                      className={cn(
-                        'px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
-                        horizon === h ? 'text-slate-900' : 'text-slate-400 hover:text-white',
-                      )}
-                      style={horizon === h
-                        ? { background: GOLD }
-                        : { background: 'transparent', border: '1px solid #334155' }}
-                    >
+                    <button key={h} onClick={() => setHorizon(h)}
+                      className={cn('px-3 py-1.5 rounded-lg text-xs font-medium transition-colors',
+                        horizon === h ? 'text-slate-900' : 'text-slate-400 hover:text-white')}
+                      style={horizon === h ? { background: GOLD } : { background: 'transparent', border: '1px solid #334155' }}>
                       {h}mo
                     </button>
                   ))}
@@ -1162,15 +1031,10 @@ const FinancialModel = () => {
       <nav className="sticky top-0 z-30 overflow-x-auto" style={{ background: NAVY }}>
         <div className="container mx-auto px-4 max-w-[1400px] flex">
           {TABS.map(t => (
-            <button
-              key={t.key}
-              onClick={() => setActiveTab(t.key)}
-              className={cn(
-                'flex items-center gap-2 px-4 py-4 text-xs font-medium whitespace-nowrap transition-colors border-b-2',
-                activeTab === t.key ? '' : 'border-transparent text-slate-400 hover:text-white',
-              )}
-              style={activeTab === t.key ? { borderBottomColor: GOLD, color: GOLD } : {}}
-            >
+            <button key={t.key} onClick={() => setActiveTab(t.key)}
+              className={cn('flex items-center gap-2 px-4 py-4 text-xs font-medium whitespace-nowrap transition-colors border-b-2',
+                activeTab === t.key ? '' : 'border-transparent text-slate-400 hover:text-white')}
+              style={activeTab === t.key ? { borderBottomColor: GOLD, color: GOLD } : {}}>
               {t.icon} {t.label}
             </button>
           ))}
@@ -1180,13 +1044,9 @@ const FinancialModel = () => {
       <main className="container mx-auto px-4 py-8 max-w-[1400px]">
         <LedgerStrip months={computed.months} />
         <AnimatePresence mode="wait">
-          <motion.div
-            key={activeTab}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.15 }}
-          >
+          <motion.div key={activeTab}
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
             {activeTab === 'dashboard'   && <DashboardView computed={computed} model={model} scenario={scenario} />}
             {activeTab === 'assumptions' && <AssumptionsView model={model} setModel={setModel} />}
             {activeTab === 'pnl'         && <PnLView computed={computed} model={model} />}
